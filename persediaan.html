@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Persediaan</title>
+
+  <link rel="stylesheet" href="../css/app.css">
+  <link rel="stylesheet" href="../css/persediaan.css">
+
+  <!-- Supabase SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+<div class="page-header">
+  <h2>Persediaan</h2>
+</div>
+
+<div class="inventory-layout">
+
+  <!-- FILTER -->
+  <aside class="inventory-filter">
+    <h4>Filter</h4>
+
+    <input id="filterSearch" placeholder="Cari produk / SKU">
+
+   <!-- STATUS STOK -->
+<div class="filter-group">
+  <div class="filter-title">Status Stok</div>
+
+  <label class="check-row">
+    <span>Habis</span>
+    <input type="checkbox" class="chk-stok" value="HABIS">
+  </label>
+
+  <label class="check-row">
+    <span>Kritis</span>
+    <input type="checkbox" class="chk-stok" value="KRITIS">
+  </label>
+
+  <label class="check-row">
+    <span>Menipis</span>
+    <input type="checkbox" class="chk-stok" value="MENIPIS">
+  </label>
+
+  <label class="check-row">
+    <span>Aman</span>
+    <input type="checkbox" class="chk-stok" value="AMAN">
+  </label>
+</div>
+
+<!-- STATUS PO -->
+<div class="filter-group">
+  <div class="filter-title">Status PO</div>
+
+  <label class="check-row">
+    <span>PO Darurat</span>
+    <input type="checkbox" class="chk-po" value="PO_DARURAT">
+  </label>
+
+  <label class="check-row">
+    <span>PO Segera</span>
+    <input type="checkbox" class="chk-po" value="PO_SEGERA">
+  </label>
+
+  <label class="check-row">
+    <span>PO Siaga</span>
+    <input type="checkbox" class="chk-po" value="PO_SIAGA">
+  </label>
+
+  <label class="check-row">
+    <span>Tahan PO</span>
+    <input type="checkbox" class="chk-po" value="TAHAN_PO">
+  </label>
+
+  <label class="check-row">
+    <span>Tidak PO</span>
+    <input type="checkbox" class="chk-po" value="TIDAK_PO">
+  </label>
+</div>
+
+
+
+    <button id="btnApply" class="btn-apply">Terapkan</button>
+  </aside>
+
+  <!-- CONTENT -->
+  <section class="inventory-content">
+<!-- SORT / URUTKAN -->
+<div class="inv-sortbar" id="invSortBar">
+
+  <div class="inv-sort-main">
+    <button class="inv-sort-btn active" data-sort="best" type="button">🔥 Terlaris</button>
+    <button class="inv-sort-btn" data-sort="az" type="button">A–Z</button>
+    <button class="inv-sort-btn" data-sort="stockdesc" type="button">Stok Terbanyak</button>
+  </div>
+
+  <div class="inv-sort-period" id="invBestPeriodBox">
+    <span class="inv-period-label">Periode:</span>
+    <button class="inv-period-btn" data-period="7d" type="button">7 Hari</button>
+    <button class="inv-period-btn" data-period="30d" type="button">30 Hari</button>
+    <button class="inv-period-btn" data-period="90d" type="button">90 Hari</button>
+    <button class="inv-period-btn" data-period="180d" type="button">6 Bulan</button>
+    <button class="inv-period-btn active" data-period="365d" type="button">1 Tahun</button>
+  </div>
+
+</div>
+
+    <div class="table-wrapper inventory-wrapper">
+    <div class="inventory-grid">
+
+  <div class="inventory-grid-header col-product">Produk</div>
+  <div class="inventory-grid-header col-stock">Stok</div>
+  <div class="inventory-grid-header col-status-stok">Status Stok</div>
+  <div class="inventory-grid-header col-status-po">Status PO</div>
+
+  <div id="inventoryBody" class="inventory-grid-body"></div>
+
+</div>
+
+    </div>
+
+    <!-- PAGINATION -->
+    <div class="pagination-bar">
+      <div class="page-size">
+        Baris per halaman:
+        <select id="pageSize">
+          <option value="25">25</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+          <option value="200">200</option>
+        </select>
+      </div>
+
+      <div class="page-nav" id="pagination"></div>
+    </div>
+
+  </section>
+</div>
+
+<script src="../js/persediaan.js"></script>
+</body>
+</html>
