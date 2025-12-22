@@ -126,7 +126,7 @@ async function loadInventory(){
 
   const { data, error } = await sb
     .schema("decision")
-    .from("v_inventory_decision")
+    .from("v_inventory_ui")
     .select(`
       item_code,
       item_name,
@@ -312,3 +312,4 @@ if (btnApply) btnApply.onclick = null;
 // INIT
 // =====================
 document.addEventListener("DOMContentLoaded", loadInventory);
+
