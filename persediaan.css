@@ -487,26 +487,49 @@ html, body {
 ===================================================== */
 @media (min-width:769px){
 
-  /* === PRODUK: GAMBAR + INFO MELEKAT === */
-  .inventory-grid-body .inventory-row .product-col{
-    display: flex;
+  .inventory-row{
+    display: grid;
+    grid-template-columns: 1fr 90px 140px 140px;
     align-items: center;
-    gap: 12px; /* jarak wajar, mepet tapi tidak nempel */
+    column-gap: 12px;
   }
 
-  /* info teks produk */
-  .inventory-grid-body .inventory-row .product-info{
+  /* === KOLOM PRODUK === */
+  .inventory-row .product-info{
+    grid-column: 1 / 2;
     display: flex;
-    flex-direction: column;
-    gap: 4px;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
   }
 
-  /* === STATUS + STOK SEJAJAR DENGAN NAMA === */
-  .inventory-grid-body .inventory-row .product-meta{
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 4px;
+  .inventory-row .product-meta{
+    display: none; /* META mobile dimatikan di desktop */
+  }
+
+  /* === KOLOM STOK === */
+  .inventory-row .product-stock{
+    grid-column: 2 / 3;
+    justify-self: center;
+  }
+
+  /* === STATUS STOK === */
+  .inventory-row .badge.stok-aman,
+  .inventory-row .badge.stok-menipis,
+  .inventory-row .badge.stok-kritis,
+  .inventory-row .badge.stok-habis{
+    grid-column: 3 / 4;
+    justify-self: center;
+  }
+
+  /* === STATUS PO === */
+  .inventory-row .badge.po_darurat,
+  .inventory-row .badge.po_segera,
+  .inventory-row .badge.po_siaga,
+  .inventory-row .badge.tahan_po,
+  .inventory-row .badge.tidak_po{
+    grid-column: 4 / 5;
+    justify-self: center;
   }
 
 }
