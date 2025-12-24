@@ -464,3 +464,10 @@ html, body {
   }
 
 }
+@media (max-width:768px){
+  .product-meta .product-stock::before{
+    content: "Stok: ";
+    font-weight: 600;
+    opacity: 0.7;
+  }
+}
