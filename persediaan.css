@@ -444,3 +444,23 @@ html, body {
 
 }
 
+/* ===============================
+   MOBILE – META FULL WIDTH ALIGN
+=============================== */
+@media (max-width:768px){
+
+  .product-meta{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* kunci utama */
+    gap: 12px;
+  }
+
+  /* biar badge gak melebar aneh */
+  .product-meta .badge,
+  .product-meta .product-stock{
+    flex-shrink: 0;
+  }
+
+}
