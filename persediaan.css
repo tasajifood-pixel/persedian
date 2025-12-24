@@ -377,3 +377,24 @@ html, body {
     overflow-x:auto;
   }
 }
+/* =====================================================
+   MOBILE – PO SLOT FIX
+===================================================== */
+@media (max-width: 768px){
+  .inv-po-slot{
+    width: 100%;
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 4px;
+  }
+
+  .inv-po-slot::-webkit-scrollbar{
+    display: none;
+  }
+
+  .inv-po-slot .badge{
+    flex-shrink: 0;
+  }
+}
