@@ -202,6 +202,7 @@ function applyFilter(){
 
   page = 1;
   render();
+  renderPoSlot();
 }
 
 // =====================
@@ -264,7 +265,34 @@ function renderPagination(total){
   html += `<button class="page-btn" data-p="${page+1}" ${page===total?"disabled":""}>›</button>`;
   paginationEl.innerHTML = html;
 }
+function renderPoSlot(){
+  const slot = document.getElementById("invPoSlot");
+  if (!slot) return;
 
+  const poChecks = document.querySelectorAll(".chk-po");
+  slot.innerHTML = "";
+
+  poChecks.forEach(chk => {
+    const label = chk.closest(".check-row");
+    if (!label) return;
+
+    const text = label.querySelector("span")?.textContent || chk.value;
+
+    const badge = document.createElement("span");
+    badge.className = `badge ${poClass(chk.value)}`;
+    badge.textContent = text;
+
+    badge.addEventListener("click", () => {
+      chk.checked = !chk.checked;
+      chk.dispatchEvent(new Event("change"));
+      badge.classList.toggle("active", chk.checked);
+    });
+
+    if (chk.checked) badge.classList.add("active");
+
+    slot.appendChild(badge);
+  });
+}
 // =====================
 // EVENTS
 // =====================
@@ -300,8 +328,10 @@ searchEl.oninput = applyFilter;
 
 /* STEP 3 – AUTO APPLY untuk checkbox filter */
 document.querySelectorAll(".chk-stok, .chk-po").forEach(el=>{
-  el.onchange = applyFilter;
-});
+  el.onchange = () => {
+  applyFilter();
+  renderPoSlot();
+};
 
 /* tombol Terapkan tidak dipakai lagi (boleh dibiarkan ada tapi tidak aktif) */
 if (btnApply) btnApply.onclick = null;
