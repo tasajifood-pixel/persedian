@@ -471,3 +471,9 @@ html, body {
     opacity: 0.7;
   }
 }
+@media (max-width:768px){
+  .product-meta .product-stock{
+    min-width: 86px;          /* PATEN – aman sampai 5 digit */
+    text-align: center;       /* angka selalu di tengah */
+  }
+}
