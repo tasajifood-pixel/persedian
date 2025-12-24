@@ -378,28 +378,26 @@ html, body {
   }
 }
 /* ================================
-   MOBILE – PO FILTER SCROLL FIX
+   MOBILE – PO FILTER FIX (FINAL)
 ================================ */
 @media (max-width: 768px) {
 
-  /* container slot PO */
-  .inv-po-slot {
+  /* SLOT PO (ID, bukan class) */
+  #invPoSlot {
     width: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
 
-  /* bar PO */
-  .inv-po-slot > * {
-    display: inline-flex;
+  /* isi badge PO */
+  #invPoSlot {
+    display: flex;
     gap: 6px;
     white-space: nowrap;
   }
 
-  /* badge PO jangan mengecil */
-  .inv-po-slot .badge {
+  /* badge jangan mengecil */
+  #invPoSlot .badge {
     flex-shrink: 0;
   }
 }
-
-    
