@@ -9,8 +9,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="persediaan.js" defer></script>
-</head>
-<body>
+</head><body>
 
 <div class="page-header">
   <h2>Persediaan</h2>
@@ -18,44 +17,48 @@
 
 <div class="inventory-layout">
 
-  <!-- FILTER -->
-  <aside class="inventory-filter">
-    <h4>Filter</h4>
+  <!-- ===============================
+       MOBILE HEADER CONTAINER (PENTING)
+  ================================ -->
+  <div class="mobile-container">
 
-    <div class="search-card">
-  <input id="filterSearch" placeholder="Cari produk / SKU">
-</div>
+    <!-- SEARCH / FILTER -->
+    <aside class="inventory-filter">
+      <h4>Filter</h4>
 
-    <!-- STATUS STOK -->
-    <div class="filter-group">
-      <div class="filter-title">Status Stok</div>
+      <div class="search-card">
+        <input id="filterSearch" placeholder="Cari produk / SKU">
+      </div>
 
-      <label class="check-row"><span>Habis</span><input type="checkbox" class="chk-stok" value="HABIS"></label>
-      <label class="check-row"><span>Kritis</span><input type="checkbox" class="chk-stok" value="KRITIS"></label>
-      <label class="check-row"><span>Menipis</span><input type="checkbox" class="chk-stok" value="MENIPIS"></label>
-      <label class="check-row"><span>Aman</span><input type="checkbox" class="chk-stok" value="AMAN"></label>
-    </div>
+      <!-- STATUS STOK (DESKTOP ONLY, MOBILE DIHIDE VIA CSS) -->
+      <div class="filter-group">
+        <div class="filter-title">Status Stok</div>
 
-    <!-- STATUS PO -->
-    <div class="filter-group">
-      <div class="filter-title">Status PO</div>
+        <label class="check-row"><span>Habis</span><input type="checkbox" class="chk-stok" value="HABIS"></label>
+        <label class="check-row"><span>Kritis</span><input type="checkbox" class="chk-stok" value="KRITIS"></label>
+        <label class="check-row"><span>Menipis</span><input type="checkbox" class="chk-stok" value="MENIPIS"></label>
+        <label class="check-row"><span>Aman</span><input type="checkbox" class="chk-stok" value="AMAN"></label>
+      </div>
 
-      <!-- ⬇⬇⬇ SUDAH DINORMALISASI ⬇⬇⬇ -->
-      <label class="check-row"><span>PO Darurat</span><input type="checkbox" class="chk-po" value="po_darurat"></label>
-      <label class="check-row"><span>PO Segera</span><input type="checkbox" class="chk-po" value="po_segera"></label>
-      <label class="check-row"><span>PO Siaga</span><input type="checkbox" class="chk-po" value="po_siaga"></label>
-      <label class="check-row"><span>Tahan PO</span><input type="checkbox" class="chk-po" value="tahan_po"></label>
-      <label class="check-row"><span>Tidak PO</span><input type="checkbox" class="chk-po" value="tidak_po"></label>
-    </div>
+      <!-- STATUS PO (DESKTOP ONLY) -->
+      <div class="filter-group">
+        <div class="filter-title">Status PO</div>
 
-    <button id="btnApply" class="btn-apply">Terapkan</button>
-  </aside>
+        <label class="check-row"><span>PO Darurat</span><input type="checkbox" class="chk-po" value="po_darurat"></label>
+        <label class="check-row"><span>PO Segera</span><input type="checkbox" class="chk-po" value="po_segera"></label>
+        <label class="check-row"><span>PO Siaga</span><input type="checkbox" class="chk-po" value="po_siaga"></label>
+        <label class="check-row"><span>Tahan PO</span><input type="checkbox" class="chk-po" value="tahan_po"></label>
+        <label class="check-row"><span>Tidak PO</span><input type="checkbox" class="chk-po" value="tidak_po"></label>
+      </div>
 
-  <!-- CONTENT -->
-  <section class="inventory-content">
+      <button id="btnApply" class="btn-apply">Terapkan</button>
+    </aside>
 
-    <!-- SORT BAR -->
+    <!-- ===============================
+         SORT BAR (SATU RUMAH DENGAN SEARCH)
+    ================================ -->
     <div class="inv-sortbar" id="invSortBar">
+
       <div class="inv-sort-main">
         <button class="inv-sort-btn active" data-sort="best">🔥 Terlaris</button>
         <button class="inv-sort-btn" data-sort="az">A–Z</button>
@@ -65,6 +68,7 @@
       <!-- SLOT STATUS PO -->
       <div class="inv-po-slot" id="invPoSlot"></div>
 
+      <!-- PERIODE (DESKTOP ONLY) -->
       <div class="inv-sort-period" id="invBestPeriodBox">
         <span class="inv-period-label">Periode:</span>
         <button class="inv-period-btn" data-period="7d">7 Hari</button>
@@ -73,9 +77,16 @@
         <button class="inv-period-btn" data-period="180d">6 Bulan</button>
         <button class="inv-period-btn active" data-period="365d">1 Tahun</button>
       </div>
-    </div>
 
-    <!-- INVENTORY -->
+    </div>
+  </div>
+  <!-- ===== END MOBILE CONTAINER ===== -->
+
+  <!-- ===============================
+       INVENTORY CONTENT
+  ================================ -->
+  <section class="inventory-content">
+
     <div class="table-wrapper inventory-wrapper">
       <div class="inventory-grid">
 
@@ -86,28 +97,7 @@
         <div class="inventory-grid-header col-status-po">Status PO</div>
 
         <!-- BODY -->
-        <div id="inventoryBody" class="inventory-grid-body">
-          <!--
-            JS inject contoh:
-
-            <div class="inventory-row">
-              <div class="product-thumb">
-                <img src="..." />
-              </div>
-
-              <div class="product-info">
-                <div class="product-name">Nama Produk</div>
-                <div class="product-sku">SKU</div>
-
-                <div class="product-meta">
-                  <span class="badge stok-aman">Aman</span>
-                  <span class="badge tidak_po">Tidak PO</span>
-                  <span class="product-stock">1688</span>
-                </div>
-              </div>
-            </div>
-          -->
-        </div>
+        <div id="inventoryBody" class="inventory-grid-body"></div>
 
       </div>
     </div>
@@ -127,6 +117,7 @@
     </div>
 
   </section>
+
 </div>
 
 </body>
