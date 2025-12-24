@@ -271,6 +271,11 @@ html, body {
 ===================================================== */
 @media (max-width:768px){
 
+  /* HIDE DESKTOP SEARCH INSIDE FILTER */
+  .inventory-filter .search-card{
+    display: none;
+  }
+
   /* =====================
      GLOBAL MOBILE LAYOUT
   ===================== */
@@ -278,6 +283,11 @@ html, body {
     flex-direction: column;
     gap: 12px;
   }
+
+  /* ...lanjutkan isi mobile lainnya TANPA diubah... */
+
+}
+
 
   /* SATU SUMBER LEBAR (ACUAN SEMUA) */
   .mobile-container{
