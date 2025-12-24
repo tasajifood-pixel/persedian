@@ -489,22 +489,39 @@ html, body {
 ===================================================== */
 @media (min-width:769px){
 
-  /* inventory header spacing */
+  /* === LAYOUT UTAMA DESKTOP (WAJIB) === */
+  .inventory-layout{
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+  }
+
+  /* === SIDEBAR FILTER === */
+  .inventory-filter{
+    width: 260px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 16px;
+    align-self: flex-start;
+  }
+
+  /* === KONTEN KANAN === */
+  .inventory-content{
+    flex: 1;
+    width: auto;
+    min-width: 0;
+  }
+
+  /* === HEADER INVENTORY === */
   .inv-sortbar{
     margin-bottom: 12px;
   }
 
-  /* mobile wrapper neutralized on desktop */
+  /* === MOBILE WRAPPER DINETRALKAN DI DESKTOP === */
   .mobile-container{
     padding: 0;
     margin-bottom: 8px;
-  }
-
-  /* sticky sidebar filter */
-  .inventory-filter{
-    position: sticky;
-    top: 16px;
-    align-self: flex-start;
+    width: 100%;
   }
 
 }
