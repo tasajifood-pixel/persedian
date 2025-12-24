@@ -207,30 +207,30 @@ function render(){
   bodyEl.innerHTML = rows.map(p => `
     <div class="inventory-row">
 
-      <div class="product-media">
+      <div class="col-product">
         <div class="product-thumb">
           ${p.thumbnail ? `<img src="${p.thumbnail}">` : ""}
         </div>
+        <div class="product-info">
+          <div class="product-name">${p.item_name}</div>
+          <div class="product-sku">${p.item_code}</div>
+        </div>
       </div>
 
-      <div class="product-info">
-        <div class="product-name">${p.item_name}</div>
-        <div class="product-sku">${p.item_code}</div>
+      <div class="col-stock">
+        ${p.qty}
+      </div>
 
-        <!-- META: STATUS STOK + STATUS PO + JUMLAH STOK -->
-        <div class="product-meta">
-          <span class="badge ${stokClass(p.status_stok)}">
-            ${stokLabel(p.status_stok)}
-          </span>
+      <div class="col-status-stok">
+        <span class="badge ${stokClass(p.status_stok)}">
+          ${stokLabel(p.status_stok)}
+        </span>
+      </div>
 
-          <span class="badge ${poClass(p.status_po)}">
-            ${poLabel(p.status_po)}
-          </span>
-
-          <span class="product-stock">
-            ${p.qty}
-          </span>
-        </div>
+      <div class="col-status-po">
+        <span class="badge ${poClass(p.status_po)}">
+          ${poLabel(p.status_po)}
+        </span>
       </div>
 
     </div>
