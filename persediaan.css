@@ -647,3 +647,96 @@ th.th-status {
 .check-row:has(.chk-stok[value="AMAN"]:checked) span {
   color:#166534;
 }
+
+/* =====================================================
+   MOBILE OPTIMIZE (≤768px) – fokus keterbacaan & tanpa scroll
+===================================================== */
+@media (max-width: 768px){
+  /* Layout */
+  .inventory-layout{
+    flex-direction:column;
+    gap:12px;
+  }
+
+  .inventory-filter{display:none;}
+
+  .inventory-content{width:100%;}
+
+  .inv-sortbar{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:8px;
+    padding:10px 12px;
+  }
+
+  /* Grid to single-column list */
+  .inventory-grid{
+    display:block;
+    padding:0 12px;
+  }
+
+  .inventory-grid-header{display:none;}
+
+  .inventory-grid-body .inventory-row{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    padding:12px 0;
+    border-bottom:1px solid #eef2f7;
+  }
+
+  .inventory-grid-body .inventory-row:last-child{
+    border-bottom:none;
+  }
+
+  /* Product block */
+  .product-cell{
+    gap:10px;
+  }
+
+  .product-thumb{
+    width:38px;
+    height:38px;
+  }
+
+  .product-name{font-size:13px;}
+  .product-sku{font-size:11px;}
+
+  /* Info rows */
+  .inventory-grid-body .inventory-row > div{
+    width:100%;
+  }
+
+  .col-stock,
+  .col-status-stok,
+  .col-status-po{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    justify-content:flex-start;
+    text-align:left;
+  }
+
+  .col-stock::before,
+  .col-status-stok::before,
+  .col-status-po::before{
+    flex:0 0 90px;
+    font-size:12px;
+    font-weight:700;
+    color:#64748b;
+  }
+
+  .col-stock::before{content:"Stok";}
+  .col-status-stok::before{content:"Status Stok";}
+  .col-status-po::before{content:"Status PO";}
+
+  .grid-stock{font-size:13px;}
+
+  /* Badge handling */
+  .inventory-grid-body .badge{
+    min-width:0;
+    padding:6px 12px;
+    font-size:12px;
+    font-weight:700;
+  }
+}
