@@ -538,3 +538,19 @@ html, body {
     box-sizing: border-box;
   }
 }
+@media (max-width:768px){
+
+  /* SATU SUMBER LEBAR */
+  .mobile-container{
+    padding: 0 12px;
+    box-sizing: border-box;
+  }
+
+  /* anak-anak jangan punya padding samping */
+  .inventory-filter,
+  .inv-sortbar{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+}
