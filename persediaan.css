@@ -387,3 +387,41 @@ html, body {
     flex-shrink: 0;
   }
 }
+/* ===============================
+   MOBILE – SORT & PO SEPARATION
+=============================== */
+@media (max-width:768px){
+
+  .inv-sortbar{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .inv-sort-main{
+    width: 100%;
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+  }
+
+  .inv-sort-main::-webkit-scrollbar{
+    display: none;
+  }
+
+  /* PO slot jadi baris kedua */
+  .inv-po-slot{
+    width: 100%;
+    display: flex;
+    gap: 6px;
+    padding-top: 4px;
+    border-top: 1px solid #eef2f7;
+  }
+
+  /* badge PO lebih kecil & halus */
+  .inv-po-slot .badge{
+    font-size: 10.5px;
+    padding: 4px 9px;
+    opacity: 0.9;
+  }
+}
