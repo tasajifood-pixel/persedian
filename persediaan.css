@@ -1,99 +1,157 @@
 /* =====================================================
    BASE
 ===================================================== */
-html, body {
-  margin: 0;
-  padding: 0;
-  background: #fff;
+:root{
+  --border:#eef2f7;
+  --border2:#e5e7eb;
+  --text:#111827;
+  --muted:#64748b;
+  --bg:#ffffff;
+
+  --blue:#2563eb;
+
+  --green-bg:#e7f9ef;
+  --green:#166534;
+
+  --yellow-bg:#fff4d6;
+  --yellow:#92400e;
+
+  --orange-bg:#ffedd5;
+  --orange:#c2410c;
+
+  --red-bg:#fde8e8;
+  --red:#991b1b;
+}
+
+html, body{
+  margin:0;
+  padding:0;
+  background:var(--bg);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  color: #111827;
+  color:var(--text);
 }
 
 /* =====================================================
-   LAYOUT
+   LAYOUT (DESKTOP)
 ===================================================== */
-.inventory-layout {
-  display: flex;
-  gap: 18px;
-  align-items: flex-start;
+.inventory-layout{
+  display:flex;
+  gap:18px;
+  align-items:flex-start;
 }
 
-.inventory-filter {
-  width: 260px;
-  background: #fff;
-  border: 1px solid #eef2f7;
-  border-radius: 12px;
-  padding: 16px;
+.inventory-filter{
+  width:260px;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:16px;
 }
 
-.inventory-content {
-  flex: 1;
-  width: 100%;
+.inventory-content{
+  flex:1;
+  width:100%;
+  min-width:0;
 }
 
 /* =====================================================
-   FILTER
+   FILTER (DESKTOP)
 ===================================================== */
-.inventory-filter h4 {
-  margin: 0 0 12px;
-  font-size: 14px;
-  font-weight: 700;
+.inventory-filter h4{
+  margin:0 0 12px;
+  font-size:14px;
+  font-weight:800;
 }
 
-.inventory-filter input {
-  width: 100%;
-  padding: 9px 12px;
-  margin-bottom: 12px;
-  border: 1px solid #e5e7eb;
-  border-radius: 10px;
-  font-size: 13px;
+.inventory-filter input{
+  width:100%;
+  padding:9px 12px;
+  margin-bottom:12px;
+  border:1px solid var(--border2);
+  border-radius:10px;
+  font-size:13px;
+  box-sizing:border-box;
 }
 
-.filter-group {
-  margin-top: 16px;
+.filter-group{ margin-top:16px; }
+.filter-title{
+  font-size:13px;
+  font-weight:800;
+  margin-bottom:6px;
 }
 
-.filter-title {
-  font-size: 13px;
-  font-weight: 700;
-  margin-bottom: 6px;
+.check-row{
+  display:grid;
+  grid-template-columns:1fr 18px;
+  align-items:center;
+  padding:6px 0;
 }
 
-.check-row {
-  display: grid;
-  grid-template-columns: 1fr 18px;
-  align-items: center;
-  padding: 6px 0;
-}
+.check-row span{ font-size:13px; }
 
-.check-row span {
-  font-size: 13px;
-}
-
-.btn-apply {
-  width: 100%;
-  margin-top: 12px;
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid #e5e7eb;
-  font-weight: 700;
-  background: #f3f4f6;
-  cursor: pointer;
+.btn-apply{
+  width:100%;
+  margin-top:12px;
+  padding:10px;
+  border-radius:10px;
+  border:1px solid var(--border2);
+  font-weight:800;
+  background:#f3f4f6;
+  cursor:pointer;
 }
 
 /* =====================================================
-   SORT BAR
+   SORT BAR (DESKTOP)
 ===================================================== */
-.inv-sortbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
-  margin-bottom: 12px;
-  border: 1px solid #eef2f7;
-  border-radius: 12px;
+.inv-sortbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  padding:12px 16px;
+  margin-bottom:12px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:#fff;
 }
+
+.inv-sort-main{
+  display:flex;
+  gap:6px;
+  align-items:center;
+}
+
+.inv-sort-btn,
+.inv-period-btn{
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid var(--border2);
+  background:#fff;
+  font-size:12px;
+  font-weight:800;
+  cursor:pointer;
+  white-space:nowrap;
+}
+
+.inv-sort-btn.active,
+.inv-period-btn.active{
+  background:var(--blue);
+  color:#fff;
+  border-color:var(--blue);
+}
+
+.inv-sort-period{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+.inv-period-label{
+  font-size:12px;
+  font-weight:800;
+  color:var(--muted);
+}
+
 /* =====================
    STATUS PO SLOT (TOP)
 ===================== */
@@ -104,373 +162,374 @@ html, body {
   flex-wrap:nowrap;
 }
 
-/* badge di atas jangan kegedean */
 .inv-po-slot .badge{
   padding:5px 10px;
   font-size:11px;
   cursor:pointer;
 }
 
-.inv-sort-main {
-  display: flex;
-  gap: 6px;
+/* =====================================================
+   INVENTORY GRID (DESKTOP)
+===================================================== */
+.inventory-grid{
+  display:grid;
+  grid-template-columns: 1fr 90px 140px 140px;
+  padding:0 16px;
 }
 
-.inv-sort-btn,
-.inv-period-btn {
-  padding: 6px 10px;
-  border-radius: 999px;
-  border: 1px solid #e5e7eb;
-  background: #fff;
-  font-size: 12px;
-  font-weight: 700;
-  cursor: pointer;
+.inventory-grid-header{
+  padding:14px 0;
+  font-size:13px;
+  font-weight:700;
+  color:#475569;
+  border-bottom:1px solid var(--border);
+  text-align:center;
 }
 
-.inv-sort-btn.active,
-.inv-period-btn.active {
-  background: #2563eb;
-  color: #fff;
-  border-color: #2563eb;
+.inventory-grid-header.col-product{
+  text-align:left;
+  padding-left:16px;
 }
 
-.inv-sort-period {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+.inventory-grid-body{ grid-column:1 / -1; }
+
+.inventory-grid-body .inventory-row{
+  display:grid;
+  grid-template-columns: 1fr 90px 140px 140px;
+  align-items:center;
+  padding:14px 0;
+  border-bottom:1px solid #f3f4f6;
 }
 
-.inv-period-label {
-  font-size: 12px;
-  font-weight: 700;
-  color: #64748b;
+.inventory-grid-body .inventory-row:hover{
+  background:#f9fafb;
 }
 
 /* =====================================================
-   INVENTORY GRID – DESKTOP
+   PRODUCT BLOCK (DESKTOP)
 ===================================================== */
-.inventory-grid {
-  display: grid;
-  grid-template-columns: 1fr 90px 140px 140px;
-  padding: 0 16px;
+.product-thumb{
+  width:42px;
+  height:42px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  overflow:hidden;
+  flex-shrink:0;
 }
 
-.inventory-grid-header {
-  padding: 14px 0;
-  font-size: 13px;
-  font-weight: 600;
-  color: #475569;
-  border-bottom: 1px solid #eef2f7;
-  text-align: center;
+.product-thumb img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
 }
 
-.inventory-grid-header.col-product {
-  text-align: left;
-  padding-left: 16px;
+.product-info{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  min-width:0;
 }
 
-.inventory-grid-body {
-  grid-column: 1 / -1;
+.product-name{
+  font-size:13px;
+  font-weight:800;
 }
 
-.inventory-grid-body .inventory-row {
-  display: grid;
-  grid-template-columns: 1fr 90px 140px 140px;
-  align-items: center;
-  padding: 14px 0;
-  border-bottom: 1px solid #f3f4f6;
+.product-sku{
+  font-size:11px;
+  color:var(--muted);
 }
 
-.inventory-grid-body .inventory-row:hover {
-  background: #f9fafb;
-}
-
-/* =====================================================
-   PRODUCT – DESKTOP
-===================================================== */
-.product-thumb {
-  width: 42px;
-  height: 42px;
-  border-radius: 10px;
-  border: 1px solid #eef2f7;
-  overflow: hidden;
-  flex-shrink: 0;
-}
-
-.product-thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.product-info {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.product-name {
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.product-sku {
-  font-size: 11px;
-  color: #64748b;
-}
-
-.product-meta {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.product-meta{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-width:0;
 }
 
 /* =====================================================
    BADGE & STOCK
 ===================================================== */
-.badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 5px 10px;
-  border-radius: 999px;
-  font-size: 11px;
-  font-weight: 700;
-  white-space: nowrap;
+.badge{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:5px 10px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:800;
+  white-space:nowrap;
 }
 
-.badge.stok-aman { background:#e7f9ef; color:#166534 }
-.badge.stok-menipis { background:#fff4d6; color:#92400e }
-.badge.stok-kritis { background:#ffedd5; color:#c2410c }
-.badge.stok-habis { background:#fde8e8; color:#991b1b }
+.badge.stok-aman    { background:var(--green-bg);  color:var(--green); }
+.badge.stok-menipis { background:var(--yellow-bg); color:var(--yellow); }
+.badge.stok-kritis  { background:var(--orange-bg); color:var(--orange); }
+.badge.stok-habis   { background:var(--red-bg);    color:var(--red); }
 
-.badge.po_darurat { background:#991b1b; color:#fff }
-.badge.po_segera { background:#ea580c; color:#fff }
-.badge.po_siaga { background:#f59e0b; color:#111 }
-.badge.tidak_po { background:#e5e7eb; color:#111 }
-.badge.tahan_po { background:#0f172a; color:#fff }
+.badge.po_darurat { background:#991b1b; color:#fff; }
+.badge.po_segera  { background:#ea580c; color:#fff; }
+.badge.po_siaga   { background:#f59e0b; color:#111; }
+.badge.tidak_po   { background:#e5e7eb; color:#111; }
+.badge.tahan_po   { background:#0f172a; color:#fff; }
 
-.product-stock {
-  font-size: 13px;
-  font-weight: 800;
-  color: #111827;
-  white-space: nowrap;
+.product-stock{
+  font-size:13px;
+  font-weight:900;
+  color:var(--text);
+  white-space:nowrap;
 }
 
 /* =====================================================
    PAGINATION
 ===================================================== */
-.pagination-bar {
-  display: flex;
-  justify-content: space-between;
-  padding: 14px 16px;
-  border-top: 1px solid #eef2f7;
+.pagination-bar{
+  display:flex;
+  justify-content:space-between;
+  padding:14px 16px;
+  border-top:1px solid var(--border);
 }
+
 /* =====================================================
    MOBILE (≤768px) – FINAL CLEAN & LOCKED
 ===================================================== */
 @media (max-width:768px){
 
   /* =====================
-     GLOBAL MOBILE LAYOUT
+     WRAPPER & WIDTH LOCK
   ===================== */
   .inventory-layout{
-    flex-direction: column;
-    gap: 12px;
+    flex-direction:column;
+    gap:12px;
   }
 
-  /* SATU SUMBER LEBAR (ACUAN SEMUA) */
-  .mobile-container{
-    padding: 0 12px;
-    box-sizing: border-box;
+  /* bikin semua konten punya padding konsisten */
+  .inventory-content{
+    padding:0 12px;
+    box-sizing:border-box;
   }
 
   /* =====================
-     SEARCH / FILTER
+     SEARCH CARD
   ===================== */
   .inventory-filter{
-    width: 100%;
-    border: none;
-    padding: 0;
+    width:100%;
+    border:none;
+    padding:0;
+    margin:0;
   }
 
   .inventory-filter h4,
   .filter-group,
   #btnApply{
-    display: none;
+    display:none !important;
   }
 
   .search-card{
-    width: 100%;
-    padding: 12px 14px;
-    border: 1px solid #eef2f7;
-    border-radius: 12px;
-    background: #fff;
-    box-sizing: border-box;
-    margin-bottom: 12px;
+    width:100%;
+    padding:12px 14px;
+    border:1px solid var(--border);
+    border-radius:12px;
+    background:#fff;
+    box-sizing:border-box;
+    margin-bottom:12px;
   }
 
   #filterSearch{
-    width: 100%;
-    border: none;
-    padding: 0;
-    font-size: 14px;
-    outline: none;
-    background: transparent;
+    width:100%;
+    border:none;
+    padding:0;
+    margin:0;
+    font-size:14px;
+    outline:none;
+    background:transparent;
   }
 
   /* =====================
      SORT & PO BAR
   ===================== */
   .inv-sortbar{
-    width: 100%;
-    padding: 12px;
-    box-sizing: border-box;
-    border: 1px solid #eef2f7;
-    border-radius: 12px;
+    width:100%;
+    padding:12px;
+    box-sizing:border-box;
+    border:1px solid var(--border);
+    border-radius:12px;
+    background:#fff;
 
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-bottom:12px;
   }
 
   .inv-sort-main{
-    display: flex;
-    gap: 6px;
-    overflow-x: auto;
+    display:flex;
+    gap:6px;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
   }
 
-  .inv-sort-main::-webkit-scrollbar{
-    display: none;
-  }
+  .inv-sort-main::-webkit-scrollbar{ display:none; }
 
+  /* PO badges ada di bawah sort */
   .inv-po-slot{
-    display: flex;
-    gap: 6px;
-    padding-top: 6px;
-    border-top: 1px solid #eef2f7;
-    overflow-x: auto;
-    white-space: nowrap;
+    display:flex;
+    gap:6px;
+    padding-top:10px;
+    border-top:1px solid var(--border);
+    overflow-x:auto;
+    white-space:nowrap;
+    -webkit-overflow-scrolling:touch;
   }
 
-  .inv-po-slot::-webkit-scrollbar{
-    display: none;
-  }
+  .inv-po-slot::-webkit-scrollbar{ display:none; }
 
   .inv-po-slot .badge{
-    flex-shrink: 0;
-    font-size: 10.5px;
-    padding: 4px 9px;
+    flex-shrink:0;
+    font-size:10.5px;
+    padding:4px 9px;
   }
 
-  /* hide period selector */
-  #invBestPeriodBox{
-    display: none;
-  }
+  /* hide period selector (biar mobile clean) */
+  #invBestPeriodBox{ display:none !important; }
 
   /* =====================
-     INVENTORY LIST
+     LIST MODE
   ===================== */
   .inventory-grid{
-    display: block;
-    padding: 0 12px;
+    display:block;
+    padding:0; /* penting: jangan dobel padding */
   }
 
-  .inventory-grid-header{
-    display: none;
-  }
+  .inventory-grid-header{ display:none !important; }
 
   .inventory-grid-body .inventory-row{
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 10px 0;
-    border-bottom: 1px solid #eef2f7;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px 0;
+    border-bottom:1px solid var(--border);
   }
 
   /* =====================
-     IMAGE
+     THUMB
   ===================== */
   .product-thumb{
-    width: 68px;
-    height: 68px;
-    border-radius: 12px;
+    width:68px;
+    height:68px;
+    border-radius:12px;
   }
 
   /* =====================
      PRODUCT INFO
   ===================== */
   .product-info{
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    min-width: 0;
+    flex:1;
+    min-width:0;
+    display:flex;
+    flex-direction:column;
+    gap:4px;
   }
 
   .product-name{
-    font-size: 14px;
-    line-height: 1.25;
+    font-size:14px;
+    font-weight:900;
+    line-height:1.25;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
   }
 
   .product-sku{
-    font-size: 11px;
+    font-size:11px;
+    color:var(--muted);
   }
 
   /* =====================
-     META (STATUS + PO + STOK)
+     META ROW (STATUS + PO + STOK)
+     -> dibikin GRID biar gak ribut
   ===================== */
   .product-meta{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
+    width:100%;
+    display:grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows:auto auto;
+    gap:6px 8px;
+    align-items:center;
   }
 
+  /* badge status & PO rapi */
   .product-meta .badge{
-    font-size: 11px;
-    padding: 4px 10px;
-    flex-shrink: 0;
+    font-size:11px;
+    padding:4px 10px;
+    justify-self:start;
+    max-width:100%;
   }
 
+  /* stok pill */
   .product-meta .product-stock{
-    min-width: 86px;
-    padding: 4px 12px;
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 800;
-    text-align: center;
-    white-space: nowrap;
+    grid-column:2 / 3;
+    grid-row:1 / span 2;
+    min-width:90px;
+    padding:6px 12px;
+    border-radius:999px;
+    font-size:12px;
+    font-weight:900;
+    text-align:center;
+    white-space:nowrap;
+    box-sizing:border-box;
   }
 
   .product-meta .product-stock::before{
-    content: "Stok: ";
-    font-weight: 600;
-    opacity: 0.7;
+    content:"Stok: ";
+    font-weight:700;
+    opacity:.65;
   }
 
   /* =====================
-     STOCK COLOR FOLLOW STATUS
+     STOCK COLOR FOLLOW STATUS (FALLBACK)
+     (Ini tetap kerja kalau struktur: [badge status] [badge po] [stok])
   ===================== */
   .stok-aman ~ .product-stock{
-    background: #e6f4ea;
-    color: #166534;
+    background:#e6f4ea;
+    color:var(--green);
   }
 
   .stok-menipis ~ .product-stock{
-    background: #fef3c7;
-    color: #92400e;
+    background:#fef3c7;
+    color:var(--yellow);
   }
 
   .stok-kritis ~ .product-stock{
-    background: #fff1d6;
-    color: #8a4b00;
+    background:#fff1d6;
+    color:var(--orange);
   }
 
   .stok-habis ~ .product-stock{
-    background: #fee2e2;
-    color: #7f1d1d;
+    background:#fee2e2;
+    color:var(--red);
+  }
+
+  /* =====================
+     STOCK COLOR (MODERN)
+     Kalau browser support :has(), ini lebih akurat
+  ===================== */
+  .product-meta:has(.stok-aman) .product-stock{
+    background:#e6f4ea;
+    color:var(--green);
+  }
+  .product-meta:has(.stok-menipis) .product-stock{
+    background:#fef3c7;
+    color:var(--yellow);
+  }
+  .product-meta:has(.stok-kritis) .product-stock{
+    background:#fff1d6;
+    color:var(--orange);
+  }
+  .product-meta:has(.stok-habis) .product-stock{
+    background:#fee2e2;
+    color:var(--red);
   }
 
 }
