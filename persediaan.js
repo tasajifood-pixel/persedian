@@ -202,7 +202,7 @@ function applyFilter(){
 
   page = 1;
   render();
-  renderPoSlot();
+  
 }
 
 // =====================
