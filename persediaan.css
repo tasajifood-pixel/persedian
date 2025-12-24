@@ -283,10 +283,10 @@ html, body {
      FILTER (MOBILE SIMPLE)
   ===================== */
   .inventory-filter{
-    width: 100%;
-    border: none;
-    padding: 0 12px 12px;
-  }
+  width: 100%;
+  border: none;
+  padding: 0 12px; /* HAPUS padding bawah & konsisten */
+}
 
   .inventory-filter h4,
   .filter-group,
@@ -509,13 +509,14 @@ html, body {
 @media (max-width:768px){
 
   .search-card{
-    width: 100%;
-    padding: 12px 14px;
-    border: 1px solid #eef2f7;
-    border-radius: 12px;
-    background: #fff;
-    box-sizing: border-box;
-  }
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #eef2f7;
+  border-radius: 12px;
+  background: #fff;
+  box-sizing: border-box;
+  margin-bottom: 12px; /* ⬅️ TAMBAHAN */
+}
 
   #filterSearch{
     width: 100%;
@@ -526,4 +527,14 @@ html, body {
     background: transparent;
   }
 
+}
+/* ===============================
+   MOBILE – SORT BAR WIDTH FIX
+=============================== */
+@media (max-width:768px){
+  .inv-sortbar{
+    width: 100%;
+    padding: 12px;
+    box-sizing: border-box;
+  }
 }
