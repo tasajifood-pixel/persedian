@@ -503,33 +503,3 @@ html, body {
   }
 
 }
-/* ===============================
-   MOBILE – SEARCH + SORT UNIFIED
-=============================== */
-@media (max-width:768px){
-
-  /* bungkus search & sort terasa satu panel */
-  .inventory-filter,
-  .inv-sortbar{
-    background: #ffffff;
-    border-radius: 16px;
-    padding: 12px;
-  }
-
-  /* rapikan jarak search ke sort */
-  .inventory-filter{
-    margin-bottom: 8px;
-  }
-
-  /* search box lebih “card-like” */
-  #filterSearch{
-    background: #f9fafb;
-    border: 1px solid #eef2f7;
-  }
-
-  /* sort bar jangan terasa terpisah */
-  .inv-sortbar{
-    margin-top: 0;
-    box-shadow: none;
-  }
-} 
