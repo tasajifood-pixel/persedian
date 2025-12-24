@@ -205,39 +205,41 @@ function render(){
   const rows = filtered.slice((page - 1) * pageSize, page * pageSize);
 
   bodyEl.innerHTML = rows.map(p => `
-    <div class="inventory-row">
+  <div class="inventory-row">
 
-      <div class="product-media">
-        <div class="product-thumb">
-          ${p.thumbnail ? `<img src="${p.thumbnail}">` : ""}
-        </div>
+    <!-- KOLOM 1: PRODUK -->
+    <div class="col-product">
+      <div class="product-thumb">
+        ${p.thumbnail ? `<img src="${p.thumbnail}">` : ""}
       </div>
-
       <div class="product-info">
         <div class="product-name">${p.item_name}</div>
         <div class="product-sku">${p.item_code}</div>
-
-        <!-- META: STATUS STOK + STATUS PO + JUMLAH STOK -->
-        <div class="product-meta">
-          <span class="badge ${stokClass(p.status_stok)}">
-            ${stokLabel(p.status_stok)}
-          </span>
-
-          <span class="badge ${poClass(p.status_po)}">
-            ${poLabel(p.status_po)}
-          </span>
-
-          <span class="product-stock">
-            ${p.qty}
-          </span>
-        </div>
       </div>
-
     </div>
-  `).join("");
 
-  renderPagination(totalPage);
-}
+    <!-- KOLOM 2: STOK -->
+    <div class="col-stock">
+      ${p.qty}
+    </div>
+
+    <!-- KOLOM 3: STATUS STOK -->
+    <div class="col-status-stok">
+      <span class="badge ${stokClass(p.status_stok)}">
+        ${stokLabel(p.status_stok)}
+      </span>
+    </div>
+
+    <!-- KOLOM 4: STATUS PO -->
+    <div class="col-status-po">
+      <span class="badge ${poClass(p.status_po)}">
+        ${poLabel(p.status_po)}
+      </span>
+    </div>
+
+  </div>
+`).join("");
+
 
 // =====================
 // PAGINATION
