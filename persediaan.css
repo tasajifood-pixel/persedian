@@ -504,22 +504,26 @@ html, body {
 
 }
 /* ===============================
-   MOBILE – SEARCH & SORT ALIGN
+   MOBILE – SEARCH CARD FIX (FINAL)
 =============================== */
 @media (max-width:768px){
 
-  /* search & sort harus 1 grid rasa */
-  .inventory-filter,
-  .inv-sortbar{
+  .search-card{
     width: 100%;
-    padding-left: 12px;
-    padding-right: 12px;
+    padding: 12px 14px;
+    border: 1px solid #eef2f7;
+    border-radius: 12px;
+    background: #fff;
     box-sizing: border-box;
   }
 
-  /* hapus padding horizontal bawaan sortbar */
-  .inv-sortbar{
-  padding: 12px;
-}
+  #filterSearch{
+    width: 100%;
+    border: none;
+    padding: 0;
+    font-size: 14px;
+    outline: none;
+    background: transparent;
+  }
 
 }
