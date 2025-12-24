@@ -477,3 +477,30 @@ html, body {
     text-align: center;       /* angka selalu di tengah */
   }
 }
+@media (max-width:768px){
+
+  /* AMAN */
+  .product-meta .stok-aman ~ .product-stock{
+    background: #e6f4ea;
+    color: #166534;
+  }
+
+  /* MENIPIS */
+  .product-meta .stok-menipis ~ .product-stock{
+    background: #fef3c7;
+    color: #92400e;
+  }
+
+  /* KRITIS */
+  .product-meta .stok-kritis ~ .product-stock{
+    background: #fde2e2;
+    color: #991b1b;
+  }
+
+  /* HABIS */
+  .product-meta .stok-habis ~ .product-stock{
+    background: #fee2e2;
+    color: #7f1d1d;
+  }
+
+}
