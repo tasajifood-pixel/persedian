@@ -205,7 +205,7 @@ function applyFilter(){
 }
 
 // =====================
-// RENDER
+// RENDER (REVISED)
 // =====================
 function render(){
   const totalPage = Math.max(1, Math.ceil(filtered.length / pageSize));
@@ -214,41 +214,40 @@ function render(){
   const rows = filtered.slice((page-1)*pageSize, page*pageSize);
 
   bodyEl.innerHTML = rows.map(p=>{
-  return `
-    <div class="inventory-row">
+    return `
+      <div class="inventory-row">
 
-      <div class="col-product">
-        <div class="product-cell">
+        <!-- FOTO / MEDIA (ANCHOR TINGGI) -->
+        <div class="product-media">
           <div class="product-thumb">
             ${p.thumbnail ? `<img src="${p.thumbnail}">` : ""}
           </div>
-          <div>
-            <div class="product-name">${p.item_name}</div>
-            <div class="product-sku">${p.item_code}</div>
+        </div>
+
+        <!-- INFO PRODUK -->
+        <div class="product-info">
+          <div class="product-name">${p.item_name}</div>
+          <div class="product-sku">${p.item_code}</div>
+
+          <div class="product-meta">
+            <span class="badge ${stokClass(p.status_stok)}">
+              ${stokLabel(p.status_stok)}
+            </span>
+
+            <span class="badge ${poClass(p.status_po)}">
+              ${poLabel(p.status_po)}
+            </span>
           </div>
         </div>
+
+        <!-- STOK (PALING KANAN) -->
+        <div class="product-stock grid-stock">
+          ${p.qty}
+        </div>
+
       </div>
-
-      <div class="col-stock grid-stock">
-        ${p.qty}
-      </div>
-
-      <div class="col-status-stok grid-status">
-        <span class="badge ${stokClass(p.status_stok)}">
-          ${stokLabel(p.status_stok)}
-        </span>
-      </div>
-
-      <div class="col-status-po grid-status">
-        <span class="badge ${poClass(p.status_po)}">
-          ${poLabel(p.status_po)}
-        </span>
-      </div>
-
-    </div>
-  `;
-}).join("");
-
+    `;
+  }).join("");
 
   renderPagination(totalPage);
 }
