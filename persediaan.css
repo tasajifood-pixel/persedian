@@ -252,58 +252,107 @@ html, body {
 }
 
 /* =====================================================
-   MOBILE – STATUS PO INLINE DI SORT BAR
+   MOBILE (≤768px)
 ===================================================== */
-@media (max-width: 768px){
+@media (max-width: 768px) {
 
-  /* Pastikan sort bar jadi flex horizontal */
-  .inv-sortbar{
-    flex-wrap: wrap;
+  .inventory-layout {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* filter hidden (siap toggle nanti) */
+  .inventory-filter {
+    display: none;
+    width: 100%;
+  }
+
+  /* grid → list */
+  .inventory-grid {
+    display: block;
+    padding: 0 12px;
+  }
+
+  .inventory-grid-header {
+    display: none;
+  }
+
+  .inventory-grid-body .inventory-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #eef2f7;
+  }
+
+  /* FOTO kiri makan tinggi */
+  .product-thumb {
+    width: 72px;
+    height: 72px;
+    border-radius: 12px;
+  }
+
+  /* PANEL kanan */
+  .product-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  .product-name {
+    font-size: 14px;
+    line-height: 1.2;
+  }
+
+  .product-sku {
+    font-size: 11px;
+  }
+
+  /* BARIS META: status kiri, stok kanan */
+  .product-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     gap: 8px;
   }
 
-  /* Grup tombol sort (Terlaris, A–Z, Stok) */
-  .inv-sort-main{
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
+  .product-meta .badge {
+    padding: 4px 8px;
+    font-size: 11px;
   }
 
-  /* Tampilkan HANYA filter Status PO */
+  .product-stock {
+    margin-left: auto;
+    font-size: 13px;
+    font-weight: 800;
+  }
+}
+@media (max-width: 768px){
+  #invBestPeriodBox{
+    display: none;
+  }
+}
+@media (max-width: 768px){
   .inventory-filter{
     display:block;
-    width:auto;
-    padding:0;
+    width:100%;
     border:none;
-    background:none;
+    padding:0 12px 12px;
   }
 
-  /* Sembunyikan semua filter group */
-  .inventory-filter .filter-group{
+  .inventory-filter h4,
+  .filter-group,
+  #btnApply{
     display:none;
   }
 
-  /* Tampilkan hanya group Status PO */
-  .inventory-filter .filter-group:has(.chk-po){
-    display:flex;
-    gap:6px;
-    flex-wrap:wrap;
+  #filterSearch{
+    width:100%;
+    padding:12px 14px;
+    font-size:14px;
+    border-radius:12px;
   }
-
-  /* Letakkan filter PO sejajar dengan sort */
-  .inventory-filter{
-    order:2; /* di kanan sort */
-  }
-
-  .inv-sort-main{
-    order:1;
-  }
-
-  /* Styling pill PO agar konsisten & rapat */
-  .inventory-filter .check-row{
-    margin:0;
-    padding:6px 10px;
-    font-size:12px;
-  }
-
 }
