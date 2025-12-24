@@ -335,3 +335,24 @@ html, body {
     display: none;
   }
 }
+@media (max-width: 768px){
+  .inventory-filter{
+    display:block;
+    width:100%;
+    border:none;
+    padding:0 12px 12px;
+  }
+
+  .inventory-filter h4,
+  .filter-group,
+  #btnApply{
+    display:none;
+  }
+
+  #filterSearch{
+    width:100%;
+    padding:12px 14px;
+    font-size:14px;
+    border-radius:12px;
+  }
+}
