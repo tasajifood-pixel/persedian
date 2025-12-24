@@ -474,3 +474,27 @@ html, body {
   }
 
 }
+/* =====================================================
+   DESKTOP FIX – AFTER HTML RESTRUCTURE
+===================================================== */
+@media (min-width:769px){
+
+  /* inventory header spacing */
+  .inv-sortbar{
+    margin-bottom: 12px;
+  }
+
+  /* mobile wrapper neutralized on desktop */
+  .mobile-container{
+    padding: 0;
+    margin-bottom: 8px;
+  }
+
+  /* sticky sidebar filter */
+  .inventory-filter{
+    position: sticky;
+    top: 16px;
+    align-self: flex-start;
+  }
+
+}
