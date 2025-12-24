@@ -267,26 +267,32 @@ html, body {
   border-top: 1px solid #eef2f7;
 }
 /* =====================================================
-   MOBILE (≤768px) – FINAL & CLEAN
+   MOBILE (≤768px) – FINAL CLEAN & LOCKED
 ===================================================== */
 @media (max-width:768px){
 
   /* =====================
-     LAYOUT
+     GLOBAL MOBILE LAYOUT
   ===================== */
   .inventory-layout{
     flex-direction: column;
     gap: 12px;
   }
 
+  /* SATU SUMBER LEBAR (ACUAN SEMUA) */
+  .mobile-container{
+    padding: 0 12px;
+    box-sizing: border-box;
+  }
+
   /* =====================
-     FILTER (MOBILE SIMPLE)
+     SEARCH / FILTER
   ===================== */
- .inventory-filter{
-  width: 100%;
-  border: none;
-  padding: 0;
-}
+  .inventory-filter{
+    width: 100%;
+    border: none;
+    padding: 0;
+  }
 
   .inventory-filter h4,
   .filter-group,
@@ -294,29 +300,41 @@ html, body {
     display: none;
   }
 
-  #filterSearch{
+  .search-card{
     width: 100%;
     padding: 12px 14px;
-    font-size: 14px;
+    border: 1px solid #eef2f7;
     border-radius: 12px;
+    background: #fff;
+    box-sizing: border-box;
+    margin-bottom: 12px;
   }
 
-  /* hide period selector */
-  #invBestPeriodBox{
-    display: none;
+  #filterSearch{
+    width: 100%;
+    border: none;
+    padding: 0;
+    font-size: 14px;
+    outline: none;
+    background: transparent;
   }
 
   /* =====================
-     SORT & PO SLOT
+     SORT & PO BAR
   ===================== */
   .inv-sortbar{
+    width: 100%;
+    padding: 12px;
+    box-sizing: border-box;
+    border: 1px solid #eef2f7;
+    border-radius: 12px;
+
+    display: flex;
     flex-direction: column;
-    align-items: flex-start;
     gap: 8px;
   }
 
   .inv-sort-main{
-    width: 100%;
     display: flex;
     gap: 6px;
     overflow-x: auto;
@@ -327,10 +345,9 @@ html, body {
   }
 
   .inv-po-slot{
-    width: 100%;
     display: flex;
     gap: 6px;
-    padding-top: 4px;
+    padding-top: 6px;
     border-top: 1px solid #eef2f7;
     overflow-x: auto;
     white-space: nowrap;
@@ -344,7 +361,11 @@ html, body {
     flex-shrink: 0;
     font-size: 10.5px;
     padding: 4px 9px;
-    opacity: 0.9;
+  }
+
+  /* hide period selector */
+  #invBestPeriodBox{
+    display: none;
   }
 
   /* =====================
@@ -394,207 +415,62 @@ html, body {
 
   .product-sku{
     font-size: 11px;
-    margin-bottom: 2px;
   }
 
   /* =====================
-     META ROW (STATUS + PO + STOK)
+     META (STATUS + PO + STOK)
   ===================== */
   .product-meta{
+    width: 100%;
     display: flex;
     align-items: center;
-    gap: 6px;
-    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px;
   }
 
   .product-meta .badge{
     font-size: 11px;
     padding: 4px 10px;
+    flex-shrink: 0;
   }
 
-  /* stok sebagai badge khusus */
   .product-meta .product-stock{
+    min-width: 86px;
     padding: 4px 12px;
     border-radius: 999px;
     font-size: 12px;
     font-weight: 800;
-    line-height: 1;
+    text-align: center;
     white-space: nowrap;
-
-    background: #eef2ff;
-    color: #1e3a8a;
   }
 
-}
-/* ===============================
-   MOBILE – FORCE META INLINE
-=============================== */
-@media (max-width:768px){
-
-  /* meta HARUS satu baris penuh */
-  .product-meta{
-    width: 100%;
-    justify-content: flex-start;
-  }
-
-  /* stok jangan dorong ke kanan */
-  .product-meta .product-stock{
-    margin-left: 0;
-  }
-
-}
-
-/* ===============================
-   MOBILE – META FULL WIDTH ALIGN
-=============================== */
-@media (max-width:768px){
-
-  .product-meta{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between; /* kunci utama */
-    gap: 12px;
-  }
-
-  /* biar badge gak melebar aneh */
-  .product-meta .badge,
-  .product-meta .product-stock{
-    flex-shrink: 0;
-  }
-
-}
-@media (max-width:768px){
   .product-meta .product-stock::before{
     content: "Stok: ";
     font-weight: 600;
     opacity: 0.7;
   }
-}
-@media (max-width:768px){
-  .product-meta .product-stock{
-    min-width: 86px;          /* PATEN – aman sampai 5 digit */
-    text-align: center;       /* angka selalu di tengah */
-  }
-}
-@media (max-width:768px){
 
-  /* AMAN */
-  .product-meta .stok-aman ~ .product-stock{
+  /* =====================
+     STOCK COLOR FOLLOW STATUS
+  ===================== */
+  .stok-aman ~ .product-stock{
     background: #e6f4ea;
     color: #166534;
   }
 
-  /* MENIPIS */
-  .product-meta .stok-menipis ~ .product-stock{
+  .stok-menipis ~ .product-stock{
     background: #fef3c7;
     color: #92400e;
   }
 
   .stok-kritis ~ .product-stock{
-  background: #fff1d6;   /* kuning-oranye lembut */
-  color: #8a4b00;
-}
+    background: #fff1d6;
+    color: #8a4b00;
+  }
 
-  /* HABIS */
-  .product-meta .stok-habis ~ .product-stock{
+  .stok-habis ~ .product-stock{
     background: #fee2e2;
     color: #7f1d1d;
-  }
-
-}
-/* ===============================
-   MOBILE – SEARCH CARD FIX (FINAL)
-=============================== */
-@media (max-width:768px){
-
-  .search-card{
-  width: 100%;
-  padding: 12px 14px;
-  border: 1px solid #eef2f7;
-  border-radius: 12px;
-  background: #fff;
-  box-sizing: border-box;
-  margin-bottom: 12px; /* ⬅️ TAMBAHAN */
-}
-
-  #filterSearch{
-    width: 100%;
-    border: none;
-    padding: 0;
-    font-size: 14px;
-    outline: none;
-    background: transparent;
-  }
-
-}
-/* ===============================
-   MOBILE – SORT BAR WIDTH FIX
-=============================== */
-@media (max-width:768px){
-  .inv-sortbar{
-    width: 100%;
-    padding: 12px;
-    box-sizing: border-box;
-  }
-}
-@media (max-width:768px){
-
-  /* SATU SUMBER LEBAR */
-  .mobile-container{
-    padding: 0 12px;
-    box-sizing: border-box;
-  }
-
-  /* anak-anak jangan punya padding samping */
-  .inventory-filter,
-  .inv-sortbar{
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-  }
-
-}
-@media (max-width:768px){
-
-  /* KUNCI GARIS KANAN PRODUK */
-  .inventory-grid-body .inventory-row{
-    padding-right: 0;     /* jangan nambah ke kanan */
-  }
-
-  /* stok tidak boleh keluar container */
-  .product-meta{
-    max-width: 100%;
-  }
-
-  .product-meta .product-stock{
-    margin-right: 0;
-  }
-
-}
-/* =========================================
-   MOBILE – FINAL RIGHT EDGE ALIGN (LOCK)
-========================================= */
-@media (max-width:768px){
-
-  /* 1. SATU ACUAN LEBAR */
-  .mobile-container{
-    padding-left: 12px;
-    padding-right: 12px;
-    box-sizing: border-box;
-  }
-
-  /* 2. SEARCH & SORT JANGAN PUNYA PADDING SENDIRI */
-  .inventory-filter,
-  .inv-sortbar{
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    width: 100%;
-  }
-
-  /* 3. SEARCH CARD FULL */
-  .search-card{
-    width: 100%;
-    box-sizing: border-box;
   }
 
 }
