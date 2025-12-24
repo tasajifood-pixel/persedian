@@ -328,8 +328,10 @@ searchEl.oninput = applyFilter;
 
 /* STEP 3 – AUTO APPLY untuk checkbox filter */
 document.querySelectorAll(".chk-stok, .chk-po").forEach(el=>{
-  el.onchange = applyFilter;
-});
+  el.onchange = (e) => {
+  applyFilter(e);
+  renderPoSlot();
+};
 
 /* tombol Terapkan tidak dipakai lagi (boleh dibiarkan ada tapi tidak aktif) */
 if (btnApply) btnApply.onclick = null;
