@@ -491,11 +491,10 @@ html, body {
     color: #92400e;
   }
 
-  /* KRITIS */
-  .product-meta .stok-kritis ~ .product-stock{
-    background: #fde2e2;
-    color: #991b1b;
-  }
+  .stok-kritis ~ .product-stock{
+  background: #fff1d6;   /* kuning-oranye lembut */
+  color: #8a4b00;
+}
 
   /* HABIS */
   .product-meta .stok-habis ~ .product-stock{
