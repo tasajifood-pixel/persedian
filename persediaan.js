@@ -43,7 +43,7 @@ let currentPeriod = "365d";
 // HELPERS
 // =====================
 function norm(v){
-  return (v || "").toString().trim().toUpperCase();
+  return (v || "").toString().trim().toLowerCase();
 }
 
 function getCheckedValues(selector){
@@ -51,40 +51,39 @@ function getCheckedValues(selector){
     .map(el => el.value);
 }
 
-
 // =====================
 // LABEL & BADGE
 // =====================
 function stokLabel(s){
-  if (s === "HABIS") return "Habis";
-  if (s === "KRITIS") return "Kritis";
-  if (s === "MENIPIS") return "Menipis";
-  if (s === "AMAN_DATA_BARU") return "Aman (Data Baru)";
+  if (s === "habis") return "Habis";
+  if (s === "kritis") return "Kritis";
+  if (s === "menipis") return "Menipis";
+  if (s === "aman_data_baru") return "Aman (Data Baru)";
   return "Aman";
 }
 
 function stokClass(s){
-  if (s === "HABIS") return "stok-habis";
-  if (s === "KRITIS") return "stok-kritis";
-  if (s === "MENIPIS") return "stok-menipis";
-  if (s === "AMAN_DATA_BARU") return "stok-aman_data_baru";
+  if (s === "habis") return "stok-habis";
+  if (s === "kritis") return "stok-kritis";
+  if (s === "menipis") return "stok-menipis";
+  if (s === "aman_data_baru") return "stok-aman_data_baru";
   return "stok-aman";
 }
 
 function poLabel(s){
-  if (s === "PO_DARURAT") return "PO Darurat";
-  if (s === "PO_SEGERA") return "PO Segera";
-  if (s === "PO_SIAGA") return "PO Siaga";
-  if (s === "TAHAN_PO") return "Tahan PO";
+  if (s === "po_darurat") return "PO Darurat";
+  if (s === "po_segera")  return "PO Segera";
+  if (s === "po_siaga")   return "PO Siaga";
+  if (s === "tahan_po")   return "Tahan PO";
   return "Tidak PO";
 }
 
 function poClass(s){
-  if (s === "PO_DARURAT") return "po po_darurat";
-  if (s === "PO_SEGERA") return "po po_segera";
-  if (s === "PO_SIAGA") return "po po_siaga";
-  if (s === "TAHAN_PO") return "po tahan_po";
-  return "po tidak_po";
+  if (s === "po_darurat") return "po_darurat";
+  if (s === "po_segera")  return "po_segera";
+  if (s === "po_siaga")   return "po_siaga";
+  if (s === "tahan_po")   return "tahan_po";
+  return "tidak_po";
 }
 
 // =====================
@@ -98,31 +97,23 @@ async function loadBestSeller(){
     .from("mv_best_seller_ui")
     .select("pcs_item_code, rank_no")
     .eq("period_key", currentPeriod)
-    .lte("rank_no", 100); // ⬅️ BATASI
+    .lte("rank_no", 100);
 
   if (error){
     console.error("BEST SELLER LOAD ERROR:", error);
     return;
   }
 
-  console.log(
-    "best seller rows:",
-    (data || []).length,
-    "period:",
-    currentPeriod
-  );
-
   (data || []).forEach(r=>{
     bestRank[norm(r.pcs_item_code)] = Number(r.rank_no);
   });
 }
 
-
 // =====================
-// LOAD INVENTORY (VIEW)
-/// =====================
+// LOAD INVENTORY
+// =====================
 async function loadInventory(){
-  bodyEl.innerHTML = `<tr><td colspan="4">Memuat data...</td></tr>`;
+  bodyEl.innerHTML = `Memuat data...`;
 
   const { data, error } = await sb
     .schema("decision")
@@ -140,20 +131,20 @@ async function loadInventory(){
     `);
 
   if (error){
-    bodyEl.innerHTML = `<tr><td colspan="4">Gagal memuat data</td></tr>`;
+    bodyEl.innerHTML = `Gagal memuat data`;
     return;
   }
 
   allData = (data || []).map(p=>({
-    item_code: p.item_code,
-    item_name: p.item_name,
-    thumbnail: p.thumbnail,
-    qty: Number(p.stok_tersedia || 0),
-    status_stok: norm(p.status_stok),
-    status_po: norm(p.status_po),
-    alasan: p.alasan_keputusan,
-    hari: p.hari_cakupan_stok,
-    keyakinan: p.tingkat_keyakinan
+    item_code   : p.item_code,
+    item_name   : p.item_name,
+    thumbnail   : p.thumbnail,
+    qty         : Number(p.stok_tersedia || 0),
+    status_stok : norm(p.status_stok),
+    status_po   : norm(p.status_po).replace(/\s+/g, "_"),
+    alasan      : p.alasan_keputusan,
+    hari        : p.hari_cakupan_stok,
+    keyakinan   : p.tingkat_keyakinan
   }));
 
   if (currentSort === "best"){
@@ -169,17 +160,13 @@ async function loadInventory(){
 function applyFilter(){
   const q = (searchEl.value || "").toLowerCase();
 
-  const stokFilters = getCheckedValues(".chk-stok");
+  const stokFilters = getCheckedValues(".chk-stok").map(v=>v.toLowerCase());
   const poFilters   = getCheckedValues(".chk-po");
 
   let temp = allData.filter(p=>{
     if (q && !(p.item_name.toLowerCase().includes(q) || p.item_code.toLowerCase().includes(q))) return false;
     if (stokFilters.length && !stokFilters.includes(p.status_stok)) return false;
-    const poNorm = p.status_po
-  ?.toUpperCase()
-  .replace(/\s+/g, "_");
-
-if (poFilters.length && !poFilters.includes(poNorm)) return false;
+    if (poFilters.length && !poFilters.includes(p.status_po)) return false;
     return true;
   });
 
@@ -206,11 +193,10 @@ if (poFilters.length && !poFilters.includes(poNorm)) return false;
 
   page = 1;
   render();
-  
 }
 
 // =====================
-// RENDER (REVISED)
+// RENDER
 // =====================
 function render(){
   const totalPage = Math.max(1, Math.ceil(filtered.length / pageSize));
@@ -218,41 +204,27 @@ function render(){
 
   const rows = filtered.slice((page-1)*pageSize, page*pageSize);
 
-  bodyEl.innerHTML = rows.map(p=>{
-    return `
-      <div class="inventory-row">
-
-        <!-- FOTO / MEDIA (ANCHOR TINGGI) -->
-        <div class="product-media">
-          <div class="product-thumb">
-            ${p.thumbnail ? `<img src="${p.thumbnail}">` : ""}
-          </div>
+  bodyEl.innerHTML = rows.map(p=>`
+    <div class="inventory-row">
+      <div class="product-media">
+        <div class="product-thumb">
+          ${p.thumbnail ? `<img src="${p.thumbnail}">` : ""}
         </div>
-
-        <!-- INFO PRODUK -->
-        <div class="product-info">
-          <div class="product-name">${p.item_name}</div>
-          <div class="product-sku">${p.item_code}</div>
-
-          <div class="product-meta">
-            <span class="badge ${stokClass(p.status_stok)}">
-              ${stokLabel(p.status_stok)}
-            </span>
-
-            <span class="badge ${poClass(p.status_po)}">
-              ${poLabel(p.status_po)}
-            </span>
-          </div>
-        </div>
-
-        <!-- STOK (PALING KANAN) -->
-        <div class="product-stock grid-stock">
-          ${p.qty}
-        </div>
-
       </div>
-    `;
-  }).join("");
+
+      <div class="product-info">
+        <div class="product-name">${p.item_name}</div>
+        <div class="product-sku">${p.item_code}</div>
+
+        <div class="product-meta">
+          <span class="badge ${stokClass(p.status_stok)}">${stokLabel(p.status_stok)}</span>
+          <span class="badge ${poClass(p.status_po)}">${poLabel(p.status_po)}</span>
+        </div>
+      </div>
+
+      <div class="product-stock grid-stock">${p.qty}</div>
+    </div>
+  `).join("");
 
   renderPagination(totalPage);
 }
@@ -269,6 +241,10 @@ function renderPagination(total){
   html += `<button class="page-btn" data-p="${page+1}" ${page===total?"disabled":""}>›</button>`;
   paginationEl.innerHTML = html;
 }
+
+// =====================
+// PO SLOT
+// =====================
 function renderPoSlot(){
   const slot = document.getElementById("invPoSlot");
   if (!slot) return;
@@ -276,27 +252,26 @@ function renderPoSlot(){
   const poChecks = document.querySelectorAll(".chk-po");
   slot.innerHTML = "";
 
-  poChecks.forEach(chk => {
+  poChecks.forEach(chk=>{
     const label = chk.closest(".check-row");
     if (!label) return;
 
-    const text = label.querySelector("span")?.textContent || chk.value;
-
     const badge = document.createElement("span");
     badge.className = `badge ${poClass(chk.value)}`;
-    badge.textContent = text;
-
-    badge.addEventListener("click", () => {
-      chk.checked = !chk.checked;
-      chk.dispatchEvent(new Event("change"));
-      badge.classList.toggle("active", chk.checked);
-    });
+    badge.textContent = label.querySelector("span")?.textContent || chk.value;
 
     if (chk.checked) badge.classList.add("active");
+
+    badge.onclick = ()=>{
+      chk.checked = !chk.checked;
+      applyFilter();
+      renderPoSlot();
+    };
 
     slot.appendChild(badge);
   });
 }
+
 // =====================
 // EVENTS
 // =====================
@@ -327,19 +302,27 @@ document.addEventListener("click", async e=>{
   }
 });
 
-pageSizeEl.onchange = ()=>{ pageSize = Number(pageSizeEl.value); page=1; render(); };
+pageSizeEl.onchange = ()=>{
+  pageSize = Number(pageSizeEl.value);
+  page = 1;
+  render();
+};
+
 searchEl.oninput = applyFilter;
 
-/* STEP 3 – AUTO APPLY untuk checkbox filter */
 document.querySelectorAll(".chk-stok, .chk-po").forEach(el=>{
-  el.onchange = applyFilter;
+  el.onchange = ()=>{
+    applyFilter();
+    renderPoSlot();
+  };
 });
 
-/* tombol Terapkan tidak dipakai lagi (boleh dibiarkan ada tapi tidak aktif) */
 if (btnApply) btnApply.onclick = null;
-
 
 // =====================
 // INIT
 // =====================
-document.addEventListener("DOMContentLoaded", loadInventory);
+document.addEventListener("DOMContentLoaded", async ()=>{
+  await loadInventory();
+  renderPoSlot();
+});
