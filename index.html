@@ -38,11 +38,12 @@
     <div class="filter-group">
       <div class="filter-title">Status PO</div>
 
-      <label class="check-row"><span>PO Darurat</span><input type="checkbox" class="chk-po" value="PO_DARURAT"></label>
-      <label class="check-row"><span>PO Segera</span><input type="checkbox" class="chk-po" value="PO_SEGERA"></label>
-      <label class="check-row"><span>PO Siaga</span><input type="checkbox" class="chk-po" value="PO_SIAGA"></label>
-      <label class="check-row"><span>Tahan PO</span><input type="checkbox" class="chk-po" value="TAHAN_PO"></label>
-      <label class="check-row"><span>Tidak PO</span><input type="checkbox" class="chk-po" value="TIDAK_PO"></label>
+      <!-- ⬇⬇⬇ SUDAH DINORMALISASI ⬇⬇⬇ -->
+      <label class="check-row"><span>PO Darurat</span><input type="checkbox" class="chk-po" value="po_darurat"></label>
+      <label class="check-row"><span>PO Segera</span><input type="checkbox" class="chk-po" value="po_segera"></label>
+      <label class="check-row"><span>PO Siaga</span><input type="checkbox" class="chk-po" value="po_siaga"></label>
+      <label class="check-row"><span>Tahan PO</span><input type="checkbox" class="chk-po" value="tahan_po"></label>
+      <label class="check-row"><span>Tidak PO</span><input type="checkbox" class="chk-po" value="tidak_po"></label>
     </div>
 
     <button id="btnApply" class="btn-apply">Terapkan</button>
@@ -51,15 +52,17 @@
   <!-- CONTENT -->
   <section class="inventory-content">
 
-    <!-- SORT -->
+    <!-- SORT BAR -->
     <div class="inv-sortbar" id="invSortBar">
       <div class="inv-sort-main">
         <button class="inv-sort-btn active" data-sort="best">🔥 Terlaris</button>
         <button class="inv-sort-btn" data-sort="az">A–Z</button>
         <button class="inv-sort-btn" data-sort="stockdesc">Stok Terbanyak</button>
       </div>
- <!-- SLOT STATUS PO (BARU) -->
-  <div class="inv-po-slot" id="invPoSlot"></div>
+
+      <!-- SLOT STATUS PO -->
+      <div class="inv-po-slot" id="invPoSlot"></div>
+
       <div class="inv-sort-period" id="invBestPeriodBox">
         <span class="inv-period-label">Periode:</span>
         <button class="inv-period-btn" data-period="7d">7 Hari</button>
@@ -83,7 +86,7 @@
         <!-- BODY -->
         <div id="inventoryBody" class="inventory-grid-body">
           <!--
-            JS akan inject item seperti ini:
+            JS inject contoh:
 
             <div class="inventory-row">
               <div class="product-thumb">
@@ -123,5 +126,6 @@
 
   </section>
 </div>
+
 </body>
 </html>
