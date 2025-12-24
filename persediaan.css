@@ -282,10 +282,10 @@ html, body {
   /* =====================
      FILTER (MOBILE SIMPLE)
   ===================== */
-  .inventory-filter{
+ .inventory-filter{
   width: 100%;
   border: none;
-  padding: 0 12px; /* HAPUS padding bawah & konsisten */
+  padding: 0;
 }
 
   .inventory-filter h4,
