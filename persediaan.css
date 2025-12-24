@@ -58,70 +58,77 @@ html,body{background:#fff}
   font-size:14px;
 }
 
-/* ROW CHECKBOX */
+/* ROW CHECKBOX (rapi + sejajar) */
 .check-row{
   display:grid;
-  grid-template-columns: 1fr 22px;
+  grid-template-columns: 1fr 22px; /* teks | checkbox */
   align-items:center;
   padding:6px 0;
 }
 
 .check-row span{
   font-size:14px;
+  line-height:1.4;
 }
 
 .check-row input[type="checkbox"]{
+  justify-self:end;
   width:16px;
   height:16px;
+  cursor:pointer;
 }
 
 /* =====================================================
-   CONTENT
+   CONTENT + TABLE WRAPPER
 ===================================================== */
 .inventory-content{
   flex:1;
   width:100%;
 }
 
-/* =====================================================
-   INVENTORY GRID
-===================================================== */
-.inventory-grid{
-  display:grid;
-  grid-template-columns: 1fr 90px 140px 140px;
+.table-wrapper.inventory-wrapper{
   width:100%;
 }
 
-.inventory-grid-header,
-.inventory-grid-body .inventory-row{
-  display:grid;
-  grid-template-columns: 1fr 90px 140px 140px;
-  align-items:center;
+.inventory-wrapper{
+  border:1px solid #eef2f7;
+  border-radius:12px;
+  overflow:hidden;
 }
 
-.inventory-grid-header{
-  padding:14px 16px;
+/* TABLE */
+.inventory-table{
+  width:100%;
+  border-collapse:collapse;
   font-size:13px;
-  font-weight:700;
-  border-bottom:1px solid #eef2f7;
+  table-layout: fixed; /* PENTING: supaya width kolom bener-bener presisi */
 }
 
-.inventory-grid-body .inventory-row{
+.inventory-table thead th{
+  padding:14px 16px;
+  border-bottom:1px solid #eef2f7;
+  font-weight:700;
+  color:#334155;
+  text-align:left;
+  vertical-align:middle;
+}
+
+.inventory-table tbody td{
   padding:14px 16px;
   border-bottom:1px solid #f3f4f6;
+  vertical-align:middle;
 }
 
-.inventory-grid-body .inventory-row:hover{
-  background:#f9fafb;
-}
+.inventory-table tbody tr:hover{background:#f9fafb}
 
 /* =====================================================
-   PRODUCT CELL
+   PRODUK CELL
 ===================================================== */
 .product-cell{
   display:flex;
   gap:12px;
   align-items:center;
+  min-width:0;
 }
 
 .product-thumb{
@@ -130,6 +137,7 @@ html,body{background:#fff}
   border-radius:10px;
   border:1px solid #eef2f7;
   overflow:hidden;
+  flex:0 0 auto;
 }
 
 .product-thumb img{
@@ -141,42 +149,125 @@ html,body{background:#fff}
 .product-name{
   font-size:13px;
   font-weight:700;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
 .product-sku{
-  font-size:11px;
+  font-size:11.5px;
   color:#64748b;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
 /* =====================================================
-   STOCK + STATUS
+   KOLOM STOCK & STATUS (KUNCI ALIGNMENT)
 ===================================================== */
-.grid-stock{
-  text-align:center;
+/* Stok */
+th.th-stock,
+td.td-stock{
+  width:90px;
+  min-width:90px;
+  max-width:90px;
+  text-align:right;
   font-weight:700;
+  font-variant-numeric:tabular-nums; /* angka sejajar */
 }
 
+.td-stock.negative{color:#dc2626}
+
+/* Status kolom */
+th.th-status,
+td.td-status-stok,
+td.td-status-po{
+  width:140px;
+  min-width:140px;
+  max-width:140px;
+  text-align:center;
+  vertical-align:middle;
+}
+
+/* =====================================================
+   BADGE
+===================================================== */
 .badge{
   display:inline-flex;
+  align-items:center;
   justify-content:center;
   min-width:90px;
   padding:6px 10px;
   border-radius:999px;
-  font-size:12px;
+  font-size:13px;
   font-weight:700;
-  margin:auto;
+  letter-spacing:.2px;
+  margin:0 auto; /* center */
 }
 
+/* ===== Status STOK ===== */
 .badge.stok-aman{background:#e7f9ef;color:#166534}
+.badge.stok-aman_data_baru{background:#e0f2fe;color:#075985}
 .badge.stok-menipis{background:#fff4d6;color:#92400e}
-.badge.stok-kritis{background:#ffedd5;color:#c2410c}
+.badge.stok-kritis{
+  background:#ffedd5;   /* merah muda */
+  color:#c2410c;        /* merah tua */
+}
+
 .badge.stok-habis{background:#fde8e8;color:#991b1b}
+
+/* ===== Status PO ===== */
+.badge.po{
+  min-width:90px;
+  padding:6px 10px;
+  font-size:13px;
+  font-weight:800;
+}
 
 .badge.po_darurat{background:#991b1b;color:#fff}
 .badge.po_segera{background:#ea580c;color:#fff}
-.badge.po_siaga{background:#f59e0b;color:#111}
-.badge.tidak_po{background:#e5e7eb;color:#111}
+.badge.po_siaga{background:#f59e0b;color:#111827}
+.badge.tidak_po{background:#e5e7eb;color:#111827}
 .badge.tahan_po{background:#0f172a;color:#fff}
+
+/* stack badge kalau suatu saat dipakai */
+.badge-stack{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+
+/* =====================================================
+   PAGINATION
+===================================================== */
+.pagination-bar{
+  display:flex;
+  justify-content:space-between;
+  padding:14px 16px;
+  border-top:1px solid #eef2f7;
+}
+
+.page-nav{display:flex;gap:6px}
+
+.page-btn{
+  min-width:34px;
+  height:34px;
+  border-radius:10px;
+  border:1px solid #e5e7eb;
+  background:#fff;
+  font-size:13px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.page-btn.active{
+  background:#2563eb;
+  color:#fff;
+  border-color:#2563eb;
+}
+
+.page-ellipsis{padding:0 6px;color:#94a3b8}
 
 /* =====================================================
    SORT BAR
@@ -189,87 +280,370 @@ html,body{background:#fff}
   margin-bottom:12px;
   border:1px solid #eef2f7;
   border-radius:12px;
+  background:#fff;
+}
+
+.inv-sort-main{display:flex;gap:6px}
+
+.inv-sort-btn{
+  padding:7px 12px;
+  border-radius:999px;
+  border:1px solid #e5e7eb;
+  background:#fff;
+  font-size:13px;
+  font-weight:700;
+  cursor:pointer;
+  color:#334155;
+}
+
+.inv-sort-btn:hover{background:#f8fafc}
+
+.inv-sort-btn.active{
+  background:#2563eb;
+  color:#fff;
+  border-color:#2563eb;
+}
+
+.inv-sort-period{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+.inv-period-label{
+  font-size:12px;
+  font-weight:700;
+  color:#64748b;
+  margin-right:4px;
+}
+
+.inv-period-btn{
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid #e5e7eb;
+  background:#fff;
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+  color:#334155;
+}
+
+.inv-period-btn:hover{background:#f1f5f9}
+
+.inv-period-btn.active{
+  background:#0f172a;
+  color:#fff;
+  border-color:#0f172a;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px){
+  .inv-sortbar{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:8px;
+  }
+}
+/* KUNCI KOLOM PRODUK */
+/* KUNCI KOLOM PRODUK */
+th.th-product,
+td.td-product{
+  width: calc(100% - 370px); /* 90 + 140 + 140 */
+}
+
+.td-product{
+  overflow: hidden;
+}
+
+.product-cell{
+  min-width: 0;
+}
+
+.inventory-table thead th,
+.inventory-table tbody td {
+  box-sizing: border-box;
+}
+th.th-stock,
+th.th-status {
+  text-align: center;
+}
+/* =====================================================
+   INVENTORY GRID (TABLE REPLACEMENT)
+===================================================== */
+
+.inventory-grid {
+  display: grid;
+  grid-template-columns:
+    1fr
+    90px
+    140px
+    140px;
+  align-items: center;
+  column-gap: 0;
+
+  padding: 0 16px;   /* ✅ SATU-SATUNYA padding horizontal */
+}
+
+
+/* FIX: body harus melebar mengikuti 4 kolom header */
+.inventory-grid-body{
+  grid-column: 1 / -1;  /* span semua kolom grid */
+}
+
+.inventory-grid-body .inventory-row {
+  display: grid;
+  grid-template-columns:
+    1fr
+    90px
+    140px
+    140px;
+  align-items: center;
+  padding: 14px 0;   /* ⛔ HILANGKAN kiri-kanan */
+  border-bottom: 1px solid #f3f4f6;
+}
+
+
+.inventory-grid-body .inventory-row:hover {
+  background: #f9fafb;
+}
+
+/* ALIGNMENT */
+.col-stock,
+.col-status-stok,
+.col-status-po {
+  text-align: center;
+}
+
+/* STOCK NUMBER */
+.grid-stock {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* BADGE CENTER */
+.grid-status .badge {
+  margin: 0 auto;
+}
+/* =====================================================
+   STEP 1 – RAPKAN TABEL KANAN
+===================================================== */
+
+.inventory-grid-header {
+  padding: 14px 0;              /* ⛔ TIDAK ADA padding kiri-kanan */
+  font-size: 13px;
+  font-weight: 600;
+  color: #475569;
+  border-bottom: 1px solid #eef2f7;
+  text-align: center;
+}
+/* KHUSUS HEADER PRODUK */
+.inventory-grid-header.col-product {
+  text-align: left;     /* sejajar dengan nama produk */
+  padding-left: 16px;   /* sama dengan isi produk */
+}
+
+
+/* ANGKA STOK */
+.grid-stock {
+  font-size: 14px;      /* sebelumnya terlalu besar */
+  font-weight: 600;
+  color: #111827;
+}
+
+/* BADGE STATUS STOK (sedikit lebih kalem) */
+.col-status-stok .badge {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+}
+
+/* BADGE STATUS PO – SAMAKAN BENTUK */
+.col-status-po .badge {
+  font-size: 12px;       /* lebih kecil dari stok */
+  font-weight: 600;
+  min-width: 92px;       /* KUNCI LEBAR */
+  padding: 6px 10px;
+  text-align: center;
+}
+/* =====================================================
+   FIX UTAMA: SAMAKAN GRID HEADER & BODY
+===================================================== */
+.inventory-grid-body {
+  grid-column: 1 / -1;   /* body span seluruh kolom header */
 }
 
 /* =====================================================
-   MOBILE MODE
+   STEP 2 – FILTER KIRI JADI BLOB / PILL
 ===================================================== */
-@media (max-width:768px){
 
-  /* layout */
-  .inventory-layout{
-    flex-direction:column;
-    gap:12px;
-  }
-
-  .inventory-filter{
-    width:100%;
-    padding:12px;
-  }
-
-  /* grid jadi 2 kolom */
-  .inventory-grid,
-  .inventory-grid-header,
-  .inventory-grid-body .inventory-row{
-    grid-template-columns: 1fr 70px;
-  }
-
-  /* sembunyikan status */
-  .col-status-stok,
-  .col-status-po{
-    display:none;
-  }
-
-  /* produk stack */
-  .product-cell{
-    flex-direction:column;
-    align-items:flex-start;
-    gap:4px;
-  }
-
-  .badge{
-    margin:0;
-    font-size:11px;
-    min-width:auto;
-  }
-
-  .grid-stock{
-    font-size:13px;
-  }
+/* Sembunyikan checkbox asli */
+.check-row input[type="checkbox"] {
+  display: none;
 }
-@media (max-width: 768px){
-  .inventory-filter{
-    display: none;
-  }
-}
-@media (max-width: 768px){
-  .inventory-grid-header{
-    display: none;
-  }
-}
-@media (max-width: 768px){
-  .inventory-grid-body .inventory-row{
-    padding: 10px 12px;
-  }
-}
-@media (max-width: 768px){
-  .product-cell{
-    gap: 6px;
-  }
 
-  .product-name{
-    font-size: 13px;
-    line-height: 1.3;
-  }
-
-  .product-sku{
-    font-size: 11px;
-  }
+/* Bentuk dasar pill */
+.check-row {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  margin: 4px 0;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background: #f8fafc;
+  cursor: pointer;
+  transition: all 0.15s ease;
 }
-@media (max-width: 768px){
-  .badge{
-    font-size: 11px;
-    padding: 5px 8px;
-    min-width: auto;
-  }
+
+/* Teks di tengah */
+.check-row span {
+  font-size: 13px;
+  font-weight: 600;
+  color: #475569;
+}
+
+/* Hover */
+.check-row:hover {
+  background: #f1f5f9;
+}
+/* =====================================================
+   STATUS PO – FILTER KIRI (TEKS DISERAGAMKAN)
+===================================================== */
+
+/* PO Darurat */
+.check-row:has(.chk-po[value="PO_DARURAT"]:checked) {
+  background: #991b1b;
+  color: #ffffff; /* PUTIH */
+  border-color: #991b1b;
+}
+
+/* PO Segera */
+.check-row:has(.chk-po[value="PO_SEGERA"]:checked) {
+  background: #ea580c;
+  color: #ffffff; /* PUTIH */
+  border-color: #ea580c;
+}
+
+/* PO Siaga */
+.check-row:has(.chk-po[value="PO_SIAGA"]:checked) {
+  background: #f59e0b;
+  color: #ffffff; /* PUTIH */
+  border-color: #f59e0b;
+}
+
+/* Tahan PO */
+.check-row:has(.chk-po[value="TAHAN_PO"]:checked) {
+  background: #0f172a;
+  color: #ffffff; /* PUTIH */
+  border-color: #0f172a;
+}
+
+/* Tidak PO – NETRAL (TETAP) */
+.check-row:has(.chk-po[value="TIDAK_PO"]:checked) {
+  background: #e5e7eb;
+  color: #111827; /* HITAM */
+  border-color: #e5e7eb;
+}
+/* =====================================================
+   FIX – PAKSA WARNA TEKS PILL SAAT AKTIF
+===================================================== */
+
+/* Semua status PO aktif → teks ikut warna parent */
+.check-row:has(.chk-po:checked) span {
+  color: inherit;
+}
+
+
+
+/* STEP 3 – tombol Terapkan tidak dipakai */
+#btnApply { display: none; }
+/* =====================================================
+   RESET FILTER
+===================================================== */
+.filter-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.filter-reset {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: #2563eb;
+  cursor: pointer;
+}
+
+.filter-reset:hover {
+  text-decoration: underline;
+}
+/* =====================================================
+   FIX ALIGN KOLOM KANAN (PAKSA KE KANAN)
+===================================================== */
+
+.inventory-grid {
+  width: 100%;
+}
+
+/* Header grid */
+.inventory-grid-header.col-stock,
+.inventory-grid-header.col-status-stok,
+.inventory-grid-header.col-status-po {
+  justify-self: center;
+  text-align: center;
+}
+
+
+/* Body grid */
+.col-stock,
+.col-status-stok,
+.col-status-po {
+  justify-self: center;
+  text-align: center;
+}
+
+/* =====================================================
+   STATUS STOK – FILTER KIRI (AKTIF + TEKS)
+===================================================== */
+
+/* Habis */
+.check-row:has(.chk-stok[value="HABIS"]:checked) {
+  background:#fde8e8;
+  border-color:#991b1b;
+}
+.check-row:has(.chk-stok[value="HABIS"]:checked) span {
+  color:#991b1b;
+}
+
+/* Kritis */
+/* KRITIS = ORANYE TUA (BEDA DARI HABIS) */
+.check-row:has(.chk-stok[value="KRITIS"]:checked) {
+  background:#ffedd5;    /* oranye lembut */
+  border-color:#c2410c;  /* oranye tua */
+}
+.check-row:has(.chk-stok[value="KRITIS"]:checked) span {
+  color:#c2410c;
+}
+
+
+
+/* Menipis */
+.check-row:has(.chk-stok[value="MENIPIS"]:checked) {
+  background:#fff4d6;
+  border-color:#92400e;
+}
+.check-row:has(.chk-stok[value="MENIPIS"]:checked) span {
+  color:#92400e;
+}
+
+/* Aman */
+.check-row:has(.chk-stok[value="AMAN"]:checked) {
+  background:#e7f9ef;
+  border-color:#166534;
+}
+.check-row:has(.chk-stok[value="AMAN"]:checked) span {
+  color:#166534;
 }
