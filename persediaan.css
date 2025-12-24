@@ -344,7 +344,7 @@ td.td-status-po{
     gap:8px;
   }
 }
-/* KUNCI KOLOM PRODUK */
+
 /* KUNCI KOLOM PRODUK */
 th.th-product,
 td.td-product{
@@ -367,6 +367,7 @@ th.th-stock,
 th.th-status {
   text-align: center;
 }
+
 /* =====================================================
    INVENTORY GRID (TABLE REPLACEMENT)
 ===================================================== */
@@ -380,10 +381,8 @@ th.th-status {
     140px;
   align-items: center;
   column-gap: 0;
-
   padding: 0 16px;   /* ✅ SATU-SATUNYA padding horizontal */
 }
-
 
 /* FIX: body harus melebar mengikuti 4 kolom header */
 .inventory-grid-body{
@@ -401,7 +400,6 @@ th.th-status {
   padding: 14px 0;   /* ⛔ HILANGKAN kiri-kanan */
   border-bottom: 1px solid #f3f4f6;
 }
-
 
 .inventory-grid-body .inventory-row:hover {
   background: #f9fafb;
@@ -424,6 +422,7 @@ th.th-status {
 .grid-status .badge {
   margin: 0 auto;
 }
+
 /* =====================================================
    STEP 1 – RAPKAN TABEL KANAN
 ===================================================== */
@@ -436,12 +435,12 @@ th.th-status {
   border-bottom: 1px solid #eef2f7;
   text-align: center;
 }
+
 /* KHUSUS HEADER PRODUK */
 .inventory-grid-header.col-product {
   text-align: left;     /* sejajar dengan nama produk */
   padding-left: 16px;   /* sama dengan isi produk */
 }
-
 
 /* ANGKA STOK */
 .grid-stock {
@@ -465,6 +464,7 @@ th.th-status {
   padding: 6px 10px;
   text-align: center;
 }
+
 /* =====================================================
    FIX UTAMA: SAMAKAN GRID HEADER & BODY
 ===================================================== */
@@ -506,6 +506,7 @@ th.th-status {
 .check-row:hover {
   background: #f1f5f9;
 }
+
 /* =====================================================
    STATUS PO – FILTER KIRI (TEKS DISERAGAMKAN)
 ===================================================== */
@@ -544,6 +545,7 @@ th.th-status {
   color: #111827; /* HITAM */
   border-color: #e5e7eb;
 }
+
 /* =====================================================
    FIX – PAKSA WARNA TEKS PILL SAAT AKTIF
 ===================================================== */
@@ -553,10 +555,9 @@ th.th-status {
   color: inherit;
 }
 
-
-
 /* STEP 3 – tombol Terapkan tidak dipakai */
 #btnApply { display: none; }
+
 /* =====================================================
    RESET FILTER
 ===================================================== */
@@ -580,6 +581,7 @@ th.th-status {
 .filter-reset:hover {
   text-decoration: underline;
 }
+
 /* =====================================================
    FIX ALIGN KOLOM KANAN (PAKSA KE KANAN)
 ===================================================== */
@@ -595,7 +597,6 @@ th.th-status {
   justify-self: center;
   text-align: center;
 }
-
 
 /* Body grid */
 .col-stock,
@@ -619,7 +620,6 @@ th.th-status {
 }
 
 /* Kritis */
-/* KRITIS = ORANYE TUA (BEDA DARI HABIS) */
 .check-row:has(.chk-stok[value="KRITIS"]:checked) {
   background:#ffedd5;    /* oranye lembut */
   border-color:#c2410c;  /* oranye tua */
@@ -627,8 +627,6 @@ th.th-status {
 .check-row:has(.chk-stok[value="KRITIS"]:checked) span {
   color:#c2410c;
 }
-
-
 
 /* Menipis */
 .check-row:has(.chk-stok[value="MENIPIS"]:checked) {
@@ -649,19 +647,27 @@ th.th-status {
 }
 
 /* =====================================================
-   MOBILE OPTIMIZE (≤768px) – fokus keterbacaan & tanpa scroll
+   MOBILE FINAL (≤768px) – FILTER DI ATAS, HEADER HILANG,
+   STATUS + STOK PINDAH KE BAWAH PRODUK (TANPA LABEL)
 ===================================================== */
 @media (max-width: 768px){
-  /* Layout */
+
+  /* 1) Layout: filter pindah ke atas */
   .inventory-layout{
     flex-direction:column;
     gap:12px;
   }
 
-  .inventory-filter{display:none;}
+  /* FILTER TETAP TAMPIL (kesepakatan) */
+  .inventory-filter{
+    width:100%;
+    padding:12px;
+    border-radius:12px;
+  }
 
   .inventory-content{width:100%;}
 
+  /* Sortbar rapat */
   .inv-sortbar{
     flex-direction:column;
     align-items:flex-start;
@@ -669,18 +675,17 @@ th.th-status {
     padding:10px 12px;
   }
 
-  /* Grid to single-column list */
+  /* 2) Header kolom hilang */
+  .inventory-grid-header{display:none;}
+
+  /* 3) Grid jadi list (stack) */
   .inventory-grid{
     display:block;
     padding:0 12px;
   }
 
-  .inventory-grid-header{display:none;}
-
   .inventory-grid-body .inventory-row{
-    display:flex;
-    flex-direction:column;
-    gap:10px;
+    display:block;               /* biar gampang stack isi */
     padding:12px 0;
     border-bottom:1px solid #eef2f7;
   }
@@ -689,9 +694,10 @@ th.th-status {
     border-bottom:none;
   }
 
-  /* Product block */
+  /* 4) Produk baris atas */
   .product-cell{
     gap:10px;
+    align-items:center;
   }
 
   .product-thumb{
@@ -702,41 +708,39 @@ th.th-status {
   .product-name{font-size:13px;}
   .product-sku{font-size:11px;}
 
-  /* Info rows */
-  .inventory-grid-body .inventory-row > div{
-    width:100%;
-  }
-
-  .col-stock,
+  /* 5) BLOK INFO DI BAWAH PRODUK: badge + stok (kesepakatan) */
   .col-status-stok,
-  .col-status-po{
-    display:flex;
+  .col-status-po,
+  .col-stock{
+    display:inline-flex;
     align-items:center;
     gap:8px;
+    margin-top:8px;
+    margin-right:8px;
     justify-content:flex-start;
     text-align:left;
   }
 
-  .col-stock::before,
-  .col-status-stok::before,
-  .col-status-po::before{
-    flex:0 0 90px;
-    font-size:12px;
-    font-weight:700;
-    color:#64748b;
+  /* hilangkan perataan center desktop */
+  .col-stock,
+  .col-status-stok,
+  .col-status-po{
+    justify-self:unset;
   }
 
-  .col-stock::before{content:"Stok";}
-  .col-status-stok::before{content:"Status Stok";}
-  .col-status-po::before{content:"Status PO";}
+  /* stok jadi teks normal di samping badge, tapi tetap tegas */
+  .grid-stock{
+    font-size:13px;
+    font-weight:800;
+    color:#111827;
+  }
 
-  .grid-stock{font-size:13px;}
-
-  /* Badge handling */
+  /* badge lebih compact */
   .inventory-grid-body .badge{
     min-width:0;
-    padding:6px 12px;
+    padding:6px 10px;
     font-size:12px;
     font-weight:700;
+    margin:0; /* jangan auto-center */
   }
 }
