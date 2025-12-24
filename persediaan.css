@@ -571,3 +571,30 @@ html, body {
   }
 
 }
+/* =========================================
+   MOBILE – FINAL RIGHT EDGE ALIGN (LOCK)
+========================================= */
+@media (max-width:768px){
+
+  /* 1. SATU ACUAN LEBAR */
+  .mobile-container{
+    padding-left: 12px;
+    padding-right: 12px;
+    box-sizing: border-box;
+  }
+
+  /* 2. SEARCH & SORT JANGAN PUNYA PADDING SENDIRI */
+  .inventory-filter,
+  .inv-sortbar{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    width: 100%;
+  }
+
+  /* 3. SEARCH CARD FULL */
+  .search-card{
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+}
