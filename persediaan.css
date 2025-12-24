@@ -482,3 +482,32 @@ html, body {
   }
 
 }
+/* ===============================
+   MOBILE – STOCK AS BADGE
+=============================== */
+@media (max-width:768px){
+
+  /* baris meta: semua sejajar */
+  .product-meta{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  /* stok diperlakukan sebagai badge */
+  .product-stock{
+    margin-left: 0;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 1;
+    white-space: nowrap;
+
+    /* WARNA KHUSUS STOK */
+    background: #eef2ff;        /* biru lembut */
+    color: #1e3a8a;             /* biru gelap */
+  }
+
+}
