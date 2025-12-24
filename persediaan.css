@@ -425,3 +425,60 @@ html, body {
     opacity: 0.9;
   }
 }
+/* ===============================
+   MOBILE – ITEM ROW COMPACT FIX
+=============================== */
+@media (max-width:768px){
+
+  /* rapikan tinggi item */
+  .inventory-grid-body .inventory-row{
+    align-items: center;
+    padding: 10px 0;
+    gap: 12px;
+  }
+
+  /* foto dikunci */
+  .product-thumb{
+    width: 68px;
+    height: 68px;
+  }
+
+  /* info lebih padat */
+  .product-info{
+    flex: 1;
+    min-width: 0;
+    gap: 4px;
+  }
+
+  .product-name{
+    font-size: 14px;
+    line-height: 1.25;
+  }
+
+  .product-sku{
+    font-size: 11px;
+    margin-bottom: 2px;
+  }
+
+  /* badge ngumpul & rata */
+  .product-meta{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .product-meta .badge{
+    font-size: 11px;
+    padding: 4px 10px;
+  }
+
+  /* stok dikunci kanan, gak ngambang */
+  .product-stock{
+    min-width: 52px;
+    text-align: right;
+    font-size: 14px;
+    font-weight: 800;
+  }
+
+}
