@@ -377,6 +377,29 @@ html, body {
     overflow-x:auto;
   }
 }
+/* ================================
+   MOBILE – PO FILTER SCROLL FIX
+================================ */
+@media (max-width: 768px) {
 
+  /* container slot PO */
+  .inv-po-slot {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* bar PO */
+  .inv-po-slot > * {
+    display: inline-flex;
+    gap: 6px;
+    white-space: nowrap;
+  }
+
+  /* badge PO jangan mengecil */
+  .inv-po-slot .badge {
+    flex-shrink: 0;
+  }
+}
 
     
