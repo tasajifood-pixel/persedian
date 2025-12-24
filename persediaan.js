@@ -175,7 +175,11 @@ function applyFilter(){
   let temp = allData.filter(p=>{
     if (q && !(p.item_name.toLowerCase().includes(q) || p.item_code.toLowerCase().includes(q))) return false;
     if (stokFilters.length && !stokFilters.includes(p.status_stok)) return false;
-    if (poFilters.length && !poFilters.includes(p.status_po)) return false;
+    const poNorm = p.status_po
+  ?.toUpperCase()
+  .replace(/\s+/g, "_");
+
+if (poFilters.length && !poFilters.includes(poNorm)) return false;
     return true;
   });
 
