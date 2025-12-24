@@ -554,3 +554,20 @@ html, body {
   }
 
 }
+@media (max-width:768px){
+
+  /* KUNCI GARIS KANAN PRODUK */
+  .inventory-grid-body .inventory-row{
+    padding-right: 0;     /* jangan nambah ke kanan */
+  }
+
+  /* stok tidak boleh keluar container */
+  .product-meta{
+    max-width: 100%;
+  }
+
+  .product-meta .product-stock{
+    margin-right: 0;
+  }
+
+}
