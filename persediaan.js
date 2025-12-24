@@ -202,10 +202,11 @@ function render(){
   const totalPage = Math.max(1, Math.ceil(filtered.length / pageSize));
   if (page > totalPage) page = totalPage;
 
-  const rows = filtered.slice((page-1)*pageSize, page*pageSize);
+  const rows = filtered.slice((page - 1) * pageSize, page * pageSize);
 
-  bodyEl.innerHTML = rows.map(p=>`
+  bodyEl.innerHTML = rows.map(p => `
     <div class="inventory-row">
+
       <div class="product-media">
         <div class="product-thumb">
           ${p.thumbnail ? `<img src="${p.thumbnail}">` : ""}
@@ -216,13 +217,22 @@ function render(){
         <div class="product-name">${p.item_name}</div>
         <div class="product-sku">${p.item_code}</div>
 
+        <!-- META: STATUS STOK + STATUS PO + JUMLAH STOK -->
         <div class="product-meta">
-          <span class="badge ${stokClass(p.status_stok)}">${stokLabel(p.status_stok)}</span>
-          <span class="badge ${poClass(p.status_po)}">${poLabel(p.status_po)}</span>
+          <span class="badge ${stokClass(p.status_stok)}">
+            ${stokLabel(p.status_stok)}
+          </span>
+
+          <span class="badge ${poClass(p.status_po)}">
+            ${poLabel(p.status_po)}
+          </span>
+
+          <span class="product-stock">
+            ${p.qty}
+          </span>
         </div>
       </div>
 
-      <div class="product-stock grid-stock">${p.qty}</div>
     </div>
   `).join("");
 
