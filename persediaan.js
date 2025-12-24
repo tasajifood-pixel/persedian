@@ -239,8 +239,8 @@ function render(){
 
   </div>
 `).join("");
-
-
+  renderPagination(totalPage);
+}
 // =====================
 // PAGINATION
 // =====================
