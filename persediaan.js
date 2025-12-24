@@ -205,36 +205,34 @@ function render(){
   const rows = filtered.slice((page - 1) * pageSize, page * pageSize);
 
   bodyEl.innerHTML = rows.map(p => `
-    <div class="inventory-row">
+  <div class="inventory-row">
 
-      <div class="col-product">
-        <div class="product-thumb">
-          ${p.thumbnail ? `<img src="${p.thumbnail}">` : ""}
-        </div>
-        <div class="product-info">
-          <div class="product-name">${p.item_name}</div>
-          <div class="product-sku">${p.item_code}</div>
-        </div>
-      </div>
+    <div class="product-thumb">
+      ${p.thumbnail ? `<img src="${p.thumbnail}">` : ""}
+    </div>
 
-      <div class="col-stock">
-        ${p.qty}
-      </div>
+    <div class="product-info">
+      <div class="product-name">${p.item_name}</div>
+      <div class="product-sku">${p.item_code}</div>
 
-      <div class="col-status-stok">
+      <div class="product-meta">
         <span class="badge ${stokClass(p.status_stok)}">
           ${stokLabel(p.status_stok)}
         </span>
-      </div>
 
-      <div class="col-status-po">
         <span class="badge ${poClass(p.status_po)}">
           ${poLabel(p.status_po)}
         </span>
-      </div>
 
+        <!-- PENTING: STOCK ADALAH BADGE DI MOBILE -->
+        <span class="badge product-stock ${stokClass(p.status_stok)}">
+          ${p.qty}
+        </span>
+      </div>
     </div>
-  `).join("");
+
+  </div>
+`).join("");
 
   renderPagination(totalPage);
 }
