@@ -343,4 +343,3 @@ if (btnApply) btnApply.onclick = null;
 // INIT
 // =====================
 document.addEventListener("DOMContentLoaded", loadInventory);
-
