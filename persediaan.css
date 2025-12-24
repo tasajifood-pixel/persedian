@@ -181,27 +181,74 @@ html, body {
 }
 
 /* =====================================================
-   MOBILE FINAL (≤768px)
+   PATCH FINAL – MOBILE RIGHT PANEL LOCK
+   Foto kiri, info kanan 2 baris, stok kanan
 ===================================================== */
-@media (max-width:768px){
+@media (max-width: 768px){
 
-  /* layout */
-  .inventory-layout{
-    flex-direction:column;
+  /* Row utama: kiri foto, kanan info */
+  .inventory-grid-body .inventory-row{
+    display:flex;
+    align-items:center;
     gap:12px;
   }
 
-  /* filter collapsible default: hidden */
-  .inventory-filter{
-    display:none;
-    width:100%;
+  /* Foto kiri: penentu tinggi */
+  .product-thumb{
+    width:72px;
+    height:72px;
+    flex-shrink:0;
   }
 
-  /* header grid hilang */
-  .inventory-grid-header{
-    display:none;
+  /* Panel kanan */
+  .product-info{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:6px;
+    min-width:0;
   }
 
+  /* Nama + SKU */
+  .product-name{
+    font-size:14px;
+    font-weight:700;
+    line-height:1.2;
+  }
+
+  .product-sku{
+    font-size:11px;
+    color:#64748b;
+  }
+
+  /* Baris meta: status kiri, stok kanan */
+  .product-meta{
+    display:flex;
+    align-items:center;
+    justify-content:space-between; /* KUNCI: stok ke kanan */
+    gap:8px;
+    margin-top:2px;
+  }
+
+  /* Grup badge (kiri) */
+  .product-meta .badge{
+    margin-right:6px;
+    padding:4px 8px;
+    font-size:11px;
+    font-weight:700;
+    white-space:nowrap;
+  }
+
+  /* Stok kanan */
+  .product-stock{
+    font-size:13px;
+    font-weight:800;
+    color:#111827;
+    white-space:nowrap;
+    margin-left:auto; /* ekstra pengunci kanan */
+  }
+}
   /* grid → list */
   .inventory-grid{
     display:block;
