@@ -503,3 +503,24 @@ html, body {
   }
 
 }
+/* ===============================
+   MOBILE – SEARCH & SORT ALIGN
+=============================== */
+@media (max-width:768px){
+
+  /* search & sort harus 1 grid rasa */
+  .inventory-filter,
+  .inv-sortbar{
+    width: 100%;
+    padding-left: 12px;
+    padding-right: 12px;
+    box-sizing: border-box;
+  }
+
+  /* hapus padding horizontal bawaan sortbar */
+  .inv-sortbar{
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+}
