@@ -335,34 +335,3 @@ html, body {
   }
 
 }
-/* ===============================
-   MOBILE – FINAL META ALIGNMENT
-=============================== */
-@media (max-width:768px){
-
-  .product-meta{
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex-wrap: wrap;
-  }
-
-  .product-meta .badge{
-    font-size: 11px;
-    padding: 4px 10px;
-  }
-
-  /* stok sebagai badge khusus */
-  .product-meta .product-stock{
-    padding: 4px 12px;
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 800;
-    line-height: 1;
-    white-space: nowrap;
-
-    background: #eef2ff;
-    color: #1e3a8a;
-  }
-
-}
