@@ -267,187 +267,33 @@ html, body {
   border-top: 1px solid #eef2f7;
 }
 
-/* =====================================================
-   MOBILE (≤768px)
-===================================================== */
-@media (max-width:768px){
-
-  /* layout */
-  .inventory-layout{
-    flex-direction:column;
-    gap:12px;
-  }
-
-  /* filter */
-  .inventory-filter{
-    display:block;
-    width:100%;
-    border:none;
-    padding:0 12px 12px;
-  }
-
-  .inventory-filter h4,
-  .filter-group,
-  #btnApply{
-    display:none;
-  }
-
-  #filterSearch{
-    width:100%;
-    padding:12px 14px;
-    font-size:14px;
-    border-radius:12px;
-  }
-
-  /* hide period */
-  #invBestPeriodBox{
-    display:none;
-  }
-
-  /* grid → list */
-  .inventory-grid{
-    display:block;
-    padding:0 12px;
-  }
-
-  .inventory-grid-header{
-    display:none;
-  }
-
-  .inventory-grid-body .inventory-row{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    padding:10px 0;
-    border-bottom:1px solid #eef2f7;
-  }
-
-  /* image */
-  .product-thumb{
-    width:72px;
-    height:72px;
-    border-radius:12px;
-  }
-
-  /* right panel */
-  .product-info{
-    flex:1;
-    display:flex;
-    flex-direction:column;
-    gap:6px;
-    min-width:0;
-  }
-
-  .product-name{
-    font-size:14px;
-    line-height:1.2;
-  }
-
-  .product-sku{
-    font-size:11px;
-  }
-
-  /* meta row */
-  .product-meta{
-    display:flex;
-    justify-content:space-between;
-    gap:8px;
-  }
-
-  .product-meta .badge{
-    padding:4px 8px;
-    font-size:11px;
-  }
-
-  .product-stock{
-    font-size:13px;
-    font-weight:800;
-    margin-left:auto;
-  }
-
-}
-/* =====================================================
-   MOBILE – PO SLOT FIX
-===================================================== */
-@media (max-width: 768px){
-  .inv-po-slot{
-    width: 100%;
-    display: flex;
-    gap: 6px;
-    overflow-x: auto;
-    white-space: nowrap;
-    padding-bottom: 4px;
-  }
-
-  .inv-po-slot::-webkit-scrollbar{
-    display: none;
-  }
-
-  .inv-po-slot .badge{
-    flex-shrink: 0;
-  }
-}
 /* ===============================
-   MOBILE – SORT & PO SEPARATION
+   MOBILE – FINAL ITEM ALIGNMENT
 =============================== */
 @media (max-width:768px){
 
-  .inv-sortbar{
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
-
-  .inv-sort-main{
-    width: 100%;
-    display: flex;
-    gap: 6px;
-    overflow-x: auto;
-  }
-
-  .inv-sort-main::-webkit-scrollbar{
-    display: none;
-  }
-
-  /* PO slot jadi baris kedua */
-  .inv-po-slot{
-    width: 100%;
-    display: flex;
-    gap: 6px;
-    padding-top: 4px;
-    border-top: 1px solid #eef2f7;
-  }
-
-  /* badge PO lebih kecil & halus */
-  .inv-po-slot .badge{
-    font-size: 10.5px;
-    padding: 4px 9px;
-    opacity: 0.9;
-  }
-}
-/* ===============================
-   MOBILE – ITEM ROW COMPACT FIX
-=============================== */
-@media (max-width:768px){
-
-  /* rapikan tinggi item */
+  /* ROW jadi GRID 3 kolom */
   .inventory-grid-body .inventory-row{
+    display: grid;
+    grid-template-columns: 72px 1fr auto;
     align-items: center;
+    column-gap: 12px;
     padding: 10px 0;
-    gap: 12px;
+    border-bottom: 1px solid #eef2f7;
   }
 
-  /* foto dikunci */
+  /* FOTO */
   .product-thumb{
     width: 68px;
     height: 68px;
   }
 
-  /* info lebih padat */
+  /* INFO */
   .product-info{
-    flex: 1;
-    min-width: 0;
+    display: flex;
+    flex-direction: column;
     gap: 4px;
+    min-width: 0;
   }
 
   .product-name{
@@ -457,10 +303,9 @@ html, body {
 
   .product-sku{
     font-size: 11px;
-    margin-bottom: 2px;
   }
 
-  /* badge ngumpul & rata */
+  /* META ROW: badge + stok SEJAJAR */
   .product-meta{
     display: flex;
     align-items: center;
@@ -473,41 +318,20 @@ html, body {
     padding: 4px 10px;
   }
 
-  /* stok dikunci kanan, gak ngambang */
+  /* STOK DIPERLAKUKAN SEBAGAI BADGE */
   .product-stock{
-    min-width: 52px;
-    text-align: right;
-    font-size: 14px;
-    font-weight: 800;
-  }
+    grid-column: 3;
+    align-self: center;
 
-}
-/* ===============================
-   MOBILE – STOCK AS BADGE
-=============================== */
-@media (max-width:768px){
-
-  /* baris meta: semua sejajar */
-  .product-meta{
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex-wrap: wrap;
-  }
-
-  /* stok diperlakukan sebagai badge */
-  .product-stock{
-    margin-left: 0;
-    padding: 4px 10px;
+    padding: 4px 12px;
     border-radius: 999px;
     font-size: 12px;
     font-weight: 800;
     line-height: 1;
     white-space: nowrap;
 
-    /* WARNA KHUSUS STOK */
-    background: #eef2ff;        /* biru lembut */
-    color: #1e3a8a;             /* biru gelap */
+    background: #eef2ff;
+    color: #1e3a8a;
   }
 
 }
