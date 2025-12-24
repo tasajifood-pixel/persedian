@@ -94,6 +94,22 @@ html, body {
   border: 1px solid #eef2f7;
   border-radius: 12px;
 }
+/* =====================
+   STATUS PO SLOT (TOP)
+===================== */
+.inv-po-slot{
+  display:flex;
+  gap:6px;
+  align-items:center;
+  flex-wrap:nowrap;
+}
+
+/* badge di atas jangan kegedean */
+.inv-po-slot .badge{
+  padding:5px 10px;
+  font-size:11px;
+  cursor:pointer;
+}
 
 .inv-sort-main {
   display: flex;
@@ -354,5 +370,17 @@ html, body {
     padding:12px 14px;
     font-size:14px;
     border-radius:12px;
+  }
+}
+@media (max-width:768px){
+  .inv-sortbar{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:8px;
+  }
+
+  .inv-po-slot{
+    width:100%;
+    overflow-x:auto;
   }
 }
