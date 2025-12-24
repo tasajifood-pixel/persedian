@@ -426,4 +426,21 @@ html, body {
   }
 
 }
+/* ===============================
+   MOBILE – FORCE META INLINE
+=============================== */
+@media (max-width:768px){
+
+  /* meta HARUS satu baris penuh */
+  .product-meta{
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  /* stok jangan dorong ke kanan */
+  .product-meta .product-stock{
+    margin-left: 0;
+  }
+
+}
 
