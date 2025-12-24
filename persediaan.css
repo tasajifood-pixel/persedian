@@ -1,7 +1,7 @@
 html,body{background:#fff}
 
 /* =====================================================
-   LAYOUT
+   LAYOUT (DESKTOP TETAP)
 ===================================================== */
 .inventory-layout{
   display:flex;
@@ -9,7 +9,6 @@ html,body{background:#fff}
   align-items:flex-start;
 }
 
-/* FILTER */
 .inventory-filter{
   width:260px;
   background:#fff;
@@ -18,27 +17,24 @@ html,body{background:#fff}
   padding:16px;
 }
 
-/* =====================================================
-   CONTENT
-===================================================== */
 .inventory-content{
   flex:1;
   width:100%;
 }
 
 /* =====================================================
-   INVENTORY GRID (DESKTOP – TETAP)
+   GRID DESKTOP (AMAN)
 ===================================================== */
 .inventory-grid{
   display:grid;
-  grid-template-columns: 1fr 90px 140px 140px;
+  grid-template-columns:1fr 90px 140px 140px;
   padding:0 16px;
 }
 
 .inventory-grid-header,
 .inventory-grid-body .inventory-row{
   display:grid;
-  grid-template-columns: 1fr 90px 140px 140px;
+  grid-template-columns:1fr 90px 140px 140px;
   align-items:center;
 }
 
@@ -99,7 +95,7 @@ html,body{background:#fff}
 }
 
 /* =====================================================
-   STOCK & BADGE
+   STOCK & BADGE (DESKTOP)
 ===================================================== */
 .grid-stock{
   text-align:center;
@@ -129,25 +125,50 @@ html,body{background:#fff}
 .badge.tahan_po{background:#0f172a;color:#fff}
 
 /* =====================================================
-   MOBILE FINAL (≤768px)
+   MOBILE FINAL (≤768px) — FINAL & DIKUNCI
 ===================================================== */
 @media (max-width:768px){
 
-  /* layout */
+  /* Layout */
   .inventory-layout{
     flex-direction:column;
     gap:12px;
   }
 
+  /* FILTER → PILL */
   .inventory-filter{
     width:100%;
     padding:12px;
   }
 
-  /* header kolom HILANG */
-  .inventory-grid-header{display:none;}
+  .inventory-filter input[type="checkbox"]{
+    display:none !important;
+  }
 
-  /* grid jadi list */
+  #btnApply{
+    display:none !important;
+  }
+
+  .check-row{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:6px 12px;
+    margin:4px 4px 0 0;
+    border-radius:999px;
+    border:1px solid #e5e7eb;
+    background:#f8fafc;
+    font-size:13px;
+    font-weight:600;
+    cursor:pointer;
+  }
+
+  /* HEADER KECIL MATI TOTAL */
+  .inventory-grid-header{
+    display:none !important;
+  }
+
+  /* GRID → LIST */
   .inventory-grid{
     display:block;
     padding:0 12px;
@@ -155,15 +176,11 @@ html,body{background:#fff}
 
   .inventory-grid-body .inventory-row{
     display:block;
-    padding:10px 0;           /* DIPADATKAN */
+    padding:10px 0;   /* DIPADATKAN */
     border-bottom:1px solid #eef2f7;
   }
 
-  .inventory-grid-body .inventory-row:last-child{
-    border-bottom:none;
-  }
-
-  /* produk */
+  /* PRODUK */
   .product-cell{
     gap:10px;
   }
@@ -173,7 +190,9 @@ html,body{background:#fff}
     height:38px;
   }
 
-  /* info bawah produk */
+  /* ===========================
+     BLOK INFO: BADGE + STOK
+     =========================== */
   .col-status-stok,
   .col-status-po,
   .col-stock{
@@ -181,16 +200,23 @@ html,body{background:#fff}
     align-items:center;
     gap:8px;
     margin-top:6px;
-    margin-right:8px;
+    margin-right:6px;
+    justify-content:flex-start;
   }
 
-  /* stok sejajar badge */
+  /* PAKSA URUTAN VISUAL:
+     badge → badge → stok */
+  .col-status-stok{order:1;}
+  .col-status-po{order:2;}
+  .col-stock{order:3;}
+
   .grid-stock{
     font-size:13px;
     font-weight:800;
+    color:#111827;
   }
 
-  /* badge diperkecil sedikit */
+  /* BADGE DIPERKECIL */
   .inventory-grid-body .badge{
     min-width:0;
     padding:5px 8px;
