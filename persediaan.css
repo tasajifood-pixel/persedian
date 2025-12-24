@@ -519,8 +519,7 @@ html, body {
 
   /* hapus padding horizontal bawaan sortbar */
   .inv-sortbar{
-    padding-top: 12px;
-    padding-bottom: 12px;
-  }
+  padding: 12px;
+}
 
 }
