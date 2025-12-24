@@ -270,88 +270,15 @@ html, body {
 /* =====================================================
    MOBILE (≤768px)
 ===================================================== */
-@media (max-width: 768px) {
+@media (max-width:768px){
 
-  .inventory-layout {
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  /* filter hidden (siap toggle nanti) */
-  .inventory-filter {
-    display: none;
-    width: 100%;
+  /* layout */
+  .inventory-layout{
+    flex-direction:column;
+    gap:12px;
   }
 
-  /* grid → list */
-  .inventory-grid {
-    display: block;
-    padding: 0 12px;
-  }
-
-  .inventory-grid-header {
-    display: none;
-  }
-
-  .inventory-grid-body .inventory-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 10px 0;
-    border-bottom: 1px solid #eef2f7;
-  }
-
-  /* FOTO kiri makan tinggi */
-  .product-thumb {
-    width: 72px;
-    height: 72px;
-    border-radius: 12px;
-  }
-
-  /* PANEL kanan */
-  .product-info {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 6px;
-    min-width: 0;
-  }
-
-  .product-name {
-    font-size: 14px;
-    line-height: 1.2;
-  }
-
-  .product-sku {
-    font-size: 11px;
-  }
-
-  /* BARIS META: status kiri, stok kanan */
-  .product-meta {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-  }
-
-  .product-meta .badge {
-    padding: 4px 8px;
-    font-size: 11px;
-  }
-
-  .product-stock {
-    margin-left: auto;
-    font-size: 13px;
-    font-weight: 800;
-  }
-}
-@media (max-width: 768px){
-  #invBestPeriodBox{
-    display: none;
-  }
-}
-@media (max-width: 768px){
+  /* filter */
   .inventory-filter{
     display:block;
     width:100%;
@@ -371,8 +298,74 @@ html, body {
     font-size:14px;
     border-radius:12px;
   }
-}
-@media (max-width:768px){
+
+  /* hide period */
+  #invBestPeriodBox{
+    display:none;
+  }
+
+  /* grid → list */
+  .inventory-grid{
+    display:block;
+    padding:0 12px;
+  }
+
+  .inventory-grid-header{
+    display:none;
+  }
+
+  .inventory-grid-body .inventory-row{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:10px 0;
+    border-bottom:1px solid #eef2f7;
+  }
+
+  /* image */
+  .product-thumb{
+    width:72px;
+    height:72px;
+    border-radius:12px;
+  }
+
+  /* right panel */
+  .product-info{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    min-width:0;
+  }
+
+  .product-name{
+    font-size:14px;
+    line-height:1.2;
+  }
+
+  .product-sku{
+    font-size:11px;
+  }
+
+  /* meta row */
+  .product-meta{
+    display:flex;
+    justify-content:space-between;
+    gap:8px;
+  }
+
+  .product-meta .badge{
+    padding:4px 8px;
+    font-size:11px;
+  }
+
+  .product-stock{
+    font-size:13px;
+    font-weight:800;
+    margin-left:auto;
+  }
+
+  /* sort + PO */
   .inv-sortbar{
     flex-direction:column;
     align-items:flex-start;
@@ -384,3 +377,6 @@ html, body {
     overflow-x:auto;
   }
 }
+
+
+    
