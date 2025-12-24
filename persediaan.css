@@ -491,25 +491,24 @@ html, body {
     display: grid;
     grid-template-columns: 1fr 90px 140px 140px;
     align-items: center;
-    column-gap: 12px;
+    column-gap: 16px;
   }
 
   /* === KOLOM PRODUK === */
+  .inventory-row .product-thumb{
+    grid-column: 1;
+  }
+
   .inventory-row .product-info{
-    grid-column: 1 / 2;
+    grid-column: 1;
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 12px;
+    flex-direction: column;
+    margin-left: 56px; /* geser nama ke samping gambar */
   }
 
-  .inventory-row .product-meta{
-    display: none; /* META mobile dimatikan di desktop */
-  }
-
-  /* === KOLOM STOK === */
+  /* === STOK === */
   .inventory-row .product-stock{
-    grid-column: 2 / 3;
+    grid-column: 2;
     justify-self: center;
   }
 
@@ -518,7 +517,7 @@ html, body {
   .inventory-row .badge.stok-menipis,
   .inventory-row .badge.stok-kritis,
   .inventory-row .badge.stok-habis{
-    grid-column: 3 / 4;
+    grid-column: 3;
     justify-self: center;
   }
 
@@ -528,7 +527,7 @@ html, body {
   .inventory-row .badge.po_siaga,
   .inventory-row .badge.tahan_po,
   .inventory-row .badge.tidak_po{
-    grid-column: 4 / 5;
+    grid-column: 4;
     justify-self: center;
   }
 
