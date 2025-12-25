@@ -474,3 +474,49 @@ html, body {
   }
 
 }
+/* =====================================================
+   RENDER MODE: DESKTOP TABLE CELLS + MOBILE CARD META
+===================================================== */
+
+/* Default: desktop menampilkan 4 kolom */
+.product-cell{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-left: 16px;
+}
+
+.stock-cell,
+.status-stok-cell,
+.status-po-cell{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Desktop: sembunyikan meta versi mobile */
+.mobile-meta{
+  display: none;
+}
+
+/* Mobile: balik seperti semula (hanya tampil meta) */
+@media (max-width:768px){
+  /* Di mobile row tetap flex (sudah ada di CSS Abi) */
+
+  /* Sembunyikan kolom tabel desktop */
+  .stock-cell,
+  .status-stok-cell,
+  .status-po-cell{
+    display: none;
+  }
+
+  /* Tampilkan meta versi mobile */
+  .mobile-meta{
+    display: flex;
+  }
+
+  /* Padding kiri product-cell jangan ada agar rapih */
+  .product-cell{
+    padding-left: 0;
+  }
+}
