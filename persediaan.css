@@ -520,3 +520,10 @@ html, body {
     padding-left: 0;
   }
 }
+@media (min-width: 769px) {
+  .inv-sortbar{
+    grid-column: 2 / 3 !important;
+    width: 100%;
+  }
+}
+
