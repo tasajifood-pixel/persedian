@@ -156,13 +156,13 @@ html, body {
 }
 
 .inventory-grid-header {
-  padding: 14px 0;
-  font-size: 13px;
-  font-weight: 600;
-  color: #475569;
-  border-bottom: 1px solid #eef2f7;
-  text-align: center;
+  padding: 16px 0;          /* ⬅️ naikkan dikit */
+  line-height: 1;
+  display: flex;
+  align-items: center;      /* ⬅️ KUNCI */
+  justify-content: center;
 }
+
 /* FINISH ALIGN HEADER VS ISI */
 .inventory-grid-header{
   line-height: 1;
