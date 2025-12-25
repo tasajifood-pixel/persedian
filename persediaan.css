@@ -718,4 +718,21 @@ html, body {
     text-align: center;
   }
 }
+/* =====================================================
+   MOBILE: stok selalu rata kanan (minimal change)
+===================================================== */
+@media (max-width:768px){
+
+  .product-meta{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .product-meta .product-stock{
+    margin-left: auto;     /* INI KUNCI: dorong ke kanan */
+    text-align: center;
+    min-width: 110px;      /* biar lebar seragam */
+  }
+}
 
