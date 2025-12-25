@@ -249,7 +249,7 @@ function renderDesktopRows(rows){
     </div>
 
     <div class="stock-cell">
-      <span class="badge stock-badge ${stokClass(p.status_stok)}">Stok: ${p.qty}</span>
+      <span class="product-stock ${stokClass(p.status_stok)}">${p.qty}</span>
     </div>
 
     <div class="status-stok-cell">

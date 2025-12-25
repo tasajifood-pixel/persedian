@@ -172,16 +172,24 @@ html, body {
 }
 
 .inventory-grid-header {
+  padding: 16px 0;          /* ⬅️ naikkan dikit */
+  line-height: 1;
   display: flex;
-  align-items: center;
+  align-items: center;      /* ⬅️ KUNCI */
   justify-content: center;
-  padding: 14px 0;
-  font-size: 13px;
-  font-weight: 600;
-  color: #475569;
-  border-bottom: 1px solid #eef2f7;
-  text-align: center;
 }
+
+/* FINISH ALIGN HEADER VS ISI */
+.inventory-grid-header{
+  line-height: 1;
+}
+
+.inventory-grid-body .inventory-row{
+  min-height: 64px;
+  display: grid;
+  align-items: center;   /* ⬅️ PASTI SEJAJAR */
+}
+
 
 .inventory-grid-header.col-product {
   justify-content: flex-start;
@@ -257,7 +265,6 @@ html, body {
   display: flex;
   align-items: center;
   gap: 12px;
-  min-width: 0;
 }
 
 .stock-cell,
@@ -608,13 +615,12 @@ html, body {
   }
 
   .inventory-grid{
-    grid-template-columns: var(--inventory-grid-template);
-    column-gap: 16px;
+    grid-template-columns: 1fr 90px 140px 140px;
   }
 
   .inventory-grid-body .inventory-row{
     display: grid;
-    grid-template-columns: var(--inventory-grid-template);
+    grid-template-columns: 1fr 90px 140px 140px;
     align-items: center;
     column-gap: 16px;
   }
@@ -640,21 +646,38 @@ html, body {
     justify-content: center;
   }
 
-  .stock-cell .stock-badge{
+  .stock-cell .product-stock{
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 118px;
-    padding: 7px 12px;
-    text-align: center;
   }
 
   .status-stok-cell .badge,
   .status-po-cell .badge{
-    min-width: 118px;
     width: 100%;
     justify-content: center;
-    text-align: center;
   }
 
+}
+/* =====================================================
+   DESKTOP – STOCK CELL FINAL ALIGN
+@media (min-width:769px){
+
+  .stock-cell{
+    display: flex;
+    justify-content: center;
+  }
+
+  .stock-cell .product-stock{
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stock-cell .product-stock::before{
+    content: "Stok:";
+    font-weight: 600;
+    opacity: 0.6;
+  }
 }
