@@ -695,3 +695,27 @@ html, body {
     box-sizing: border-box !important;
   }
 }
+/* =====================================================
+   MOBILE: bikin stok pill seragam juga
+===================================================== */
+@media (max-width: 768px){
+
+  .product-meta{
+    display: grid !important;
+    grid-template-columns: 88px 92px 1fr; /* stok ambil sisa */
+    gap: 8px !important;
+    align-items: center;
+  }
+
+  .product-meta .badge{
+    width: 88px;            /* seragam */
+    justify-content: center;
+  }
+
+  .product-meta .product-stock{
+    width: 100%;
+    min-width: 0;
+    text-align: center;
+  }
+}
+
