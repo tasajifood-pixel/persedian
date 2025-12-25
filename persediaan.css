@@ -646,3 +646,25 @@ html, body {
     top: auto !important;
   }
 }
+/* =====================================================
+   DESKTOP: HIDE STATUS PO SLOT (badge atas)
+   karena desktop sudah punya checkbox di sidebar
+   MOBILE tetap tampil
+===================================================== */
+
+/* Desktop (≥769px) => sembunyikan slot PO badge */
+@media (min-width: 769px){
+  #invPoSlot,
+  .inv-po-slot{
+    display: none !important;
+  }
+}
+
+/* Mobile (≤768px) => pastikan tetap tampil */
+@media (max-width: 768px){
+  #invPoSlot,
+  .inv-po-slot{
+    display: flex !important;
+  }
+}
+
