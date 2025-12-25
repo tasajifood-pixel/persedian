@@ -205,20 +205,20 @@ function render(){
   const rows = filtered.slice((page - 1) * pageSize, page * pageSize);
 
   bodyEl.innerHTML = rows.map(p => `
-    <div class="inventory-row">
+  <div class="inventory-row">
 
-      <div class="product-media">
-        <div class="product-thumb">
-          ${p.thumbnail ? `<img src="${p.thumbnail}">` : ""}
-        </div>
+    <!-- COL 1: PRODUK -->
+    <div class="product-cell">
+      <div class="product-thumb">
+        ${p.thumbnail ? `<img src="${p.thumbnail}">` : ""}
       </div>
 
       <div class="product-info">
         <div class="product-name">${p.item_name}</div>
         <div class="product-sku">${p.item_code}</div>
 
-        <!-- META: STATUS STOK + STATUS PO + JUMLAH STOK -->
-        <div class="product-meta">
+        <!-- MOBILE ONLY: meta (tetap seperti sebelumnya) -->
+        <div class="product-meta mobile-meta">
           <span class="badge ${stokClass(p.status_stok)}">
             ${stokLabel(p.status_stok)}
           </span>
@@ -232,9 +232,32 @@ function render(){
           </span>
         </div>
       </div>
-
     </div>
-  `).join("");
+
+    <!-- COL 2: STOK (DESKTOP) -->
+    <div class="stock-cell">
+      <span class="product-stock desktop-stock">
+        ${p.qty}
+      </span>
+    </div>
+
+    <!-- COL 3: STATUS STOK (DESKTOP) -->
+    <div class="status-stok-cell">
+      <span class="badge ${stokClass(p.status_stok)}">
+        ${stokLabel(p.status_stok)}
+      </span>
+    </div>
+
+    <!-- COL 4: STATUS PO (DESKTOP) -->
+    <div class="status-po-cell">
+      <span class="badge ${poClass(p.status_po)}">
+        ${poLabel(p.status_po)}
+      </span>
+    </div>
+
+  </div>
+`).join("");
+
 
   renderPagination(totalPage);
 }
