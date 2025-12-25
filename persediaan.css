@@ -802,3 +802,46 @@ html, body {
     overflow: visible !important;
   }
 }
+/* =====================================================
+   MOBILE FINAL: STOCK PILL AMAN DI HP ASLI (TIDAK KEPOTONG)
+===================================================== */
+@media (max-width:768px){
+
+  /* meta 3 kolom tapi stok harus bisa menyusut */
+  .product-meta{
+    display: grid !important;
+    grid-template-columns: 84px 84px minmax(80px, 1fr) !important;
+    gap: 6px !important;
+    padding-right: 10px !important;   /* buffer kanan */
+    box-sizing: border-box !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  /* stok pill: boleh menyusut & teks tidak memaksa */
+  .product-meta .product-stock{
+    width: 100% !important;
+    min-width: 0 !important;          /* INI KUNCI UTAMA */
+    padding: 4px 8px !important;
+    font-size: 11px !important;
+    box-sizing: border-box !important;
+
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  /* badge tetap fixed & rata */
+  .product-meta .badge{
+    width: 84px !important;
+    padding: 4px 0 !important;
+    font-size: 10.8px !important;
+    justify-content: center !important;
+    text-align: center !important;
+
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+}
