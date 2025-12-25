@@ -528,4 +528,34 @@ html, body {
     background: #fff;
   }
 }
+@media (min-width: 769px){
+  .inventory-layout{
+    display: grid !important;
+    grid-template-columns: 260px 1fr !important;
+    gap: 18px !important;
+    align-items: start !important;
+  }
+
+  .mobile-container{
+    display: contents !important;
+  }
+
+  .inventory-filter{
+    grid-column: 1 / 2 !important;
+    width: 260px !important;
+  }
+
+  .inv-sortbar{
+    grid-column: 2 / 3 !important;
+    width: 100% !important;
+    margin: 0 0 12px 0 !important;
+    justify-content: flex-start !important;
+    flex-wrap: wrap !important;
+  }
+
+  .inventory-content{
+    grid-column: 2 / 3 !important;
+    min-width: 0 !important;
+  }
+}
 
