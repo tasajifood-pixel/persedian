@@ -198,19 +198,26 @@ function applyFilter(){
 // =====================
 // RENDER
 // =====================
-function renderMobileRows(rows){
-  return rows.map(p => `
-  <div class="inventory-row">
+function render(){
+  const totalPage = Math.max(1, Math.ceil(filtered.length / pageSize));
+  if (page > totalPage) page = totalPage;
 
-    <div class="product-cell">
-      <div class="product-thumb">
-        ${p.thumbnail ? `<img src="${p.thumbnail}">` : ""}
+  const rows = filtered.slice((page - 1) * pageSize, page * pageSize);
+
+  bodyEl.innerHTML = rows.map(p => `
+    <div class="inventory-row">
+
+      <div class="product-media">
+        <div class="product-thumb">
+          ${p.thumbnail ? `<img src="${p.thumbnail}">` : ""}
+        </div>
       </div>
 
       <div class="product-info">
         <div class="product-name">${p.item_name}</div>
         <div class="product-sku">${p.item_code}</div>
 
+        <!-- META: STATUS STOK + STATUS PO + JUMLAH STOK -->
         <div class="product-meta">
           <span class="badge ${stokClass(p.status_stok)}">
             ${stokLabel(p.status_stok)}
@@ -220,56 +227,14 @@ function renderMobileRows(rows){
             ${poLabel(p.status_po)}
           </span>
 
-          <span class="badge product-stock ${stokClass(p.status_stok)}">
+          <span class="product-stock">
             ${p.qty}
           </span>
         </div>
       </div>
-    </div>
 
-  </div>
+    </div>
   `).join("");
-}
-
-function renderDesktopRows(rows){
-  return rows.map(p => `
-  <div class="inventory-row">
-
-    <div class="product-cell">
-      <div class="product-thumb">
-        ${p.thumbnail ? `<img src="${p.thumbnail}">` : ""}
-      </div>
-
-      <div class="product-info">
-        <div class="product-name">${p.item_name}</div>
-        <div class="product-sku">${p.item_code}</div>
-      </div>
-    </div>
-
-    <div class="stock-cell">
-      <span class="product-stock ${stokClass(p.status_stok)}">${p.qty}</span>
-    </div>
-
-    <div class="status-stok-cell">
-      <span class="badge ${stokClass(p.status_stok)}">${stokLabel(p.status_stok)}</span>
-    </div>
-
-    <div class="status-po-cell">
-      <span class="badge ${poClass(p.status_po)}">${poLabel(p.status_po)}</span>
-    </div>
-
-  </div>
-  `).join("");
-}
-
-function render(){
-  const totalPage = Math.max(1, Math.ceil(filtered.length / pageSize));
-  if (page > totalPage) page = totalPage;
-
-  const rows = filtered.slice((page - 1) * pageSize, page * pageSize);
-  const isMobile = window.innerWidth <= 768;
-
-  bodyEl.innerHTML = isMobile ? renderMobileRows(rows) : renderDesktopRows(rows);
 
   renderPagination(totalPage);
 }
@@ -363,10 +328,6 @@ document.querySelectorAll(".chk-stok, .chk-po").forEach(el=>{
 });
 
 if (btnApply) btnApply.onclick = null;
-
-window.addEventListener("resize", ()=>{
-  render();
-});
 
 // =====================
 // INIT
