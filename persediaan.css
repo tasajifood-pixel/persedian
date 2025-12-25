@@ -562,13 +562,25 @@ html, body {
 
 }
 /* =====================================================
-   DESKTOP – TAMBAH LABEL "Stok:"
+   DESKTOP – FORCE LABEL STOK
 ===================================================== */
 @media (min-width:769px){
-  .stock-cell .product-stock::before{
-    content: "Stok: ";
+  .inventory-row .stock-cell{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .inventory-row .stock-cell .product-stock{
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .inventory-row .stock-cell .product-stock::before{
+    content: "Stok:";
     font-weight: 600;
     opacity: 0.6;
-    margin-right: 2px;
   }
 }
+
