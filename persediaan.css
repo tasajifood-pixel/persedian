@@ -564,25 +564,25 @@ html, body {
 
 }
 /* =====================================================
-   DESKTOP – FORCE LABEL STOK
+   DESKTOP – STOCK CELL FINAL ALIGN
 ===================================================== */
 @media (min-width:769px){
-  .inventory-row .stock-cell{
+
+  .stock-cell{
     display: flex;
-    align-items: center;
     justify-content: center;
   }
 
-  .inventory-row .stock-cell .product-stock{
+  .stock-cell .product-stock{
     display: inline-flex;
     align-items: center;
     gap: 4px;
+    font-variant-numeric: tabular-nums;
   }
 
-  .inventory-row .stock-cell .product-stock::before{
+  .stock-cell .product-stock::before{
     content: "Stok:";
     font-weight: 600;
     opacity: 0.6;
   }
 }
-
