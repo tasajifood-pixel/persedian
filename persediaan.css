@@ -225,6 +225,18 @@ html, body {
   gap: 8px;
 }
 
+.product-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.stock-cell,
+.status-stok-cell,
+.status-po-cell {
+  display: none;
+}
+
 /* =====================================================
    BADGE & STOCK
 ===================================================== */
@@ -487,16 +499,56 @@ html, body {
 ===================================================== */
 @media (min-width:769px){
 
-  /* kolom pertama = gambar + info sejajar */
-  .inventory-grid-body .inventory-row > :first-child{
-    display: flex;
+  .mobile-container{
+    display: none;
+  }
+
+  .inv-po-slot{
+    display: none;
+  }
+
+  .inventory-grid{
+    grid-template-columns: 1fr 90px 140px 140px;
+  }
+
+  .inventory-grid-body .inventory-row{
+    display: grid;
+    grid-template-columns: 1fr 90px 140px 140px;
     align-items: center;
-    gap: 12px;
+    column-gap: 16px;
+  }
+
+  .product-cell{
+    padding-left: 16px;
   }
 
   /* pastikan info tidak turun ke bawah */
   .product-info{
     min-width: 0;
+  }
+
+  .product-meta{
+    display: none;
+  }
+
+  .stock-cell,
+  .status-stok-cell,
+  .status-po-cell{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .stock-cell .product-stock{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .status-stok-cell .badge,
+  .status-po-cell .badge{
+    width: 100%;
+    justify-content: center;
   }
 
 }
