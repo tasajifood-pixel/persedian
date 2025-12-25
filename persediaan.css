@@ -723,3 +723,15 @@ html, body {
     min-width: 86px !important;
   }
 }
+/* =====================================================
+   MOBILE: STOCK PILL LEBIH RINGKAS
+===================================================== */
+@media (max-width:768px){
+
+  .product-meta .product-stock{
+    min-width: 72px !important;   /* dari 86 -> 72 */
+    padding: 4px 10px !important; /* dari 12 -> 10 */
+    font-size: 11.5px !important; /* dari 12 -> 11.5 */
+  }
+
+}
