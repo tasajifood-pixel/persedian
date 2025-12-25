@@ -163,6 +163,15 @@ html, body {
   border-bottom: 1px solid #eef2f7;
   text-align: center;
 }
+/* FINISH ALIGN HEADER VS ISI */
+.inventory-grid-header{
+  line-height: 1;
+}
+
+.inventory-grid-body .inventory-row{
+  min-height: 64px;
+  align-items: center;
+}
 
 .inventory-grid-header.col-product {
   text-align: left;
@@ -551,4 +560,15 @@ html, body {
     justify-content: center;
   }
 
+}
+/* =====================================================
+   DESKTOP – TAMBAH LABEL "Stok:"
+===================================================== */
+@media (min-width:769px){
+  .stock-cell .product-stock::before{
+    content: "Stok: ";
+    font-weight: 600;
+    opacity: 0.6;
+    margin-right: 2px;
+  }
 }
