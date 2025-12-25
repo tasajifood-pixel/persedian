@@ -781,3 +781,24 @@ html, body {
   }
 
 }
+/* =====================================================
+   MOBILE FIX: STOCK PILL JANGAN KEPOTONG
+===================================================== */
+@media (max-width:768px){
+
+  /* kasih ruang kanan untuk meta */
+  .product-meta{
+    padding-right: 8px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* stok jangan nempel mentok kanan */
+  .product-meta .product-stock{
+    margin-right: 6px !important;
+  }
+
+  /* pastikan row tidak nge-clip isi */
+  .inventory-grid-body .inventory-row{
+    overflow: visible !important;
+  }
+}
