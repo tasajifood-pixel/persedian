@@ -18,7 +18,8 @@ const bodyEl       = document.getElementById("inventoryBody");
 const paginationEl = document.getElementById("pagination");
 const pageSizeEl   = document.getElementById("pageSize");
 
-const searchEl = document.getElementById("filterSearch");
+const searchEls = document.querySelectorAll("#filterSearch");
+const primarySearchEl = searchEls[0];
 const btnApply = document.getElementById("btnApply");
 
 const sortBtns   = document.querySelectorAll(".inv-sort-btn");
@@ -158,7 +159,8 @@ async function loadInventory(){
 // FILTER + SORT
 // =====================
 function applyFilter(){
-  const q = (searchEl.value || "").toLowerCase();
+  const activeSearch = Array.from(searchEls).find(el=> el.offsetParent !== null) || primarySearchEl;
+  const q = (activeSearch?.value || "").toLowerCase();
 
   const stokFilters = getCheckedValues(".chk-stok").map(v=>v.toLowerCase());
   const poFilters   = getCheckedValues(".chk-po");
@@ -353,7 +355,13 @@ pageSizeEl.onchange = ()=>{
   render();
 };
 
-searchEl.oninput = applyFilter;
+searchEls.forEach(el=>{
+  el.oninput = (e)=>{
+    const val = e.target.value;
+    searchEls.forEach(other=>{ if (other !== e.target) other.value = val; });
+    applyFilter();
+  };
+});
 
 document.querySelectorAll(".chk-stok, .chk-po").forEach(el=>{
   el.onchange = ()=>{
