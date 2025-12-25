@@ -600,3 +600,49 @@ html, body {
   }
 }
 
+/* =====================================================
+   DESKTOP GRID FIX — supaya tabel tidak turun jauh
+   (tanpa sentuh mobile & tanpa ubah HTML)
+===================================================== */
+@media (min-width: 769px){
+
+  /* grid: 2 kolom + 2 baris */
+  .inventory-layout{
+    display: grid !important;
+    grid-template-columns: 260px 1fr !important;
+    grid-template-rows: auto 1fr !important;
+    gap: 18px !important;
+    align-items: start !important;
+  }
+
+  /* sidebar kiri: span 2 baris */
+  .inventory-filter{
+    grid-column: 1 / 2 !important;
+    grid-row: 1 / 3 !important;
+  }
+
+  /* sortbar kanan atas */
+  .inv-sortbar{
+    grid-column: 2 / 3 !important;
+    grid-row: 1 / 2 !important;
+    align-self: start !important;
+  }
+
+  /* tabel kanan bawah (langsung di bawah sortbar) */
+  .inventory-content{
+    grid-column: 2 / 3 !important;
+    grid-row: 2 / 3 !important;
+    align-self: start !important;
+  }
+
+  /* wrapper mobile tetap di-disable */
+  .mobile-container{
+    display: contents !important;
+  }
+
+  /* jangan sticky dulu (sticky bikin grid row kadang aneh) */
+  .inv-sortbar{
+    position: relative !important;
+    top: auto !important;
+  }
+}
