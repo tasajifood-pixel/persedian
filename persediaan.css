@@ -24,6 +24,7 @@ html, body {
   border: 1px solid #eef2f7;
   border-radius: 12px;
   padding: 16px;
+  box-sizing: border-box;
 }
 
 .inventory-content {
@@ -47,6 +48,18 @@ html, body {
   border: 1px solid #e5e7eb;
   border-radius: 10px;
   font-size: 13px;
+  box-sizing: border-box;
+}
+
+.inventory-filter .search-card input {
+  max-width: 100%;
+  box-sizing: border-box;
+  display: block;
+}
+
+.inventory-filter .search-card {
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .filter-group {
@@ -150,12 +163,18 @@ html, body {
    INVENTORY GRID – DESKTOP
 ===================================================== */
 .inventory-grid {
+  /* desktop grid shares one template with rows & headers */
+  --inventory-grid-template: minmax(0, 1fr) 130px 140px 140px;
   display: grid;
-  grid-template-columns: 1fr 90px 140px 140px;
+  grid-template-columns: var(--inventory-grid-template);
+  column-gap: 16px;
   padding: 0 16px;
 }
 
 .inventory-grid-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 14px 0;
   font-size: 13px;
   font-weight: 600;
@@ -165,8 +184,16 @@ html, body {
 }
 
 .inventory-grid-header.col-product {
-  text-align: left;
+  justify-content: flex-start;
   padding-left: 16px;
+  text-align: left;
+}
+
+.inventory-grid-header.col-stock,
+.inventory-grid-header.col-status-stok,
+.inventory-grid-header.col-status-po {
+  justify-content: center;
+  text-align: center;
 }
 
 .inventory-grid-body {
@@ -175,8 +202,9 @@ html, body {
 
 .inventory-grid-body .inventory-row {
   display: grid;
-  grid-template-columns: 1fr 90px 140px 140px;
+  grid-template-columns: var(--inventory-grid-template);
   align-items: center;
+  column-gap: 16px;
   padding: 14px 0;
   border-bottom: 1px solid #f3f4f6;
 }
@@ -225,6 +253,19 @@ html, body {
   gap: 8px;
 }
 
+.product-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.stock-cell,
+.status-stok-cell,
+.status-po-cell {
+  display: none;
+}
+
 /* =====================================================
    BADGE & STOCK
 ===================================================== */
@@ -250,6 +291,20 @@ html, body {
 .badge.tidak_po { background:#e5e7eb; color:#111 }
 .badge.tahan_po { background:#0f172a; color:#fff }
 
+.stock-badge {
+  min-width: 118px;
+  width: 100%;
+  padding: 6px 12px;
+  text-align: center;
+  justify-content: center;
+}
+
+.stock-badge.stok-aman { background:#e7f9ef; color:#166534; }
+.stock-badge.stok-menipis { background:#fff4d6; color:#92400e; }
+.stock-badge.stok-kritis { background:#ffe7d6; color:#b45309; }
+.stock-badge.stok-habis { background:#fde8e8; color:#991b1b; }
+.stock-badge.stok-aman_data_baru { background:#e7f9ef; color:#166534; }
+
 .product-stock {
   font-size: 13px;
   font-weight: 800;
@@ -265,6 +320,53 @@ html, body {
   justify-content: space-between;
   padding: 14px 16px;
   border-top: 1px solid #eef2f7;
+}
+
+.page-nav {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.page-btn {
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  color: #0f172a;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.page-btn:hover:not(:disabled) {
+  border-color: #cbd5e1;
+  background: #f8fafc;
+}
+
+.page-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.page-btn.active {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #fff;
+}
+
+.page-size select {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 6px 10px;
+  background: #fff;
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.page-size select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.12);
+  outline: none;
 }
 /* =====================================================
    MOBILE (≤768px) – FINAL CLEAN & LOCKED
@@ -310,12 +412,19 @@ html, body {
 
   .search-card{
     width: 100%;
-    padding: 12px 14px;
+    padding: 12px;
     border: 1px solid #eef2f7;
     border-radius: 12px;
     background: #fff;
     box-sizing: border-box;
     margin-bottom: 12px;
+  }
+
+  /* Samakan lebar search & sort bar */
+  .mobile-container .search-card,
+  .mobile-container .inv-sortbar{
+    width: 100%;
+    box-sizing: border-box;
   }
 
   #filterSearch{
@@ -432,18 +541,21 @@ html, body {
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     gap: 8px;
   }
 
   .product-meta .badge{
     font-size: 11px;
     padding: 4px 10px;
+    min-width: 110px;
+    justify-content: center;
+    text-align: center;
     flex-shrink: 0;
   }
 
   .product-meta .product-stock{
-    min-width: 86px;
+    min-width: 110px;
     padding: 4px 12px;
     border-radius: 999px;
     font-size: 12px;
@@ -487,16 +599,62 @@ html, body {
 ===================================================== */
 @media (min-width:769px){
 
-  /* kolom pertama = gambar + info sejajar */
-  .inventory-grid-body .inventory-row > :first-child{
-    display: flex;
+  .mobile-container{
+    display: none;
+  }
+
+  .inv-po-slot{
+    display: none;
+  }
+
+  .inventory-grid{
+    grid-template-columns: var(--inventory-grid-template);
+    column-gap: 16px;
+  }
+
+  .inventory-grid-body .inventory-row{
+    display: grid;
+    grid-template-columns: var(--inventory-grid-template);
     align-items: center;
-    gap: 12px;
+    column-gap: 16px;
+  }
+
+  .product-cell{
+    padding-left: 16px;
   }
 
   /* pastikan info tidak turun ke bawah */
   .product-info{
     min-width: 0;
+  }
+
+  .product-meta{
+    display: none;
+  }
+
+  .stock-cell,
+  .status-stok-cell,
+  .status-po-cell{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .stock-cell .stock-badge{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 118px;
+    padding: 7px 12px;
+    text-align: center;
+  }
+
+  .status-stok-cell .badge,
+  .status-po-cell .badge{
+    min-width: 118px;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
   }
 
 }
