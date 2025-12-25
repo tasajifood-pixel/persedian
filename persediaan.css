@@ -668,3 +668,30 @@ html, body {
   }
 }
 
+/* =====================================================
+   DESKTOP FIX: Sidebar jangan tembus ke kanan
+   (Mobile aman karena hanya min-width:769px)
+===================================================== */
+@media (min-width: 769px){
+
+  /* sidebar wajib mengurung isi */
+  .inventory-filter{
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+  }
+
+  /* semua input dalam sidebar jangan pernah lebih dari card */
+  .inventory-filter input,
+  #filterSearch{
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* kalau ada wrapper search-card, juga kunci */
+  .inventory-filter .search-card{
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+}
