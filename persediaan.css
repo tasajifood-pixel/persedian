@@ -558,4 +558,45 @@ html, body {
     min-width: 0 !important;
   }
 }
+/* =====================================================
+   DESKTOP FINAL POLISH (≥769px)
+   — rapihin spacing + hilangkan gap kosong
+===================================================== */
+@media (min-width: 769px){
+
+  /* rapihin jarak sortbar ke tabel */
+  .inv-sortbar{
+    margin-bottom: 12px !important;
+  }
+
+  /* pastikan tabel naik rapat, ga ada padding/margin nyangkut */
+  .inventory-content{
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    max-width: none !important;
+  }
+
+  .inventory-wrapper,
+  .table-wrapper{
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    width: 100% !important;
+  }
+
+  /* biar grid table full lebar */
+  .inventory-grid{
+    width: 100% !important;
+  }
+
+  /* sticky tetap, tapi nyaman */
+  .inv-sortbar{
+    top: 12px !important;
+  }
+
+  /* padding global layout agar enak dilihat */
+  .inventory-layout{
+    padding: 12px 16px !important;
+    box-sizing: border-box !important;
+  }
+}
 
