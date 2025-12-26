@@ -216,10 +216,14 @@ function render(){
           <span class="badge ${poClass(p.status_po)}">
             ${poLabel(p.status_po)}
           </span>
+<span class="product-stock">
+  ${p.qty}
+</span>
 
-          <span class="product-stock">
-            ${p.qty}
-          </span>
+<span class="product-days-pill">
+  ${Number(p.hari || 0).toFixed(1)} hr
+</span>
+
         </div>
       </div>
     </div>
