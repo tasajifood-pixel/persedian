@@ -38,7 +38,7 @@ let pageSize = 25;
 let totalData = 0;
 
 let currentSort   = "best";
-let currentPeriod = "365d";
+let currentPeriod = "90d";
 
 // =====================
 // HELPERS
@@ -101,15 +101,13 @@ async function loadInventory(){
   const stokFilters = getCheckedValues(".chk-stok").map(v => v.toLowerCase());
   const poFilters   = getCheckedValues(".chk-po");
 
-  const { data, error } = await sb.rpc("rpc_mpi_inventory", {
-    p_limit      : pageSize,
-    p_offset     : (page - 1) * pageSize,
-    p_sort       : currentSort,      // 'best'
-    p_period_key : currentPeriod,    // '90d'
-    p_q          : q || null,
-    p_po         : poFilters.length ? poFilters : null,
-    p_stok       : stokFilters.length ? stokFilters : null
+ const { data, error } = await sb
+  .schema("decision")
+  .rpc("rpc_mpi_inventory", {
+    p_limit: pageSize,
+    p_offset: (page - 1) * pageSize
   });
+
 
   if (error){
     console.error("LOAD INVENTORY ERROR:", error);
@@ -142,43 +140,11 @@ async function loadInventory(){
 // FILTER + SORT
 // =====================
 function applyFilter(){
-  const q = (searchEl.value || "").toLowerCase();
-
-  const stokFilters = getCheckedValues(".chk-stok").map(v=>v.toLowerCase());
-  const poFilters   = getCheckedValues(".chk-po");
-
-  let temp = allData.filter(p=>{
-    if (q && !(p.item_name.toLowerCase().includes(q) || p.item_code.toLowerCase().includes(q))) return false;
-    if (stokFilters.length && !stokFilters.includes(p.status_stok)) return false;
-    if (poFilters.length && !poFilters.includes(p.status_po)) return false;
-    return true;
-  });
-
- if (currentSort === "best"){
-  const ranked = [];
-  const rest   = [];
-
-  temp.forEach(p=>{
-    if (bestRank[norm(p.item_code)] !== undefined) {
-      ranked.push(p);
-    } else {
-      rest.push(p);
-    }
-  });
-
-  ranked.sort(
-    (a,b)=> bestRank[norm(a.item_code)] - bestRank[norm(b.item_code)]
-  );
-
-  // sisanya bebas, biar rapi pakai stok desc
-  rest.sort((a,b)=> b.qty - a.qty);
-
-  filtered = [...ranked, ...rest];
-}
-
-
+  // data sudah terurut & terfilter dari backend
+  filtered = allData;
   render();
 }
+
 
 // =====================
 // RENDER
