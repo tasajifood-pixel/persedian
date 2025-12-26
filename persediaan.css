@@ -462,3 +462,36 @@ html, body {
     display: none !important;
   }
 }
+  /* =========================================
+     MOBILE META ORDER (SESUAI MOCKUP ABI)
+     Baris 1: Stok | Cukup hari
+     Baris 2: Status Stok | Status PO
+  ========================================= */
+
+  /* Baris 1 kolom 1: STOK */
+  .mobile-meta .product-stock{
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    justify-content: center;
+  }
+
+  /* Baris 1 kolom 2: CUKUP HARI */
+  .mobile-meta .product-days-pill{
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    justify-content: center;
+  }
+
+  /* Baris 2 kolom 1: STATUS STOK */
+  .mobile-meta .meta-top .badge:first-child{
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    justify-content: center;
+  }
+
+  /* Baris 2 kolom 2: STATUS PO */
+  .mobile-meta .meta-top .badge:last-child{
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    justify-content: center;
+  }
