@@ -526,70 +526,7 @@ html, body {
      MOBILE META: 4 PILL SEJAJAR
      Aman | PO | S:stok | hr
   ===================== */
-  .mobile-meta{
-    display: grid !important;
-    grid-template-columns: 72px 72px 92px 72px !important;
-    align-items: center !important;
-    gap: 6px !important;
-    padding-right: 6px !important;
-    box-sizing: border-box !important;
-    width: 100% !important;
-    min-width: 0 !important;
-  }
-
-  /* badge status + badge PO */
-  .mobile-meta .badge{
-    width: 72px !important;
-    padding: 4px 0 !important;
-    font-size: 10px !important;
-    font-weight: 800 !important;
-    justify-content: center !important;
-    text-align: center !important;
-
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-  }
-
-  /* stok pill */
-  .mobile-meta .product-stock{
-    width: 92px !important;
-    min-width: 0 !important;
-    padding: 4px 0 !important;
-    font-size: 10px !important;
-    font-weight: 900 !important;
-    box-sizing: border-box !important;
-
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-
-    border-radius: 999px !important;
-    text-align: center !important;
-  }
-
-  .mobile-meta .product-stock::before{
-    content: "S: ";
-    font-weight: 700;
-    opacity: 0.7;
-  }
-
-  /* hari cakupan pill */
-  .mobile-meta .product-days-pill{
-    width: 72px !important;
-    padding: 4px 0 !important;
-    font-size: 10px !important;
-    font-weight: 800 !important;
-    text-align: center !important;
-    border-radius: 999px !important;
-    background: #f1f5f9 !important;
-    color: #475569 !important;
-
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-  }
-}
+  
 @media (max-width:768px){
 
   /* meta jadi 2 baris (fix berantakan) */
