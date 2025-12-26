@@ -148,7 +148,7 @@ const { data, error } = await sb
   hari        : p.hari_cakupan_stok
 }));
 
-//  if (currentSort === "best"){
+  if (currentSort === "best"){
     await loadBestSeller();
   }
 
@@ -171,7 +171,7 @@ function applyFilter(){
     return true;
   });
 
- // if (currentSort === "best"){
+  if (currentSort === "best"){
     const ranked = [];
     const rest   = [];
 
