@@ -190,7 +190,6 @@ html, body {
 }
 
 .inventory-grid-body .inventory-row{
-  align-items: flex-start;
   display: grid;
   grid-template-columns: 1fr 90px 140px 140px;
   align-items: center;
@@ -261,7 +260,7 @@ html, body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 6px 14px;           /* dirapikan konsisten */
+  padding: 6px 14px;
   border-radius: 999px;
   font-size: 11px;
   font-weight: 700;
@@ -299,20 +298,15 @@ html, body {
 }
 
 /* =====================================================
-   MOBILE META DEFAULT (DESKTOP HIDDEN)
+   MOBILE META DEFAULT
+   (PENTING: JANGAN grid di global, biar tidak ganggu mobile patch)
 ===================================================== */
 .mobile-meta{
-  display: grid !important;
-  grid-template-columns: 1fr 1fr !important;
-  gap: 8px !important;
-  width: 100% !important;
-  margin-top: 6px !important;
+  display: none;
 }
-
 
 /* =====================================================
    DESKTOP LAYOUT FINAL (≥769px)
-   (tetap seperti konsep Abi: filter kiri, content kanan)
 ===================================================== */
 @media (min-width: 769px){
 
@@ -342,7 +336,6 @@ html, body {
     grid-row: 1 / 2 !important;
     align-self: start !important;
     margin: 0 0 12px 0 !important;
-
     position: sticky !important;
     top: 12px !important;
     z-index: 10 !important;
@@ -361,14 +354,14 @@ html, body {
     display: none !important;
   }
 
-  /* Desktop hide mobile meta */
+  /* Desktop: mobile meta tetap hidden */
   .mobile-meta{
     display: none !important;
   }
 }
 
 /* =====================================================
-   MOBILE (≤768px) – FINAL RAPi & TERKUNCI
+   MOBILE (≤768px) – STEP 1 STABIL (BADGE MUNCUL DULU)
 ===================================================== */
 @media (max-width:768px){
 
@@ -376,9 +369,6 @@ html, body {
     overflow-x: hidden !important;
   }
 
-  /* =====================
-     GLOBAL MOBILE LAYOUT
-  ===================== */
   .inventory-layout{
     flex-direction: column;
     gap: 12px;
@@ -389,9 +379,7 @@ html, body {
     box-sizing: border-box;
   }
 
-  /* =====================
-     FILTER (MOBILE)
-  ===================== */
+  /* FILTER MOBILE */
   .inventory-filter{
     width: 100%;
     border: none;
@@ -411,6 +399,7 @@ html, body {
     border-radius: 12px;
     background: #fff;
     margin-bottom: 12px;
+    box-sizing: border-box;
   }
 
   #filterSearch{
@@ -421,9 +410,7 @@ html, body {
     background: transparent;
   }
 
-  /* =====================
-     SORT & PO BAR
-  ===================== */
+  /* SORT BAR MOBILE */
   .inv-sortbar{
     width: 100%;
     padding: 12px;
@@ -432,6 +419,7 @@ html, body {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    box-sizing: border-box;
   }
 
   .inv-sort-main{
@@ -449,14 +437,13 @@ html, body {
     overflow-x: auto;
     white-space: nowrap;
   }
+  .inv-po-slot::-webkit-scrollbar{ display:none; }
 
   #invBestPeriodBox{
     display: none;
   }
 
-  /* =====================
-     INVENTORY LIST
-  ===================== */
+  /* LIST */
   .inventory-content{
     padding: 0 12px;
     box-sizing: border-box;
@@ -479,9 +466,7 @@ html, body {
     border-bottom: 1px solid #eef2f7;
   }
 
-  /* =====================
-     IMAGE
-  ===================== */
+  /* IMAGE */
   .product-thumb{
     width: 78px;
     height: 78px;
@@ -489,14 +474,9 @@ html, body {
     flex-shrink: 0;
   }
 
-  /* =====================
-     PRODUCT INFO (KANAN)
-  ===================== */
+  /* KANAN */
   .product-info{
     flex: 1;
-    display: flex;
-    flex-direction: column;
-    min-height: 78px;   /* KUNCI: tidak boleh lebih tinggi dari gambar */
     min-width: 0;
   }
 
@@ -504,127 +484,65 @@ html, body {
     font-size: 14px;
     line-height: 1.2;
     font-weight: 700;
-    max-height: 2.4em; /* max 2 baris */
-    overflow: hidden;
     margin-bottom: 2px;
   }
 
   .product-sku{
     font-size: 11px;
     color: #64748b;
+    margin-bottom: 6px;
   }
 
-  /* =====================
-     HIDE DESKTOP CELLS
-  ===================== */
+  /* HIDE DESKTOP CELLS */
   .stock-cell,
   .status-stok-cell,
   .status-po-cell{
     display: none !important;
   }
 
-  /* =================================================
-     MOBILE META – GRID 2×2 (PATEN, TIDAK IKUT JUDUL)
-  ================================================= */
+  /* ============================
+     MOBILE META (AMAN)
+     - BADGE STATUS STOK + PO MUNCUL
+     - BOX STOK + HARI SEJAJAR
+  ============================ */
   .mobile-meta{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-      "stock days"
-      "stokstat postat";
-    gap: 8px;
-    margin-top: 6px;
-    max-width: 100%;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    width: 100% !important;
   }
 
-  .mobile-meta *{
-    min-width: 0;
-  }
-
-  /* meta wrapper diabaikan, anak langsung jadi grid */
-  .mobile-meta .meta-top,
-  .mobile-meta .meta-bottom{
-    display: contents;
-  }
-
-  /* ===== BOX DASAR ===== */
-  .mobile-meta .product-stock,
-  .mobile-meta .product-days-pill,
-  .mobile-meta .meta-top .badge{
-    border: 1px solid #e5e7eb;
-    border-radius: 10px;
-    padding: 6px 10px;
-    min-height: 36px;
-
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-
-    font-size: 12px;
-    box-sizing: border-box;
-    background: #fff;
-  }
-
-  /* ===== GRID AREA ===== */
-  .mobile-meta .product-stock{
-    grid-area: stock;
-    font-weight: 800;
-    font-size: 13px;
-  }
-
-  .mobile-meta .product-days-pill{
-    grid-area: days;
-    font-weight: 700;
-    font-size: 12px;
-  }
-
-  .mobile-meta .meta-top .badge:first-child{
-    grid-area: stokstat;
-  }
-
-  .mobile-meta .meta-top .badge:last-child{
-    grid-area: postat;
-  }
-
-  /* badge tetap badge, tapi tidak merusak box */
-  .mobile-meta .meta-top .badge{
-    border: none;
-    font-size: 11.5px;
-    font-weight: 700;
-  }
-}
-/* =====================================================
-   STEP 1 – FIX STATUS BADGE MOBILE (FOCUS SAJA)
-===================================================== */
-@media (max-width:768px){
-
-  /* pastikan meta-top tampil normal */
   .mobile-meta .meta-top{
+    display: flex !important;
+    gap: 8px !important;
+    flex-wrap: wrap !important;
+  }
+
+  .mobile-meta .meta-top .badge{
+    padding: 6px 12px !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    border-radius: 999px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .mobile-meta .meta-bottom{
     display: flex !important;
     gap: 8px !important;
   }
 
-  /* tampilkan badge sebagai badge asli */
-  .mobile-meta .meta-top .badge{
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-
-    padding: 6px 12px !important;
-    font-size: 12px !important;
+  .mobile-meta .product-stock,
+  .mobile-meta .product-days-pill{
+    flex: 1 !important;
+    text-align: center !important;
+    padding: 10px 10px !important;
+    font-size: 13px !important;
     font-weight: 700 !important;
-
-    border-radius: 999px !important;
-    border: none !important;
-
-    min-height: auto !important;
-    outline: none !important;
-    background-clip: padding-box !important;
-  }
-
-  /* JANGAN grid dulu */
-  .mobile-meta{
-    display: block !important;
+    border-radius: 12px !important;
+    border: 1px solid #e5e7eb !important;
+    background: #fff !important;
+    box-sizing: border-box !important;
   }
 }
-
