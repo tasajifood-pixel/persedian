@@ -155,10 +155,12 @@ function applyFilter(){
   });
 
   if (currentSort === "best"){
-  // sorting sudah dilakukan di backend (RPC)
-  filtered = temp;
-}
+    // sorting sudah dilakukan di backend (RPC)
+    filtered = temp;
+  }
 
+  render();
+}
 
 // =====================
 // RENDER
