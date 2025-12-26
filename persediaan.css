@@ -590,3 +590,73 @@ html, body {
     text-overflow: ellipsis !important;
   }
 }
+@media (max-width:768px){
+
+  /* meta jadi 2 baris (fix berantakan) */
+  .mobile-meta{
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    padding-right: 10px !important;
+    box-sizing: border-box !important;
+  }
+
+  .mobile-meta .meta-row{
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  /* baris atas: badge */
+  .mobile-meta .meta-top .badge{
+    flex: 1 !important;
+    min-width: 0 !important;
+    justify-content: center !important;
+    padding: 4px 0 !important;
+    font-size: 11px !important;
+
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  /* baris bawah: stok + hari */
+  .mobile-meta .meta-bottom{
+    justify-content: space-between !important;
+  }
+
+  .mobile-meta .product-stock{
+    flex: 1 !important;
+    min-width: 0 !important;
+    text-align: center !important;
+    padding: 4px 10px !important;
+    border-radius: 999px !important;
+    background: #e6f4ea !important;
+    color: #166534 !important;
+    font-weight: 800 !important;
+    font-size: 12px !important;
+
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .mobile-meta .product-days-pill{
+    width: 78px !important;
+    text-align: center !important;
+    padding: 4px 0 !important;
+    border-radius: 999px !important;
+    background: #f1f5f9 !important;
+    color: #475569 !important;
+    font-weight: 700 !important;
+    font-size: 11px !important;
+
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+}
