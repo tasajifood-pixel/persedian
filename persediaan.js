@@ -115,45 +115,37 @@ async function loadBestSeller(){
 async function loadInventory(){
   bodyEl.innerHTML = `Memuat data...`;
 
-const { data, error } = await sb
-  .rpc("rpc_mpi_inventory");
-  .select(`
-    item_code,
-    item_name,
-    image_url,
-    stok_tersedia_final,
-    status_po_baru,
-    alasan_keputusan,
-    hari_cakupan_stok
-  `);
-
-
+  const { data, error } = await sb
+    .rpc("rpc_mpi_inventory");
 
   if (error){
+    console.error("LOAD INVENTORY ERROR:", error);
     bodyEl.innerHTML = `Gagal memuat data`;
     return;
   }
 
- allData = (data || []).map(p=>({
-  item_code   : p.item_code,
-  item_name   : p.item_name,
-  thumbnail   : p.image_url,
-  qty         : Number(p.stok_tersedia_final || 0),
+  allData = (data || []).map(p => ({
+    item_code   : p.item_code,
+    item_name   : p.item_name,
+    thumbnail   : p.image_url,
+    qty         : Number(p.stok_tersedia_final || 0),
 
-  // stok visual sementara pakai qty
-  status_stok : p.stok_tersedia_final <= 0 ? "habis" : "aman_data_baru",
+    // stok visual sementara
+    status_stok : p.stok_tersedia_final <= 0 ? "habis" : "aman_data_baru",
 
-  status_po   : norm(p.status_po_baru),
-  alasan      : p.alasan_keputusan,
-  hari        : p.hari_cakupan_stok
-}));
+    status_po   : norm(p.status_po_baru),
+    alasan      : p.alasan_keputusan,
+    hari        : p.hari_cakupan_stok
+  }));
 
   if (currentSort === "best"){
-    await loadBestSeller();
+    // sementara dimatikan dulu biar fokus inventory
+    // await loadBestSeller();
   }
 
   applyFilter();
 }
+
 
 // =====================
 // FILTER + SORT
