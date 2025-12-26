@@ -212,77 +212,78 @@ function render(){
   const totalPage = Math.max(1, Math.ceil(totalData / pageSize));
   if (page > totalPage) page = totalPage;
 
-  // ❗️JANGAN SLICE LAGI — DATA SUDAH SESUAI PAGE DARI BACKEND
   const rows = filtered;
 
   bodyEl.innerHTML = rows.map(p => `
-  <div class="inventory-row">
+    <div class="inventory-row">
 
-    <!-- COL 1: PRODUK -->
-    <div class="product-cell">
-      <div class="product-thumb">
-        ${p.thumbnail ? `<img src="${p.thumbnail}">` : ""}
+      <!-- COL 1: PRODUK -->
+      <div class="product-cell">
+        <div class="product-thumb">
+          ${p.thumbnail ? `<img src="${p.thumbnail}">` : ""}
+        </div>
+
+        <div class="product-info">
+          <div class="product-name">${p.item_name}</div>
+          <div class="product-sku">${p.item_code}</div>
+
+          <!-- MOBILE ONLY: meta -->
+          <div class="product-meta mobile-meta">
+
+            <div class="meta-row meta-top">
+              <span class="badge ${stokClass(p.status_stok)}">
+                ${stokLabel(p.status_stok)}
+              </span>
+
+              <span class="badge ${poClass(p.status_po)}">
+                ${poLabel(p.status_po)}
+              </span>
+            </div>
+
+            <div class="meta-row meta-bottom">
+              <span class="product-stock">
+                S: ${p.qty}
+              </span>
+
+              <span class="product-days-pill">
+                ${fmtHr(p.hari)}
+              </span>
+            </div>
+
+          </div>
+        </div>
       </div>
 
-      <div class="product-info">
-        <div class="product-name">${p.item_name}</div>
-        <div class="product-sku">${p.item_code}</div>
-
-        <!-- MOBILE ONLY: meta (tetap seperti sebelumnya) -->
-       <div class="product-meta mobile-meta">
-
-  <div class="meta-row meta-top">
-    <span class="badge ${stokClass(p.status_stok)}">
-      ${stokLabel(p.status_stok)}
-    </span>
-
-    <span class="badge ${poClass(p.status_po)}">
-      ${poLabel(p.status_po)}
-    </span>
-  </div>
-
-  <div class="meta-row meta-bottom">
-    <span class="product-stock">
-      S: ${p.qty}
-    </span>
-
-    <span class="product-days-pill">
-      ${fmtHr(p.hari)}
-    </span>
-  </div>
-
-</div>
-
-
-    <!-- COL 2: STOK (DESKTOP) -->
-    <div class="stock-cell">
-      <span class="product-stock desktop-stock">
-        ${p.qty}
-      </span>
-      <div class="product-days desktop-days">
-        ${fmtHr(p.hari).replace("hr","hari")}
+      <!-- COL 2: STOK (DESKTOP) -->
+      <div class="stock-cell">
+        <span class="product-stock desktop-stock">
+          ${p.qty}
+        </span>
+        <div class="product-days desktop-days">
+          ${fmtHr(p.hari).replace("hr","hari")}
+        </div>
       </div>
-    </div>
 
-    <!-- COL 3: STATUS STOK (DESKTOP) -->
-    <div class="status-stok-cell">
-      <span class="badge ${stokClass(p.status_stok)}">
-        ${stokLabel(p.status_stok)}
-      </span>
-    </div>
+      <!-- COL 3: STATUS STOK (DESKTOP) -->
+      <div class="status-stok-cell">
+        <span class="badge ${stokClass(p.status_stok)}">
+          ${stokLabel(p.status_stok)}
+        </span>
+      </div>
 
-    <!-- COL 4: STATUS PO (DESKTOP) -->
-    <div class="status-po-cell">
-      <span class="badge ${poClass(p.status_po)}">
-        ${poLabel(p.status_po)}
-      </span>
-    </div>
+      <!-- COL 4: STATUS PO (DESKTOP) -->
+      <div class="status-po-cell">
+        <span class="badge ${poClass(p.status_po)}">
+          ${poLabel(p.status_po)}
+        </span>
+      </div>
 
-  </div>
-`).join("");
+    </div>
+  `).join("");
 
   renderPagination(totalPage);
 }
+
 
 // =====================
 // PAGINATION
