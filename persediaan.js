@@ -154,10 +154,28 @@ function applyFilter(){
     return true;
   });
 
-  if (currentSort === "best"){
-    // sorting sudah dilakukan di backend (RPC)
-    filtered = temp;
-  }
+ if (currentSort === "best"){
+  const ranked = [];
+  const rest   = [];
+
+  temp.forEach(p=>{
+    if (bestRank[norm(p.item_code)] !== undefined) {
+      ranked.push(p);
+    } else {
+      rest.push(p);
+    }
+  });
+
+  ranked.sort(
+    (a,b)=> bestRank[norm(a.item_code)] - bestRank[norm(b.item_code)]
+  );
+
+  // sisanya bebas, biar rapi pakai stok desc
+  rest.sort((a,b)=> b.qty - a.qty);
+
+  filtered = [...ranked, ...rest];
+}
+
 
   render();
 }
