@@ -110,7 +110,9 @@ function getRankColumnByPeriod(){
 // LOAD INVENTORY (FAST FROM MV)
 // =====================
 async function loadInventory(){
+  if (!bodyEl) return;
   bodyEl.innerHTML = `Memuat data...`;
+
 
   const q = (searchEl.value || "").trim();
   const stokFilters = getCheckedValues(".chk-stok"); // "Habis"|"Kritis"|"Menipis"|"Aman" (pastikan value checkbox sama)
@@ -150,7 +152,8 @@ async function loadInventory(){
   } else {
     // best seller
     const rankCol = getRankColumnByPeriod();
-    query = query.order(rankCol, { ascending: true, nullsLast: true });
+    query = query.order(rankCol, { ascending: true });
+
   }
 
   // PAGINATION (server-side)
