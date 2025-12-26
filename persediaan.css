@@ -593,3 +593,38 @@ html, body {
     font-weight: 700;
   }
 }
+/* =====================================================
+   STEP 1 – FIX STATUS BADGE MOBILE (FOCUS SAJA)
+===================================================== */
+@media (max-width:768px){
+
+  /* pastikan meta-top tampil normal */
+  .mobile-meta .meta-top{
+    display: flex !important;
+    gap: 8px !important;
+  }
+
+  /* tampilkan badge sebagai badge asli */
+  .mobile-meta .meta-top .badge{
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 6px 12px !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+
+    border-radius: 999px !important;
+    border: none !important;
+
+    min-height: auto !important;
+    outline: none !important;
+    background-clip: padding-box !important;
+  }
+
+  /* JANGAN grid dulu */
+  .mobile-meta{
+    display: block !important;
+  }
+}
+
