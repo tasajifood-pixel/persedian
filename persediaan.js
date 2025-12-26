@@ -1,6 +1,6 @@
 /* =====================================================
    PERSEDIAAN – TASAJI OMS
-   (ENTERPRISE: STATUS STOK + STATUS PO dari SUPABASE VIEW)
+   (FAST UI: STATUS STOK + STATUS PO dari MATERIALIZED VIEW)
 ===================================================== */
 
 // =====================
@@ -31,14 +31,12 @@ const periodBox  = document.getElementById("invBestPeriodBox");
 let allData  = [];
 let filtered = [];
 
-let bestRank = {};
-
-let page     = 1;
-let pageSize = 25;
+let page      = 1;
+let pageSize  = 25;
 let totalData = 0;
 
-let currentSort   = "best";
-let currentPeriod = "90d";
+let currentSort   = "best"; // best | az | stock
+let currentPeriod = "90d";  // 7d | 30d | 90d | 180d | 365d
 
 // =====================
 // HELPERS
@@ -53,61 +51,107 @@ function getCheckedValues(selector){
 }
 
 // =====================
-// LABEL & BADGE
+// LABEL & BADGE (UPDATED FOR MV VALUES)
 // =====================
+
+// status_stok dari MV: "Habis" | "Kritis" | "Menipis" | "Aman"
 function stokLabel(s){
-  if (s === "habis") return "Habis";
-  if (s === "kritis") return "Kritis";
-  if (s === "menipis") return "Menipis";
-  if (s === "aman_data_baru") return "Aman (Data Baru)";
+  if (s === "Habis")   return "Habis";
+  if (s === "Kritis")  return "Kritis";
+  if (s === "Menipis") return "Menipis";
   return "Aman";
 }
 
+// class CSS tetap pakai yang lama supaya UI tidak rusak
 function stokClass(s){
-  if (s === "habis") return "stok-habis";
-  if (s === "kritis") return "stok-kritis";
-  if (s === "menipis") return "stok-menipis";
-  if (s === "aman_data_baru") return "stok-aman_data_baru";
+  if (s === "Habis")   return "stok-habis";
+  if (s === "Kritis")  return "stok-kritis";
+  if (s === "Menipis") return "stok-menipis";
   return "stok-aman";
 }
 
+// status_po_baru dari MV: "PO_DARURAT" | "PO_SEGERA" | "PO_SIAGA" | "TAHAN_PO" | "TIDAK_PO"
 function poLabel(s){
-  if (s === "po_darurat") return "PO Darurat";
-  if (s === "po_segera")  return "PO Segera";
-  if (s === "po_siaga")   return "PO Siaga";
-  if (s === "tahan_po")   return "Tahan PO";
+  if (s === "PO_DARURAT") return "PO Darurat";
+  if (s === "PO_SEGERA")  return "PO Segera";
+  if (s === "PO_SIAGA")   return "PO Siaga";
+  if (s === "TAHAN_PO")   return "Tahan PO";
   return "Tidak PO";
 }
 
 function poClass(s){
-  if (s === "po_darurat") return "po_darurat";
-  if (s === "po_segera")  return "po_segera";
-  if (s === "po_siaga")   return "po_siaga";
-  if (s === "tahan_po")   return "tahan_po";
+  if (s === "PO_DARURAT") return "po_darurat";
+  if (s === "PO_SEGERA")  return "po_segera";
+  if (s === "PO_SIAGA")   return "po_siaga";
+  if (s === "TAHAN_PO")   return "tahan_po";
   return "tidak_po";
 }
 
 // =====================
-// LOAD BEST SELLER
+// SORT MAPPING (MV)
 // =====================
+function getRankColumnByPeriod(){
+  if (currentPeriod === "7d")   return "rank_sold_7d";
+  if (currentPeriod === "30d")  return "rank_sold_30d";
+  if (currentPeriod === "180d") return "rank_sold_180d";
+  if (currentPeriod === "365d") return "rank_sold_365d";
+  return "rank_sold_90d"; // default
+}
 
 // =====================
-// LOAD INVENTORY
+// LOAD INVENTORY (FAST FROM MV)
 // =====================
 async function loadInventory(){
   bodyEl.innerHTML = `Memuat data...`;
 
   const q = (searchEl.value || "").trim();
-  const stokFilters = getCheckedValues(".chk-stok").map(v => v.toLowerCase());
-  const poFilters   = getCheckedValues(".chk-po");
+  const stokFilters = getCheckedValues(".chk-stok"); // "Habis"|"Kritis"|"Menipis"|"Aman" (pastikan value checkbox sama)
+  const poFilters   = getCheckedValues(".chk-po");   // "PO_DARURAT" dll (pastikan value checkbox sama)
 
- const { data, error } = await sb
-  .schema("decision")
-  .rpc("rpc_mpi_inventory", {
-    p_limit: pageSize,
-    p_offset: (page - 1) * pageSize
-  });
+  // ---------- BUILD QUERY ----------
+  // NOTE: gunakan MV di schema decision
+  let query = sb
+    .schema("decision")
+    .from("mv_persediaan_fast")
+    .select(
+      "item_code,item_name,image_url,stok_tersedia_final,status_stok,status_po_baru,hari_cakupan_stok,rank_sold_7d,rank_sold_30d,rank_sold_90d,rank_sold_180d,rank_sold_365d",
+      { count: "exact" }
+    );
 
+  // SEARCH (item_name OR item_code)
+  if (q){
+    // Supabase or syntax
+    query = query.or(`item_name.ilike.%${q}%,item_code.ilike.%${q}%`);
+  }
+
+  // FILTER STATUS STOK
+  if (stokFilters.length > 0){
+    query = query.in("status_stok", stokFilters);
+  }
+
+  // FILTER STATUS PO
+  if (poFilters.length > 0){
+    query = query.in("status_po_baru", poFilters);
+  }
+
+  // SORT
+  if (currentSort === "az"){
+    query = query.order("item_name", { ascending: true });
+  } else if (currentSort === "stock"){
+    query = query.order("stok_tersedia_final", { ascending: false });
+  } else {
+    // best seller
+    const rankCol = getRankColumnByPeriod();
+    query = query.order(rankCol, { ascending: true });
+  }
+
+  // PAGINATION (server-side)
+  const from = (page - 1) * pageSize;
+  const to   = from + pageSize - 1;
+  query = query.range(from, to);
+
+  // ---------- EXECUTE ----------
+  const { data, error, count } = await query;
 
   if (error){
     console.error("LOAD INVENTORY ERROR:", error);
@@ -115,23 +159,18 @@ async function loadInventory(){
     return;
   }
 
-  totalData = data?.[0]?.total_rows ?? 0;
+  totalData = count ?? 0;
 
   allData = (data || []).map(p => ({
     item_code   : p.item_code,
     item_name   : p.item_name,
     thumbnail   : p.image_url,
     qty         : Number(p.stok_tersedia_final || 0),
-    status_stok : p.status_stok,          // ⬅️ dari backend
-    status_po   : norm(p.status_po_baru),
-    alasan      : p.alasan_keputusan,
+    status_stok : p.status_stok,          // "Habis"|"Kritis"|"Menipis"|"Aman"
+    status_po   : p.status_po_baru,       // "PO_DARURAT" dll
+    alasan      : null,                   // MV tidak bawa alasan_keputusan (kalau mau nanti kita tambahkan ke MV)
     hari        : p.hari_cakupan_stok,
-    best_rank   : p.best_rank              // opsional, buat debug
   }));
-
-  console.log("DEBUG allData.length =", allData.length);
-  console.log("DEBUG totalData =", totalData);
-  console.log("DEBUG first row =", allData[0]);
 
   applyFilter();
 }
@@ -140,20 +179,20 @@ async function loadInventory(){
 // FILTER + SORT
 // =====================
 function applyFilter(){
-  // data sudah terurut & terfilter dari backend
+  // Karena filter & sort sudah dilakukan di backend MV, di frontend cukup render.
   filtered = allData;
   render();
 }
-
 
 // =====================
 // RENDER
 // =====================
 function render(){
- const totalPage = Math.max(1, Math.ceil(totalData / pageSize));
+  const totalPage = Math.max(1, Math.ceil(totalData / pageSize));
   if (page > totalPage) page = totalPage;
 
-  const rows = filtered.slice((page - 1) * pageSize, page * pageSize);
+  // ❗️JANGAN SLICE LAGI — DATA SUDAH SESUAI PAGE DARI BACKEND
+  const rows = filtered;
 
   bodyEl.innerHTML = rows.map(p => `
   <div class="inventory-row">
@@ -190,6 +229,9 @@ function render(){
       <span class="product-stock desktop-stock">
         ${p.qty}
       </span>
+      <div class="product-days desktop-days">
+        ${Number(p.hari || 0).toFixed(1)} hari
+      </div>
     </div>
 
     <!-- COL 3: STATUS STOK (DESKTOP) -->
@@ -208,7 +250,6 @@ function render(){
 
   </div>
 `).join("");
-
 
   renderPagination(totalPage);
 }
@@ -246,9 +287,10 @@ function renderPoSlot(){
 
     if (chk.checked) badge.classList.add("active");
 
-    badge.onclick = ()=>{
+    badge.onclick = async ()=>{
       chk.checked = !chk.checked;
-      applyFilter();
+      page = 1;
+      await loadInventory();
       renderPoSlot();
     };
 
@@ -261,23 +303,26 @@ function renderPoSlot(){
 // =====================
 document.addEventListener("click", async e=>{
   const p = e.target.closest(".page-btn");
- if (p){
-  page = Number(p.dataset.p);
-  await loadInventory();
-  return;
-}
-
+  if (p){
+    const next = Number(p.dataset.p);
+    if (!isNaN(next) && next >= 1){
+      page = next;
+      await loadInventory();
+    }
+    return;
+  }
 
   const s = e.target.closest(".inv-sort-btn");
   if (s){
     sortBtns.forEach(b=>b.classList.remove("active"));
     s.classList.add("active");
 
-    currentSort = s.dataset.sort;
+    currentSort = s.dataset.sort; // best|az|stock
     periodBox.style.display = currentSort === "best" ? "flex" : "none";
 
-    if (currentSort === "best") await loadBestSeller();
-    applyFilter();
+    page = 1;
+    await loadInventory();
+    return;
   }
 
   const per = e.target.closest(".inv-period-btn");
@@ -285,9 +330,11 @@ document.addEventListener("click", async e=>{
     periodBtns.forEach(b=>b.classList.remove("active"));
     per.classList.add("active");
 
-    currentPeriod = per.dataset.period;
-    await loadBestSeller();
-    applyFilter();
+    currentPeriod = per.dataset.period; // 7d|30d|90d|180d|365d
+
+    page = 1;
+    await loadInventory();
+    return;
   }
 });
 
@@ -297,12 +344,15 @@ pageSizeEl.onchange = async ()=>{
   await loadInventory();
 };
 
-
-searchEl.oninput = applyFilter;
+searchEl.oninput = async ()=>{
+  page = 1;
+  await loadInventory();
+};
 
 document.querySelectorAll(".chk-stok, .chk-po").forEach(el=>{
-  el.onchange = ()=>{
-    applyFilter();
+  el.onchange = async ()=>{
+    page = 1;
+    await loadInventory();
     renderPoSlot();
   };
 });
