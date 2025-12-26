@@ -9,6 +9,17 @@ html, body {
   color: #111827;
 }
 
+/* optional header */
+.page-header{
+  padding: 14px 16px;
+}
+.page-header h2{
+  margin: 0;
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
 /* =====================================================
    LAYOUT
 ===================================================== */
@@ -100,22 +111,6 @@ html, body {
   box-sizing: border-box;
 }
 
-/* =====================
-   STATUS PO SLOT (TOP)
-===================== */
-.inv-po-slot{
-  display:flex;
-  gap:6px;
-  align-items:center;
-  flex-wrap:nowrap;
-}
-
-.inv-po-slot .badge{
-  padding:5px 10px;
-  font-size:11px;
-  cursor:pointer;
-}
-
 .inv-sort-main {
   display: flex;
   gap: 6px;
@@ -152,8 +147,21 @@ html, body {
   color: #64748b;
 }
 
+/* =====================
+   STATUS PO SLOT (TOP)
+===================== */
+.inv-po-slot{
+  display:flex;
+  gap:6px;
+  align-items:center;
+  flex-wrap:nowrap;
+}
+.inv-po-slot .badge{
+  cursor:pointer;
+}
+
 /* =====================================================
-   INVENTORY GRID – DESKTOP
+   INVENTORY GRID – DESKTOP (TABLE STYLE)
 ===================================================== */
 .inventory-grid {
   display: grid;
@@ -196,6 +204,14 @@ html, body {
 /* =====================================================
    PRODUCT – DESKTOP
 ===================================================== */
+.product-cell{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-left: 16px;
+  min-width: 0;
+}
+
 .product-thumb {
   width: 42px;
   height: 42px;
@@ -221,6 +237,7 @@ html, body {
 .product-name {
   font-size: 13px;
   font-weight: 700;
+  line-height: 1.25;
 }
 
 .product-sku {
@@ -228,10 +245,12 @@ html, body {
   color: #64748b;
 }
 
-.product-meta {
+.stock-cell,
+.status-stok-cell,
+.status-po-cell{
   display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 8px;
 }
 
 /* =====================================================
@@ -241,7 +260,7 @@ html, body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 5px 10px;
+  padding: 6px 14px;           /* dirapikan konsisten */
   border-radius: 999px;
   font-size: 11px;
   font-weight: 700;
@@ -272,35 +291,22 @@ html, body {
 .pagination-bar {
   display: flex;
   justify-content: space-between;
+  gap: 12px;
   padding: 14px 16px;
   border-top: 1px solid #eef2f7;
+  align-items: center;
 }
 
 /* =====================================================
-   RENDER MODE: DESKTOP TABLE CELLS + MOBILE CARD META
+   MOBILE META DEFAULT (DESKTOP HIDDEN)
 ===================================================== */
-.product-cell{
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding-left: 16px;
-}
-
-.stock-cell,
-.status-stok-cell,
-.status-po-cell{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Desktop: sembunyikan meta versi mobile */
 .mobile-meta{
   display: none;
 }
 
 /* =====================================================
    DESKTOP LAYOUT FINAL (≥769px)
+   (tetap seperti konsep Abi: filter kiri, content kanan)
 ===================================================== */
 @media (min-width: 769px){
 
@@ -348,10 +354,15 @@ html, body {
   .inv-po-slot{
     display: none !important;
   }
+
+  /* Desktop hide mobile meta */
+  .mobile-meta{
+    display: none !important;
+  }
 }
 
 /* =====================================================
-   MOBILE (≤768px) – FINAL
+   MOBILE (≤768px) – FINAL (GRID 2x2 SESUAI GAMBAR)
 ===================================================== */
 @media (max-width:768px){
 
@@ -441,7 +452,7 @@ html, body {
   .inv-po-slot .badge{
     flex-shrink: 0;
     font-size: 10.5px;
-    padding: 4px 9px;
+    padding: 5px 10px;
   }
 
   /* hide period selector */
@@ -474,9 +485,9 @@ html, body {
 
   .inventory-grid-body .inventory-row{
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 12px;
-    padding: 10px 0;
+    padding: 12px 0;
     border-bottom: 1px solid #eef2f7;
 
     width: 100% !important;
@@ -488,8 +499,8 @@ html, body {
      IMAGE
   ===================== */
   .product-thumb{
-    width: 68px;
-    height: 68px;
+    width: 78px;
+    height: 78px;
     border-radius: 12px;
   }
 
@@ -505,12 +516,14 @@ html, body {
   }
 
   .product-name{
-    font-size: 14px;
-    line-height: 1.25;
+    font-size: 16px;
+    line-height: 1.15;
+    font-weight: 800;
   }
 
   .product-sku{
-    font-size: 11px;
+    font-size: 12px;
+    color: #64748b;
   }
 
   /* =====================
@@ -519,79 +532,109 @@ html, body {
   .stock-cell,
   .status-stok-cell,
   .status-po-cell{
-    display: none;
+    display: none !important;
   }
 
-  /* =====================
-     MOBILE META: 4 PILL SEJAJAR
-     Aman | PO | S:stok | hr
-  ===================== */
-  
-@media (max-width:768px){
+  /* =================================================
+     MOBILE META (DARI HTML LAMA) → DIPAKSA JADI 2×2 BOX
+     Target:
+       [ obvious stock ] [ stock days ]
+       [ status stok  ] [ status PO  ]
+  ================================================= */
 
-  /* meta jadi 2 baris (fix berantakan) */
+  /* show mobile meta */
   .mobile-meta{
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 6px !important;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    grid-template-areas:
+      "stock days"
+      "stokstat postat" !important;
+    gap: 10px !important;
+
     width: 100% !important;
-    min-width: 0 !important;
-    padding-right: 10px !important;
+    margin-top: 10px !important;
     box-sizing: border-box !important;
   }
 
-  .mobile-meta .meta-row{
+  /* meta-top & meta-bottom biar anaknya ikut grid */
+  .mobile-meta .meta-top,
+  .mobile-meta .meta-bottom{
+    display: contents !important;
+  }
+
+  /* jadikan 4 elemen itu “BOX” seragam */
+  .mobile-meta .product-stock,
+  .mobile-meta .product-days-pill,
+  .mobile-meta .meta-top .badge{
+    border: 1px solid #e5e7eb !important;
+    border-radius: 12px !important;
+    padding: 10px 10px !important;
+    box-sizing: border-box !important;
+
     display: flex !important;
     align-items: center !important;
-    gap: 8px !important;
-    width: 100% !important;
-    min-width: 0 !important;
-  }
-
-  /* baris atas: badge */
-  .mobile-meta .meta-top .badge{
-    flex: 1 !important;
-    min-width: 0 !important;
     justify-content: center !important;
-    padding: 4px 0 !important;
-    font-size: 11px !important;
+
+    min-height: 46px !important;
+    width: 100% !important;
 
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
   }
 
-  /* baris bawah: stok + hari */
-  .mobile-meta .meta-bottom{
-    justify-content: space-between !important;
-  }
-
+  /* penempatan grid yang FIX (tidak tergantung urutan DOM) */
   .mobile-meta .product-stock{
-    flex: 1 !important;
-    min-width: 0 !important;
-    text-align: center !important;
-    padding: 4px 10px !important;
-    border-radius: 999px !important;
+    grid-area: stock !important;
+    font-size: 14px !important;
     font-weight: 800 !important;
-    font-size: 12px !important;
-
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
+    color: #111827 !important;
+    background: #fff !important;
   }
 
   .mobile-meta .product-days-pill{
-    width: 78px !important;
-    text-align: center !important;
-    padding: 4px 0 !important;
-    border-radius: 999px !important;
-    background: #f1f5f9 !important;
-    color: #475569 !important;
+    grid-area: days !important;
+    font-size: 13px !important;
     font-weight: 700 !important;
-    font-size: 11px !important;
+    color: #111827 !important;
+    background: #fff !important;
+  }
 
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
+  /* status stok = badge pertama di meta-top */
+  .mobile-meta .meta-top .badge:first-child{
+    grid-area: stokstat !important;
+  }
+
+  /* status po = badge terakhir di meta-top */
+  .mobile-meta .meta-top .badge:last-child{
+    grid-area: postat !important;
+  }
+
+  /* pastikan badge di box status tetap “badge look”, tapi tidak merusak box */
+  .mobile-meta .meta-top .badge{
+    padding: 8px 12px !important;
+    font-size: 12px !important;
+    font-weight: 800 !important;
+    border-width: 0 !important;        /* biar border box yang dipakai */
+  }
+
+  /* karena border box sudah ada di wrapper di atas, kita pindahkan border ke box wrapper */
+  .mobile-meta .meta-top .badge{
+    background-clip: padding-box;
+  }
+
+  /* Trick: border box tetap terlihat meski badge punya background.
+     Kita buat "box wrapper" lewat outline halus */
+  .mobile-meta .product-stock,
+  .mobile-meta .product-days-pill{
+    outline: 1px solid #e5e7eb !important;
+    outline-offset: -1px !important;
+  }
+
+  /* untuk status box: outline supaya border box tetap tampak */
+  .mobile-meta .meta-top .badge:first-child,
+  .mobile-meta .meta-top .badge:last-child{
+    outline: 1px solid #e5e7eb !important;
+    outline-offset: -1px !important;
   }
 }
