@@ -115,37 +115,38 @@ async function loadBestSeller(){
 async function loadInventory(){
   bodyEl.innerHTML = `Memuat data...`;
 
-  const { data, error } = await sb
-    .schema("decision")
-    .from("v_inventory_ui")
-    .select(`
-      item_code,
-      item_name,
-      thumbnail,
-      stok_tersedia,
-      status_stok,
-      status_po,
-      alasan_keputusan,
-      hari_cakupan_stok,
-      tingkat_keyakinan
-    `);
+ const { data, error } = await sb
+  .schema("decision")
+  .from("v_mpi_full")
+  .select(`
+    item_code,
+    item_name,
+    image_url,
+    stok_tersedia_final,
+    status_po_baru,
+    alasan_keputusan,
+    hari_cakupan_stok
+  `);
+
 
   if (error){
     bodyEl.innerHTML = `Gagal memuat data`;
     return;
   }
 
-  allData = (data || []).map(p=>({
-    item_code   : p.item_code,
-    item_name   : p.item_name,
-    thumbnail   : p.thumbnail,
-    qty         : Number(p.stok_tersedia || 0),
-    status_stok : norm(p.status_stok),
-    status_po   : norm(p.status_po).replace(/\s+/g, "_"),
-    alasan      : p.alasan_keputusan,
-    hari        : p.hari_cakupan_stok,
-    keyakinan   : p.tingkat_keyakinan
-  }));
+ allData = (data || []).map(p=>({
+  item_code   : p.item_code,
+  item_name   : p.item_name,
+  thumbnail   : p.image_url,
+  qty         : Number(p.stok_tersedia_final || 0),
+
+  // stok visual sementara pakai qty
+  status_stok : p.stok_tersedia_final <= 0 ? "habis" : "aman_data_baru",
+
+  status_po   : norm(p.status_po_baru),
+  alasan      : p.alasan_keputusan,
+  hari        : p.hari_cakupan_stok
+}));
 
   if (currentSort === "best"){
     await loadBestSeller();
