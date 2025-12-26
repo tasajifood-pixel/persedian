@@ -116,7 +116,7 @@ async function loadInventory(){
   bodyEl.innerHTML = `Memuat data...`;
 
 const { data, error } = await sb
-  .from("v_mpi_full")   // ← schema dihapus, pakai public
+  .rpc("rpc_mpi_inventory");
   .select(`
     item_code,
     item_name,
