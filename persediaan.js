@@ -116,7 +116,11 @@ async function loadInventory(){
   bodyEl.innerHTML = `Memuat data...`;
 
   const { data, error } = await sb
-    .rpc("rpc_mpi_inventory");
+  .rpc("rpc_mpi_inventory", {
+    p_limit: pageSize,
+    p_offset: (page - 1) * pageSize
+  });
+
 
   if (error){
     console.error("LOAD INVENTORY ERROR:", error);
@@ -131,7 +135,7 @@ async function loadInventory(){
     qty         : Number(p.stok_tersedia_final || 0),
 
     // stok visual sementara
-    status_stok : p.stok_tersedia_final <= 0 ? "habis" : "aman_data_baru",
+    status_stok : p.status_stok,
 
     status_po   : norm(p.status_po_baru),
     alasan      : p.alasan_keputusan,
@@ -192,7 +196,7 @@ function applyFilter(){
 // RENDER
 // =====================
 function render(){
-  const totalPage = Math.max(1, Math.ceil(filtered.length / pageSize));
+ const totalPage = 1;
   if (page > totalPage) page = totalPage;
 
   const rows = filtered.slice((page - 1) * pageSize, page * pageSize);
