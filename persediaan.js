@@ -138,11 +138,6 @@ async function loadInventory(){
   applyFilter();
 }
 
-
-  applyFilter();
-}
-
-
 // =====================
 // FILTER + SORT
 // =====================
