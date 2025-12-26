@@ -50,6 +50,14 @@ function getCheckedValues(selector){
     .map(el => el.value);
 }
 
+// ✅ FORMAT HARI CAKUPAN (ANTI NaN / Infinity / minus)
+function fmtHr(v){
+  const n = Number(v);
+  if (!isFinite(n) || isNaN(n) || n < 0) return "0.0 hr";
+  return n.toFixed(1) + " hr";
+}
+
+
 // =====================
 // LABEL & BADGE (UPDATED FOR MV VALUES)
 // =====================
@@ -142,7 +150,7 @@ async function loadInventory(){
   } else {
     // best seller
     const rankCol = getRankColumnByPeriod();
-    query = query.order(rankCol, { ascending: true });
+    query = query.order(rankCol, { ascending: true, nullsLast: true });
   }
 
   // PAGINATION (server-side)
@@ -160,6 +168,16 @@ async function loadInventory(){
   }
 
   totalData = count ?? 0;
+   // ✅ jika setelah filter/search total page mengecil dan page sekarang kebablasan
+const totalPage = Math.max(1, Math.ceil(totalData / pageSize));
+if (page > totalPage){
+  page = totalPage;
+
+  // re-run query dengan page yang benar
+  await loadInventory();
+  return;
+}
+
 
   allData = (data || []).map(p => ({
     item_code   : p.item_code,
@@ -221,7 +239,7 @@ function render(){
 </span>
 
 <span class="product-days-pill">
-  ${Number(p.hari || 0).toFixed(1)} hr
+  ${fmtHr(p.hari)}
 </span>
 
         </div>
@@ -234,7 +252,7 @@ function render(){
         ${p.qty}
       </span>
       <div class="product-days desktop-days">
-        ${Number(p.hari || 0).toFixed(1)} hari
+        ${fmtHr(p.hari).replace("hr","hari")}
       </div>
     </div>
 
