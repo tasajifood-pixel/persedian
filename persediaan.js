@@ -115,9 +115,8 @@ async function loadBestSeller(){
 async function loadInventory(){
   bodyEl.innerHTML = `Memuat data...`;
 
- const { data, error } = await sb
-  .schema("decision")
-  .from("v_mpi_full")
+const { data, error } = await sb
+  .from("v_mpi_full")   // ← schema dihapus, pakai public
   .select(`
     item_code,
     item_name,
@@ -127,6 +126,7 @@ async function loadInventory(){
     alasan_keputusan,
     hari_cakupan_stok
   `);
+
 
 
   if (error){
@@ -148,7 +148,7 @@ async function loadInventory(){
   hari        : p.hari_cakupan_stok
 }));
 
-  if (currentSort === "best"){
+//  if (currentSort === "best"){
     await loadBestSeller();
   }
 
@@ -171,7 +171,7 @@ function applyFilter(){
     return true;
   });
 
-  if (currentSort === "best"){
+ // if (currentSort === "best"){
     const ranked = [];
     const rest   = [];
 
