@@ -229,25 +229,30 @@ function render(){
         <div class="product-sku">${p.item_code}</div>
 
         <!-- MOBILE ONLY: meta (tetap seperti sebelumnya) -->
-        <div class="product-meta mobile-meta">
-          <span class="badge ${stokClass(p.status_stok)}">
-            ${stokLabel(p.status_stok)}
-          </span>
+       <div class="product-meta mobile-meta">
 
-          <span class="badge ${poClass(p.status_po)}">
-            ${poLabel(p.status_po)}
-          </span>
-<span class="product-stock">
-  ${p.qty}
-</span>
+  <div class="meta-row meta-top">
+    <span class="badge ${stokClass(p.status_stok)}">
+      ${stokLabel(p.status_stok)}
+    </span>
 
-<span class="product-days-pill">
-  ${fmtHr(p.hari)}
-</span>
+    <span class="badge ${poClass(p.status_po)}">
+      ${poLabel(p.status_po)}
+    </span>
+  </div>
 
-        </div>
-      </div>
-    </div>
+  <div class="meta-row meta-bottom">
+    <span class="product-stock">
+      S: ${p.qty}
+    </span>
+
+    <span class="product-days-pill">
+      ${fmtHr(p.hari)}
+    </span>
+  </div>
+
+</div>
+
 
     <!-- COL 2: STOK (DESKTOP) -->
     <div class="stock-cell">
