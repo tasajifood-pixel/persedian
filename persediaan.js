@@ -97,58 +97,47 @@ function poClass(s){
 async function loadInventory(){
   bodyEl.innerHTML = `Memuat data...`;
 
-  const { data, error } = await sb
   const q = (searchEl.value || "").trim();
+  const stokFilters = getCheckedValues(".chk-stok").map(v => v.toLowerCase());
+  const poFilters   = getCheckedValues(".chk-po");
 
-const stokFilters = getCheckedValues(".chk-stok").map(v=>v.toLowerCase());
-const poFilters   = getCheckedValues(".chk-po"); // nilai checkbox harus cocok dgn DB (PO_SEGERA dll)
-
-const { data, error } = await sb.rpc("rpc_mpi_inventory", {
-  p_limit      : pageSize,
-  p_offset     : (page - 1) * pageSize,
-  p_sort       : currentSort,        // 'best' | 'az' | 'stock'
-  p_period_key : currentPeriod,      // set default jadi '90d' di state
-  p_q          : q || null,
-  p_po         : poFilters.length ? poFilters : null,
-  p_stok       : stokFilters.length ? stokFilters : null
-});
-
-
+  const { data, error } = await sb.rpc("rpc_mpi_inventory", {
+    p_limit      : pageSize,
+    p_offset     : (page - 1) * pageSize,
+    p_sort       : currentSort,      // 'best'
+    p_period_key : currentPeriod,    // '90d'
+    p_q          : q || null,
+    p_po         : poFilters.length ? poFilters : null,
+    p_stok       : stokFilters.length ? stokFilters : null
+  });
 
   if (error){
     console.error("LOAD INVENTORY ERROR:", error);
     bodyEl.innerHTML = `Gagal memuat data`;
     return;
   }
-if (data && data.length) {
-  totalData = Number(data[0].total_rows || 0);
-} else {
-  totalData = 0;
+
+  totalData = data?.[0]?.total_rows ?? 0;
+
+  allData = (data || []).map(p => ({
+    item_code   : p.item_code,
+    item_name   : p.item_name,
+    thumbnail   : p.image_url,
+    qty         : Number(p.stok_tersedia_final || 0),
+    status_stok : p.status_stok,          // ⬅️ dari backend
+    status_po   : norm(p.status_po_baru),
+    alasan      : p.alasan_keputusan,
+    hari        : p.hari_cakupan_stok,
+    best_rank   : p.best_rank              // opsional, buat debug
+  }));
+
+  console.log("DEBUG allData.length =", allData.length);
+  console.log("DEBUG totalData =", totalData);
+  console.log("DEBUG first row =", allData[0]);
+
+  applyFilter();
 }
 
- allData = (data || []).map(p => ({
-  item_code   : p.item_code,
-  item_name   : p.item_name,
-  thumbnail   : p.image_url,
-  qty         : Number(p.stok_tersedia_final || 0),
-
-  // ⬇️ INI PENTING: status_stok SUDAH dari backend
-  status_stok : p.status_stok,
-
-  status_po   : norm(p.status_po_baru),
-  alasan      : p.alasan_keputusan,
-  hari        : p.hari_cakupan_stok,
-  best_rank   : p.best_rank   // opsional, tapi bagus buat debug
-}));
-console.log("DEBUG allData.length =", allData.length);
-console.log("DEBUG totalData     =", totalData);
-console.log("DEBUG allData[0]    =", allData[0]);
-
-
-  if (currentSort === "best"){
-    // sementara dimatikan dulu biar fokus inventory
-    // await loadBestSeller();
-  }
 
   applyFilter();
 }
