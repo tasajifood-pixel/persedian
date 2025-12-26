@@ -242,12 +242,13 @@ function render(){
 
             <div class="meta-row meta-bottom">
               <span class="product-stock">
-                S: ${p.qty}
+                Stok: ${p.qty}
               </span>
 
-              <span class="product-days-pill">
-                ${fmtHr(p.hari)}
-              </span>
+             <span class="product-days-pill">
+  Cukup ±${fmtHr(p.hari).replace(" hr","")} hari
+</span>
+
             </div>
 
           </div>
