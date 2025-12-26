@@ -35,6 +35,7 @@ let bestRank = {};
 
 let page     = 1;
 let pageSize = 25;
+let totalData = 0;
 
 let currentSort   = "best";
 let currentPeriod = "365d";
@@ -127,6 +128,11 @@ async function loadInventory(){
     bodyEl.innerHTML = `Gagal memuat data`;
     return;
   }
+if (data && data.length) {
+  totalData = Number(data[0].total_rows || 0);
+} else {
+  totalData = 0;
+}
 
   allData = (data || []).map(p => ({
     item_code   : p.item_code,
@@ -196,7 +202,7 @@ function applyFilter(){
 // RENDER
 // =====================
 function render(){
- const totalPage = 1;
+ const totalPage = Math.max(1, Math.ceil(totalData / pageSize));
   if (page > totalPage) page = totalPage;
 
   const rows = filtered.slice((page - 1) * pageSize, page * pageSize);
@@ -307,7 +313,12 @@ function renderPoSlot(){
 // =====================
 document.addEventListener("click", async e=>{
   const p = e.target.closest(".page-btn");
-  if (p){ page = Number(p.dataset.p); render(); return; }
+ if (p){
+  page = Number(p.dataset.p);
+  await loadInventory();
+  return;
+}
+
 
   const s = e.target.closest(".inv-sort-btn");
   if (s){
@@ -332,11 +343,12 @@ document.addEventListener("click", async e=>{
   }
 });
 
-pageSizeEl.onchange = ()=>{
+pageSizeEl.onchange = async ()=>{
   pageSize = Number(pageSizeEl.value);
   page = 1;
-  render();
+  await loadInventory();
 };
+
 
 searchEl.oninput = applyFilter;
 
