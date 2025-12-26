@@ -701,13 +701,31 @@ html, body {
 ===================================================== */
 @media (max-width:768px){
 
-  /* product-meta jadi 3 kolom: badge1 | badge2 | stok */
-  .product-meta{
-    display: grid !important;
-    grid-template-columns: 92px 92px 1fr !important;
-    align-items: center !important;
-    gap: 8px !important;
-  }
+  /* product-meta jadi 4 kolom: badge1 | badge2 | stok */
+ .mobile-meta{
+  display: grid !important;
+  grid-template-columns: 84px 84px minmax(70px, 1fr) 70px !important;
+  gap: 6px !important;
+  padding-right: 10px !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+.mobile-meta .product-days-pill{
+  width: 70px !important;
+  padding: 4px 0 !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+  border-radius: 999px !important;
+  background: #f1f5f9 !important;
+  color: #475569 !important;
+
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
 
   /* kunci lebar badge status stok & status PO */
   .product-meta .badge{
