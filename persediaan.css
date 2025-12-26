@@ -361,188 +361,104 @@ html, body {
 }
 
 /* =====================================================
-   MOBILE (≤768px) – STEP 1 STABIL (BADGE MUNCUL DULU)
+   MOBILE ITEM – FINAL FIX (STEP 1)
 ===================================================== */
 @media (max-width:768px){
 
-  html, body{
-    overflow-x: hidden !important;
-  }
-
-  .inventory-layout{
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .mobile-container{
-    padding: 0 12px;
-    box-sizing: border-box;
-  }
-
-  /* FILTER MOBILE */
-  .inventory-filter{
-    width: 100%;
-    border: none;
-    padding: 0;
-  }
-
-  .inventory-filter h4,
-  .filter-group,
-  #btnApply{
-    display: none;
-  }
-
-  .search-card{
-    width: 100%;
-    padding: 12px 14px;
-    border: 1px solid #eef2f7;
-    border-radius: 12px;
-    background: #fff;
-    margin-bottom: 12px;
-    box-sizing: border-box;
-  }
-
-  #filterSearch{
-    width: 100%;
-    border: none;
-    font-size: 14px;
-    outline: none;
-    background: transparent;
-  }
-
-  /* SORT BAR MOBILE */
-  .inv-sortbar{
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #eef2f7;
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    box-sizing: border-box;
-  }
-
-  .inv-sort-main{
-    display: flex;
-    gap: 6px;
-    overflow-x: auto;
-  }
-  .inv-sort-main::-webkit-scrollbar{ display:none; }
-
-  .inv-po-slot{
-    display: flex;
-    gap: 6px;
-    padding-top: 6px;
-    border-top: 1px solid #eef2f7;
-    overflow-x: auto;
-    white-space: nowrap;
-  }
-  .inv-po-slot::-webkit-scrollbar{ display:none; }
-
-  #invBestPeriodBox{
-    display: none;
-  }
-
-  /* LIST */
-  .inventory-content{
-    padding: 0 12px;
-    box-sizing: border-box;
-  }
-
-  .inventory-grid{
-    display: block;
-    padding: 0;
-  }
-
-  .inventory-grid-header{
-    display: none;
-  }
-
+  /* ===== ROW UTAMA ===== */
   .inventory-grid-body .inventory-row{
     display: flex;
-    align-items: flex-start;
     gap: 12px;
-    padding: 12px 0;
-    border-bottom: 1px solid #eef2f7;
+    align-items: flex-start;
   }
 
-  /* IMAGE */
+  /* ===== GAMBAR ===== */
   .product-thumb{
     width: 78px;
     height: 78px;
-    border-radius: 12px;
     flex-shrink: 0;
   }
 
-  /* KANAN */
+  /* ===== KANAN (INFO + META) ===== */
   .product-info{
     flex: 1;
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+    min-height: 78px;          /* KUNCI: tidak boleh > gambar */
     min-width: 0;
   }
 
+  /* ===== NAMA ===== */
   .product-name{
     font-size: 14px;
-    line-height: 1.2;
     font-weight: 700;
-    margin-bottom: 2px;
+    line-height: 1.2;
+    max-height: 2.4em;         /* max 2 baris */
+    overflow: hidden;
   }
 
   .product-sku{
     font-size: 11px;
     color: #64748b;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
   }
 
-  /* HIDE DESKTOP CELLS */
+  /* =================================================
+     META GRID (PATEN, TIDAK TERPENGARUH JUDUL)
+  ================================================= */
+  .mobile-meta{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 6px;
+    width: 100%;
+  }
+
+  /* hilangkan wrapper lama */
+  .mobile-meta .meta-top,
+  .mobile-meta .meta-bottom{
+    display: contents;
+  }
+
+  /* ===== BOX UMUM ===== */
+  .mobile-meta .product-stock,
+  .mobile-meta .product-days-pill,
+  .mobile-meta .meta-top .badge{
+    height: 30px;              /* KUNCI TINGGI */
+    padding: 0 10px;
+    border-radius: 10px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+  }
+
+  /* ===== STOK ===== */
+  .mobile-meta .product-stock{
+    border: 1px solid #e5e7eb;
+    font-weight: 800;
+  }
+
+  /* ===== HARI ===== */
+  .mobile-meta .product-days-pill{
+    border: 1px solid #e5e7eb;
+    font-weight: 700;
+  }
+
+  /* ===== STATUS STOK ===== */
+  .mobile-meta .meta-top .badge:first-child{
+    justify-content: center;
+  }
+
+  /* ===== STATUS PO ===== */
+  .mobile-meta .meta-top .badge:last-child{
+    justify-content: center;
+  }
+
+  /* ===== SEMBUNYIKAN DESKTOP ===== */
   .stock-cell,
   .status-stok-cell,
   .status-po-cell{
     display: none !important;
-  }
-
-  /* ============================
-     MOBILE META (AMAN)
-     - BADGE STATUS STOK + PO MUNCUL
-     - BOX STOK + HARI SEJAJAR
-  ============================ */
-  .mobile-meta{
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 8px !important;
-    width: 100% !important;
-  }
-
-  .mobile-meta .meta-top{
-    display: flex !important;
-    gap: 8px !important;
-    flex-wrap: wrap !important;
-  }
-
-  .mobile-meta .meta-top .badge{
-    padding: 6px 12px !important;
-    font-size: 12px !important;
-    font-weight: 700 !important;
-    border-radius: 999px !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-
-  .mobile-meta .meta-bottom{
-    display: flex !important;
-    gap: 8px !important;
-  }
-
-  .mobile-meta .product-stock,
-  .mobile-meta .product-days-pill{
-    flex: 1 !important;
-    text-align: center !important;
-    padding: 10px 10px !important;
-    font-size: 13px !important;
-    font-weight: 700 !important;
-    border-radius: 12px !important;
-    border: 1px solid #e5e7eb !important;
-    background: #fff !important;
-    box-sizing: border-box !important;
   }
 }
