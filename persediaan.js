@@ -90,25 +90,6 @@ function poClass(s){
 // =====================
 // LOAD BEST SELLER
 // =====================
-async function loadBestSeller(){
-  bestRank = {};
-
-  const { data, error } = await sb
-    .schema("decision")
-    .from("mv_best_seller_ui")
-    .select("pcs_item_code, rank_no")
-    .eq("period_key", currentPeriod)
-    .lte("rank_no", 100);
-
-  if (error){
-    console.error("BEST SELLER LOAD ERROR:", error);
-    return;
-  }
-
-  (data || []).forEach(r=>{
-    bestRank[norm(r.pcs_item_code)] = Number(r.rank_no);
-  });
-}
 
 // =====================
 // LOAD INVENTORY
@@ -174,29 +155,10 @@ function applyFilter(){
   });
 
   if (currentSort === "best"){
-    const ranked = [];
-    const rest   = [];
-
-    temp.forEach(p=>{
-      if (bestRank[norm(p.item_code)] !== undefined) ranked.push(p);
-      else rest.push(p);
-    });
-
-    ranked.sort((a,b)=> bestRank[norm(a.item_code)] - bestRank[norm(b.item_code)]);
-    rest.sort((a,b)=> b.qty - a.qty);
-
-    filtered = [...ranked, ...rest];
-  }
-  else if (currentSort === "az"){
-    filtered = temp.sort((a,b)=> a.item_name.localeCompare(b.item_name));
-  }
-  else {
-    filtered = temp.sort((a,b)=> b.qty - a.qty);
-  }
-
-  page = 1;
-  render();
+  // sorting sudah dilakukan di backend (RPC)
+  filtered = temp;
 }
+
 
 // =====================
 // RENDER
