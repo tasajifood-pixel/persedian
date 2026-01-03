@@ -8,7 +8,7 @@
 // =====================
 const sb = supabase.createClient(
   "https://fpjfdxpdaqtopjorqood.supabase.co",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZwamZkeHBkYXF0b3Bqb3Jxb29kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA5NjU2NDUsImV4cCI6MjA3NjU0MTY0NX0.7cSIF32p9SHaHHlUcMFrrQSq7JBOdP4LneEvcMRrtXU"
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZwamZkeHBkYXF0b3Bqb3Jxb29kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjczMDkwNjUsImV4cCI6MjA4MjY2OTA2NX0.x8KgYQcSm9EMAk_vDzfDIYw4HY0vQnL4Sl_dyQ2lQN0"
 );
 
 // =====================
